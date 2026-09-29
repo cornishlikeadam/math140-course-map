@@ -1,0 +1,501 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>MATH 140 Proof Map</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&family=IBM+Plex+Mono:wght@400;600&display=swap">
+<style>
+:root{
+  --ground:#EDF0F3; --paper:#FAFBFC; --ink:#1A1F2B; --muted:#586174; --rule:#C9D0DA; --grid:#DCE2E9;
+  --f1:#E3E7EE; --f2:#DDE3EB; --f3:#D6DEE8; --f4:#D0D9E4; --f5:#E7E3D6;
+  --ai:#2447D6; --ai-soft:#DDE3FA;
+  --stop:#AE2F2F; --stop-soft:#F4DCDB;
+  --human:#2B6A3D; --human-soft:#D7E9DB;
+  --hand:#B06F14;
+  --display:"Instrument Sans", "Helvetica Neue", Arial, sans-serif;
+  --body:"Newsreader", Georgia, "Times New Roman", serif;
+  --mono:"IBM Plex Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --ground:#12151C; --paper:#191D26; --ink:#E4E8EF; --muted:#98A1B2; --rule:#2F3542; --grid:#222733;
+    --f1:#222835; --f2:#232A38; --f3:#252D3C; --f4:#27303F; --f5:#2E2C26;
+    --ai:#8199FF; --ai-soft:#1F2850; --stop:#F07C70; --stop-soft:#4A2322;
+    --human:#79C48B; --human-soft:#1E3A26; --hand:#E3A94A;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --ground:#12151C; --paper:#191D26; --ink:#E4E8EF; --muted:#98A1B2; --rule:#2F3542; --grid:#222733;
+  --f1:#222835; --f2:#232A38; --f3:#252D3C; --f4:#27303F; --f5:#2E2C26;
+  --ai:#8199FF; --ai-soft:#1F2850; --stop:#F07C70; --stop-soft:#4A2322;
+  --human:#79C48B; --human-soft:#1E3A26; --hand:#E3A94A;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.5;padding-inline:clamp(16px,4vw,48px);padding-block:28px 64px}
+.wrap{max-width:1240px;margin:0 auto;display:flex;flex-direction:column;gap:28px}
+h1,h2,h3{font-family:var(--display);line-height:1.08;text-wrap:balance;margin:0}
+h1{font-size:clamp(30px,4.6vw,52px);font-weight:700;letter-spacing:-.025em}
+h2{font-size:clamp(22px,2.4vw,28px);font-weight:700;letter-spacing:-.01em}
+h3{font-size:18px;font-weight:700}
+p{margin:0}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.mono{font-family:var(--mono)}
+header{display:grid;grid-template-columns:1.4fr 1fr;gap:24px;align-items:end}
+.bq{margin-top:12px;max-width:66ch;font-size:18px;line-height:1.9}
+.bq span{border-bottom:2px solid var(--c);padding-bottom:1px;position:relative}
+.bq sub{font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--c);vertical-align:baseline;margin-left:3px}
+.bq .a1{--c:var(--ink)} .bq .a2{--c:var(--human)} .bq .a3{--c:var(--ai)} .bq .a4{--c:var(--hand)} .bq .a5{--c:var(--stop)}
+.test{background:var(--paper);border:1px solid var(--rule);border-radius:6px;padding:16px 18px;display:grid;gap:10px}
+.test dt{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.test dd{margin:2px 0 0;font-size:16px}
+.test b{font-family:var(--display)}
+.bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.bar .lbl{font-family:var(--mono);font-size:12px;color:var(--muted);margin-right:4px}
+.chip{font-family:var(--display);font-weight:600;font-size:14px;border:1.5px solid var(--ink);background:transparent;color:var(--ink);border-radius:999px;padding:6px 14px;cursor:pointer;display:inline-flex;gap:8px;align-items:center}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--ground)}
+.chip:focus-visible,.region:focus-visible,button:focus-visible,textarea:focus-visible{outline:3px solid var(--ai);outline-offset:2px}
+.chip .n{font-family:var(--mono);font-size:11px;opacity:.7}
+.mapbox{background:var(--paper);border:1px solid var(--rule);border-radius:6px;overflow-x:auto}
+#map{display:block;width:100%;min-width:900px;height:auto}
+svg text{font-family:var(--display)}
+.region{cursor:pointer}
+.region .shape{stroke:var(--ink);stroke-width:1.5;transition:stroke-width .15s}
+.region:hover .shape,.region.on .shape{stroke-width:3.5}
+.layer{transition:opacity .2s}
+.layer.off{opacity:0;pointer-events:none}
+.legend{display:flex;flex-wrap:wrap;gap:14px 26px;padding:14px 18px;border-top:1px solid var(--rule);font-size:15px}
+.legend span{display:inline-flex;gap:8px;align-items:center}
+.detail{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:6px;overflow:hidden}
+.detail>section,.detail>.head{background:var(--paper);padding:16px 18px;display:flex;flex-direction:column;gap:8px}
+.detail .head{grid-column:1/-1;flex-direction:row;flex-wrap:wrap;gap:10px 18px;align-items:baseline}
+.tag{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:3px;display:inline-block}
+.t-ai{background:var(--ai-soft);color:var(--ai)} .t-stop{background:var(--stop-soft);color:var(--stop)} .t-human{background:var(--human-soft);color:var(--human)}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:4px 10px;font-size:15.5px;margin:0}
+.kv dt{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);padding-top:4px}
+.kv dd{margin:0}
+.ev{font-family:var(--mono);font-size:10.5px;padding:1px 5px;border-radius:3px;border:1px solid currentColor;margin-left:4px;white-space:nowrap}
+.ev-e{color:var(--human)} .ev-a{color:var(--hand)} .ev-t{color:var(--ai)} .ev-c{color:var(--stop)}
+ul.people{list-style:none;margin:0;padding:0;display:grid;gap:6px;font-size:15.5px}
+ul.people li{display:grid;grid-template-columns:34px 1fr;gap:8px;align-items:start}
+.av{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-family:var(--mono);font-size:11px;font-weight:600;border:1.5px solid var(--ink);background:var(--ground)}
+.av.nv{border-style:dashed;color:var(--muted)}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px}
+.panel{background:var(--paper);border:1px solid var(--rule);border-radius:6px;padding:18px 20px;display:flex;flex-direction:column;gap:12px}
+.four{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
+.four>div{border-top:3px solid var(--ink);padding-top:8px;display:flex;flex-direction:column;gap:6px}
+.four>div:nth-child(1){border-color:var(--stop)} .four>div:nth-child(2){border-color:var(--human)} .four>div:nth-child(3){border-color:var(--ai)} .four>div:nth-child(4){border-color:var(--hand)}
+.four ul{margin:0;padding-left:18px;font-size:15.5px;display:grid;gap:4px}
+.tbl{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:15px;min-width:760px}
+th,td{text-align:left;vertical-align:top;padding:9px 10px;border-bottom:1px solid var(--rule)}
+th{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:400}
+td:first-child{font-family:var(--display);font-weight:700;white-space:nowrap}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:16px}
+.card{background:var(--paper);border:1px solid var(--rule);border-radius:6px;padding:16px 18px;display:flex;flex-direction:column;gap:8px;font-size:15px}
+.card .src{font-size:14px;color:var(--muted)}
+.card .src a{color:inherit}
+.trace{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.trace label{display:flex;gap:10px;align-items:flex-start;cursor:pointer}
+.trace input,.runs input{accent-color:var(--human);width:17px;height:17px;margin-top:3px}
+textarea{width:100%;min-height:74px;font:inherit;font-size:16px;padding:10px;border:1px solid var(--rule);border-radius:4px;background:var(--ground);color:var(--ink)}
+.note{font-size:14px;color:var(--muted)}
+.chat-log{display:flex;flex-direction:column;gap:10px;max-height:460px;overflow-y:auto;padding:4px 2px}
+.msg{max-width:78ch;padding:10px 14px;border-radius:6px;font-size:16px;white-space:pre-wrap;overflow-wrap:anywhere}
+.msg.user{align-self:flex-end;background:var(--ink);color:var(--ground);font-family:var(--mono);font-size:14px}
+.msg.ai{align-self:flex-start;background:var(--ai-soft);color:var(--ink);border-left:3px solid var(--ai)}
+.msg.err{align-self:flex-start;background:var(--stop-soft);color:var(--stop)}
+.chat-form{display:flex;gap:10px;align-items:flex-end;flex-wrap:wrap}
+.chat-form textarea{flex:1 1 280px;min-height:120px;font-family:var(--mono);font-size:14px}
+.send{font-family:var(--display);font-weight:700;font-size:15px;background:var(--ai);color:#fff;border:0;border-radius:4px;padding:11px 20px;cursor:pointer}
+.send:disabled{opacity:.5;cursor:wait}
+.linkbtn{background:none;border:0;color:var(--muted);font:inherit;font-size:14px;text-decoration:underline;cursor:pointer;padding:0;align-self:flex-start}
+.status{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:3px;background:var(--human-soft);color:var(--human)}
+.runs td,.runs th{font-size:13.5px}
+.runs td:first-child{font-family:var(--mono);font-weight:400}
+.print-only{display:none}
+@media (max-width:760px){header{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+@media print{
+  @page{size:11in 8.5in;margin:.35in}
+  body{background:#fff;padding:0;font-size:12px}
+  .wrap{gap:14px;max-width:none}
+  .bar,.screen-only,#chat{display:none!important}
+  .print-only{display:block}
+  #map{min-width:0}
+  #detail{display:none}
+  #print-details .detail{grid-template-columns:repeat(5,1fr);margin-bottom:10px}
+  .detail>section{padding:8px 10px}
+  .kv,ul.people,.four ul{font-size:11px}
+  .detail h2{font-size:16px}
+  .panel,.card,.detail,.mapbox{break-inside:avoid}
+  .layer.off{opacity:1}
+  table{min-width:0;font-size:11px}
+  .card{font-size:12px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="print-only" style="font-family:var(--mono);font-size:13px;border:1px solid var(--rule);padding:10px 12px">
+    Live interactive map: https://math140-course-map.vercel.app/
+  </div>
+
+  <header>
+    <div>
+      <p class="eyebrow">DIGI 230 · Milestone 1 · client course MATH 140 The Geometry of Physical Space · unit: Constructions &amp; Proof</p>
+      <h1>Where AI touches a geometry proof</h1>
+      <p class="bq">How might <span class="a1">MATH 140 students<sub>actor</sub></span> <span class="a2">revising their own two-column proofs<sub>activity</sub></span> use <span class="a3">a hint-only AI tutor that points to the first unjustified step<sub>capability</sub></span> <span class="a4">to find gaps in their reasoning before the graded quiz<sub>purpose</sub></span>, <span class="a5">while every proof step stays the student's own and grading stays with the instructor<sub>protected value</sub></span>?</p>
+    </div>
+    <dl class="test" aria-label="Five-minute test answers">
+      <div><dt>Where does AI touch this course?</dt><dd><b>One place: Step 3, Proof check.</b> A hint tutor reads a proof the student already wrote and points to the first weak step. It stays out of constructions and the whiteboard defense.</dd></div>
+      <div><dt>Who does it touch?</dt><dd>The <b>student</b> drafts the proof and decides whether the hint is right. The <b>instructor</b> sees the hint log and grades every proof. The <b>proof partner</b> questions the proof at the board.</dd></div>
+    </dl>
+  </header>
+
+  <div class="bar" role="group" aria-label="Map layers">
+    <span class="lbl">LAYERS</span>
+    <button class="chip" data-layer="territory" aria-pressed="true"><span class="n">1</span>Territory</button>
+    <button class="chip" data-layer="people" aria-pressed="true"><span class="n">2</span>People</button>
+    <button class="chip" data-layer="ai" aria-pressed="true"><span class="n">3</span>AI touchpoints &amp; non-use</button>
+    <button class="chip" data-layer="handoff" aria-pressed="true"><span class="n">4</span>Hand-offs</button>
+    <button class="chip" data-layer="decision" aria-pressed="true"><span class="n">5</span>Decision power</button>
+  </div>
+
+  <div class="mapbox">
+    <svg id="map" viewBox="0 40 1200 650" role="img" aria-label="Course map of the MATH 140 Constructions and Proof unit, five regions from learning goal to assessment">
+      <defs>
+        <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0 H0 V20" fill="none" stroke="var(--grid)" stroke-width="1"/></pattern>
+        <pattern id="hatch" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+          <line x1="0" y1="0" x2="0" y2="10" stroke="var(--stop)" stroke-width="3" opacity=".5"/>
+        </pattern>
+        <marker id="arrH" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--hand)"/></marker>
+      </defs>
+      <rect x="0" y="40" width="1200" height="650" fill="url(#grid)"/>
+      <g id="arcs"></g>
+      <g id="L-territory" class="layer"></g>
+      <g id="L-ai" class="layer"></g>
+      <g id="L-handoff" class="layer"></g>
+      <g id="L-people" class="layer"></g>
+      <g id="L-decision" class="layer"></g>
+    </svg>
+    <div class="legend">
+      <span><svg width="22" height="22" viewBox="0 0 22 22"><path d="M11 2 L20 11 L11 20 L2 11 z" fill="var(--ai)"/></svg>AI insertion point</span>
+      <span><svg width="22" height="22" viewBox="0 0 22 22"><rect x="2" y="2" width="18" height="18" fill="url(#hatch)" stroke="var(--stop)" stroke-width="2"/></svg>Non-use boundary</span>
+      <span><svg width="22" height="22" viewBox="0 0 22 22"><circle cx="11" cy="11" r="8" fill="none" stroke="var(--human)" stroke-width="3"/><circle cx="11" cy="11" r="3" fill="var(--human)"/></svg>Preserve-human-judgment zone</span>
+      <span><svg width="30" height="22" viewBox="0 0 30 22"><path d="M2 11 H24" stroke="var(--hand)" stroke-width="3" stroke-dasharray="5 3" marker-end="url(#arrH)"/></svg>Hand-off: AI output → human check</span>
+      <span><svg width="22" height="22" viewBox="0 0 22 22"><rect x="3" y="3" width="16" height="16" fill="var(--ink)"/></svg>Formal decider</span>
+      <span><svg width="22" height="22" viewBox="0 0 22 22"><rect x="3" y="3" width="16" height="16" fill="none" stroke="var(--ink)" stroke-width="2" stroke-dasharray="3 2"/></svg>Informal influence</span>
+      <span class="screen-only note">Click any shape to open it.</span>
+    </div>
+  </div>
+
+  <div id="detail" class="detail" aria-live="polite"></div>
+  <div id="print-details" class="print-only"></div>
+
+  <section class="panel">
+    <h2>Concern, safeguard, non-goal</h2>
+    <div class="four">
+      <div><span class="eyebrow">Documented concern <span class="ev ev-c">constructed scenario</span></span>
+        <p>A student pastes only the theorem, with no draft, and keeps asking "what's the next step?" If the tutor gives in, it writes the proof one step at a time. The student hands in a clean proof they can't defend, and the instructor has no way to tell. <b>Risk to test:</b> does the hint-only rule hold up against repeated pushing?</p></div>
+      <div><span class="eyebrow">Preliminary safeguard</span>
+        <p>The tutor only responds to a draft of <b>at least 2 steps</b>, names <b>one gap per reply</b>, and never writes a statement or reason. Every hint is logged, and the log goes in with the proof.</p>
+        <p><b>Non-AI alternative:</b> a printed justification checklist (the unit's postulates and theorems) plus office hours. Any student can do Step 3 with no AI at all.</p></div>
+      <div><span class="eyebrow">Non-goal</span>
+        <p>This project will <b>not</b> use AI to write, complete or grade proofs, and will not bring AI into compass-and-straightedge constructions, the whiteboard defense or the unit quiz.</p></div>
+      <div><span class="eyebrow">Unresolved question <span class="ev ev-t">proposed test</span></span>
+        <p>Do students who use the hint tutor do as well on the no-device quiz as students who use only the checklist? Test: split one section in half for one unit and compare quiz proof scores. Carried to Milestone 2.</p></div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>Stakeholder snapshot</h2>
+    <div class="tbl"><table>
+      <thead><tr><th>Group</th><th>Who</th><th>Interests</th><th>Risks</th><th>Benefits</th><th>Concerns</th><th>Unresolved questions</th></tr></thead>
+      <tbody>
+        <tr><td>Users</td><td>MATH 140 students, mostly art and design majors meeting the math requirement <span class="ev ev-a">assumption</span></td><td>Pass the course; understand why a proof works, not just copy one</td><td>Leaning on hints until they can't start a proof alone</td><td>Feedback at 11 p.m., not only in office hours</td><td>Being accused of cheating for using an allowed tool</td><td>How much hinting is too much before it counts as the AI's work?</td></tr>
+        <tr><td>Decision makers</td><td>MATH 140 instructor; SCAD math faculty who set the syllabus AI policy</td><td>Valid grades; students who can reason on their own</td><td>Grading work that was quietly AI-written</td><td>A log that shows how each proof was revised</td><td>Extra time spent reading hint logs</td><td>Does the log change how proofs are graded?</td></tr>
+        <tr><td>People affected</td><td>Proof partners; SCAD Learning Center tutors <span class="ev ev-a">assumption</span></td><td>Fair critique; useful tutoring sessions</td><td>Partners questioning proofs the author didn't really write</td><td>Tutors see where students got stuck</td><td>Tutoring demand shifts in unknown ways</td><td>Should tutors see the hint log too?</td></tr>
+        <tr><td>May be excluded</td><td>Students without a reliable device or internet at home; screen-reader users, because the tutor can't read diagrams</td><td>The same help as everyone else</td><td>Falling behind classmates who use the tool</td><td>The non-AI checklist keeps Step 3 open to them</td><td>Their voice isn't in the tool's design</td><td>Can the checklist be made as fast and useful as the tutor?</td></tr>
+        <tr><td>May carry the risk</td><td>Students (integrity cases, weaker skills); the instructor (grade validity)</td><td>Clear rules on what's allowed</td><td>A wrong hint sends a student the wrong way <span class="ev ev-e">evidence: Petrov et al. 2025</span></td><td>Safeguards cut the learning loss <span class="ev ev-e">evidence: Bastani et al. 2025</span></td><td>Who is responsible when the hint is wrong?</td><td>How does a student prove a hint misled them?</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section style="display:flex;flex-direction:column;gap:14px">
+    <h2>Evidence cards behind the boundaries</h2>
+    <div class="cards" id="cards"></div>
+  </section>
+
+  <section class="panel" id="chat">
+    <div style="display:flex;flex-wrap:wrap;gap:8px 16px;align-items:baseline">
+      <h2>Proof check</h2><span class="tag t-ai">◆ Step 3 · the AI insertion point</span>
+    </div>
+    <p class="note">Paste the theorem and <b>your own draft proof</b> (at least 2 steps). The tutor points to the first step that needs a better reason. It won't write any step for you, and it can be wrong, so check every hint against your theorem list.</p>
+    <div class="chat-log" id="chat-log" aria-live="polite">
+      <div class="msg ai">Example draft to try:
+Prove: the base angles of an isosceles triangle are congruent.
+1. AB ≅ AC (given)
+2. Draw AD, the bisector of angle A (construction)
+3. Triangle ABD ≅ triangle ACD (SAS)
+4. Angle B ≅ angle C (they look equal)</div>
+    </div>
+    <form class="chat-form" id="chat-form">
+      <label for="chat-input" class="note" style="flex-basis:100%">Theorem + your draft proof</label>
+      <textarea id="chat-input" placeholder="Prove: …&#10;1. … (reason)&#10;2. … (reason)"></textarea>
+      <button class="send" id="chat-send" type="submit">Check my proof</button>
+    </form>
+    <button class="linkbtn" id="chat-clear" type="button">Clear conversation</button>
+  </section>
+
+  <section class="panel" id="transparency">
+    <div style="display:flex;flex-wrap:wrap;gap:8px 16px;align-items:baseline">
+      <h2>Transparency log: Proof check</h2><span class="status">Status: prototype, testing needed</span>
+    </div>
+    <p>The tutor is a text-only language model. It gives hints in words; it doesn't calculate, see drawings or prove anything is correct. Every reply below is logged so the student and instructor can see what the tool did.</p>
+    <div class="four">
+      <div><span class="eyebrow">What the tool actually does</span><ul>
+        <li>Reads the proof text the student pasted</li>
+        <li>Points to one step whose reason looks missing or wrong</li>
+        <li>Names the kind of theorem to review, not the answer</li>
+        <li>Asks one question back</li>
+        <li>Runs on a free model (OpenCode Zen), so answers vary between runs</li>
+      </ul></div>
+      <div><span class="eyebrow">What it was supposed to do</span><ul>
+        <li>Act like a patient tutor at the desk: find the first gap and stop</li>
+        <li>Refuse to start without a student draft</li>
+        <li>Never write a statement or reason</li>
+      </ul></div>
+      <div><span class="eyebrow">What it doesn't do</span><ul>
+        <li>Can't see diagrams, constructions or measurements</li>
+        <li>Can't verify a proof; language models often fail at rigorous proofs <span class="ev ev-e">evidence: Petrov et al. 2025</span></li>
+        <li>Doesn't grade and doesn't decide what's correct</li>
+        <li>May still leak a step if pushed; that's the risk being tested</li>
+        <li>Keeps no record except the log below, in this browser only</li>
+      </ul></div>
+      <div><span class="eyebrow">What the human has to do</span><ul>
+        <li><b>Student:</b> write the draft first; check each hint against the theorem list; tick the log if a hint wrote a step</li>
+        <li><b>Student:</b> defend the proof at the board in Step 4, with no AI</li>
+        <li><b>Instructor:</b> read the hint log with the submission and grade every proof</li>
+        <li><b>Instructor:</b> offer the checklist and office hours as the no-AI route</li>
+      </ul></div>
+    </div>
+    <div class="screen-only" style="display:flex;flex-direction:column;gap:8px">
+      <span class="eyebrow">Hint log (this browser)</span>
+      <div class="tbl"><table class="runs">
+        <thead><tr><th>Run</th><th>Time</th><th>Model</th><th>Reply time</th><th>Checked vs theorem list?</th><th>Hint wrote a step?</th></tr></thead>
+        <tbody id="run-log"><tr><td colspan="6" class="note">No runs yet. Every reply from Proof check is logged here.</td></tr></tbody>
+      </table></div>
+    </div>
+  </section>
+
+  <section class="grid2">
+    <div class="panel">
+      <h2>Peer trace test</h2>
+      <p class="note">Hand the map to another team with no explanation. Tick what they can do unaided.</p>
+      <ul class="trace" id="trace"></ul>
+    </div>
+    <div class="panel">
+      <h2>Revision after the trace test</h2>
+      <label for="revision" class="note">Record what the other team missed and what you changed.</label>
+      <textarea id="revision" placeholder="Not yet run. Fill this in after the trace test."></textarea>
+      <p class="note screen-only">Saved in this browser only.</p>
+    </div>
+  </section>
+
+  <p class="note">The unit sequence is modeled on the MATH 140 catalog description (proofs, Euclidean constructions, right-triangle theorems, circles, the Golden Ratio). Its steps and roles are <span class="ev ev-a">assumptions</span> to confirm against the MATH 140 syllabus or with the instructor. Evidence tags: <span class="ev ev-e">evidence</span> <span class="ev ev-a">assumption</span> <span class="ev ev-t">proposed test</span> <span class="ev ev-c">constructed</span>.</p>
+</div>
+
+<script>
+const P = {
+  ST:{name:"MATH 140 Student", role:"Writes every construction and proof"},
+  PP:{name:"Proof Partner", role:"Classmate who questions the proof at the board"},
+  IN:{name:"MATH 140 Instructor", role:"Teaches, reads hint logs, grades"},
+  TU:{name:"Learning Center Tutor", role:"Optional human help outside class"},
+  NA:{name:"Students without the tool", role:"No device, or a screen reader the tutor can't serve", nv:true},
+};
+const R = [
+  {n:1, x:130, y:170, shape:"circle", title:"Construct", sub:"Compass & straightedge",
+   goal:"Construct perpendicular bisectors, angle bisectors and a golden rectangle, and state what each construction guarantees.",
+   act:"In-class constructions with compass and straightedge; students write one sentence on why each one works.",
+   out:"Construction sheet",
+   people:[["ST","Builds each construction by hand"],["PP","Compares results at the table"],["IN","Checks accuracy at the desk"]],
+   ai:"stop", aiText:"AI stays out. Building the figure by hand is the skill, and the tutor can't see a drawing anyway.",
+   human:true, ring:94,
+   formal:["IN","Marks each construction accurate or not"], informal:["PP","Table partners pass along shortcuts"],
+   evidence:"Instructor checks at the desk; students redo any construction that fails."},
+  {n:2, x:370, y:450, shape:"triangle", title:"Draft", sub:"Write the proof",
+   goal:"Turn a construction into a conjecture and write a two-column proof of it.",
+   act:"Each student drafts a proof alone, citing postulates and theorems from the unit (e.g. triangle congruence, base angles).",
+   out:"Proof draft v1",
+   people:[["ST","Writes the conjecture and every step"],["TU","Optional help outside class"]],
+   ai:"none", aiText:"No AI. The draft has to exist before any hint, so the proof starts as the student's own.",
+   human:true, ring:120,
+   formal:["ST","Chooses the conjecture and the proof strategy"], informal:["IN","Worked examples in class shape how drafts look"],
+   evidence:"Self-check against the printed justification checklist."},
+  {n:3, x:610, y:170, shape:"hexagon", title:"Proof check", sub:"Hint-only AI tutor",
+   goal:"Find and fix gaps in your own reasoning.",
+   act:"The student pastes their draft into Proof check, gets a hint about the first weak step, and revises it themselves.",
+   out:"Revised proof + hint log",
+   people:[["ST","Pastes the draft; decides if the hint is right"],["IN","Reads the hint log later"],["NA","Uses the checklist and office hours instead"]],
+   ai:"insert", aiText:"AI insertion point. A language model names the first step that needs a better reason, and the kind of theorem to review. It never writes a step.",
+   aiIn:"The student's own draft proof (2+ steps) and the theorem",
+   aiOut:"One hint: which step, and what kind of reason is missing",
+   hand:{verify:"Student checks the hint against the theorem list before changing anything", override:"Student can ignore any hint; the instructor decides what's correct", fail:"A wrong or step-giving hint is flagged in the log; the instructor rules on it"},
+   human:false,
+   formal:["ST","Decides whether to accept the hint and how to revise"], informal:["ST","The tool's choice of 'first gap' steers what gets revised"],
+   evidence:"Hint log submitted with the proof."},
+  {n:4, x:850, y:450, shape:"square", title:"Defend", sub:"Proof at the board",
+   goal:"Explain and defend a proof out loud.",
+   act:"Pairs present revised proofs at the whiteboard; the class and the proof partner ask why each step holds.",
+   out:"Board presentation",
+   people:[["ST","Presents and answers questions"],["PP","Asks 'why does this step hold?'"],["IN","Moderates and notes gaps"]],
+   ai:"stop", aiText:"AI stays out. Defending a proof live is the check that a hint didn't replace understanding.",
+   human:true, ring:118,
+   formal:["IN","Decides whether the proof is accepted"], informal:["PP","The toughest questioner sets the bar"],
+   evidence:"Instructor notes; the student fixes the proof after questions."},
+  {n:5, x:1080, y:170, shape:"golden", title:"Assess", sub:"Unit quiz, no devices",
+   goal:"Show you can prove and construct without help.",
+   act:"In-class quiz: one proof, one construction and a Golden Ratio question, with no devices.",
+   out:"Unit quiz + proof portfolio",
+   people:[["ST","Takes the quiz"],["IN","Grades every proof"]],
+   ai:"none", aiText:"No AI. Grading stays with the instructor, and the quiz shows what the student can do alone.",
+   human:true, ring:132,
+   formal:["IN","Grades the quiz and the proof portfolio"], informal:["IN","The rubric wording defines a 'complete' proof"],
+   evidence:"Graded quiz with written feedback on each proof."},
+];
+const CARDS = [
+  {t:"Guardrails decide whether AI helps or harms math learning", tag:"e",
+   src:'Bastani, H., Bastani, O., Sungu, A., Ge, H., Kabakcı, Ö. &amp; Mariman, R., "Generative AI without guardrails can harm learning: Evidence from high school mathematics," <i>PNAS</i> 122(26), 2025. <a href="https://doi.org/10.1073/pnas.2422633122" target="_blank" rel="noopener">doi.org/10.1073/pnas.2422633122</a>',
+   who:"Students (users and risk carriers); instructors (decision makers)",
+   ben:"A hint-giving tutor lifted practice scores 127% without harming later exam scores",
+   con:"Open ChatGPT access lifted practice scores 48%, but students scored 17% lower once access was removed",
+   imp:"Step 3 is hint-only, and Step 5 is a no-device quiz that checks what students keep",
+   q:"Do the Bastani results (high school, Turkey) hold for SCAD art and design students?"},
+  {t:"AI tutoring can beat active learning, when designed for it", tag:"e",
+   src:'Kestin, G., Miller, K., Klales, A., Milbourne, T. &amp; Ponti, G., "AI tutoring outperforms in-class active learning," <i>Scientific Reports</i> 15, 17458, 2025. <a href="https://doi.org/10.1038/s41598-025-97652-6" target="_blank" rel="noopener">doi.org/10.1038/s41598-025-97652-6</a>',
+   who:"Students; instructors designing the tool",
+   ben:"A tutor built on teaching best practices produced larger learning gains than an active-learning class",
+   con:"The study is in physics; whether it transfers to geometry proofs is an assumption",
+   imp:"The tutor's prompt follows teaching practice: one gap at a time, and a question back",
+   q:"Would the MATH 140 instructor help write the hint rules?"},
+  {t:"Language models bluff at rigorous proofs", tag:"e",
+   src:'Petrov, I., Dekoninck, J., et al., "Proof or Bluff? Evaluating LLMs on 2025 USA Math Olympiad," arXiv:2503.21934, 2025. <a href="https://arxiv.org/abs/2503.21934" target="_blank" rel="noopener">arxiv.org/abs/2503.21934</a>',
+   who:"Students who trust a hint; the instructor who grades",
+   ben:"Shows exactly where AI can't be trusted, so boundaries can be drawn there",
+   con:"Most models scored under 5% on full proofs graded by experts",
+   imp:"The AI never grades and never confirms a proof is right; the instructor does (Steps 4 and 5)",
+   q:"How often is the tutor's hint wrong on MATH 140-level proofs? Proposed test: 20 sample drafts checked by the instructor."},
+];
+const TRACE = ["Follow the sequence from learning goal to feedback and assessment","Name who acts and who decides at each step","Locate the AI insertion point","Locate the non-use boundaries","Locate every preserve-human-judgment zone"];
+
+const NS="http://www.w3.org/2000/svg";
+const el=(t,a={},p)=>{const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e};
+function shapeD(r){const {x,y}=r;
+  if(r.shape==="circle")return `M${x-92},${y} a92,92 0 1,0 184,0 a92,92 0 1,0 -184,0Z`;
+  if(r.shape==="triangle")return `M${x},${y-105} L${x+118},${y+78} L${x-118},${y+78}Z`;
+  if(r.shape==="hexagon"){let d="";for(let i=0;i<6;i++){const a=Math.PI/3*i;d+=(i?"L":"M")+(x+104*Math.cos(a)).toFixed(1)+","+(y+96*Math.sin(a)).toFixed(1)}return d+"Z"}
+  if(r.shape==="square")return `M${x-88},${y-88} H${x+88} V${y+88} H${x-88}Z`;
+  if(r.shape==="golden"){const h=136,w=h*1.618;return `M${x-w/2},${y-h/2} H${x+w/2} V${y+h/2} H${x-w/2}Z`}
+}
+const arcs=document.getElementById("arcs");
+[[130,170,150],[610,170,170],[370,450,160],[850,450,150],[1080,170,160]].forEach(([cx,cy,rr])=>el("circle",{cx,cy,r:rr,fill:"none",stroke:"var(--rule)","stroke-width":1,"stroke-dasharray":"2 5"},arcs));
+el("text",{x:18,y:676,"font-family":"IBM Plex Mono, monospace","font-size":11,fill:"var(--muted)"},arcs).textContent="LEARNING GOAL →";
+el("text",{x:1182,y:676,"text-anchor":"end","font-family":"IBM Plex Mono, monospace","font-size":11,fill:"var(--muted)"},arcs).textContent="→ ASSESSMENT";
+
+const LT=document.getElementById("L-territory"),LA=document.getElementById("L-ai"),LH=document.getElementById("L-handoff"),LP=document.getElementById("L-people"),LD=document.getElementById("L-decision");
+el("path",{d:"M30,320 "+R.map(r=>`L${r.x},${r.y}`).join(" ")+" L1190,320",fill:"none",stroke:"var(--ink)","stroke-width":1.5,"stroke-dasharray":"1 6","stroke-linecap":"round"},LT);
+const short=n=>P[n].name.replace("MATH 140 ","");
+R.forEach(r=>{
+  const g=el("g",{class:"region",tabindex:0,role:"button","aria-label":`Step ${r.n}: ${r.title}`,"data-n":r.n},LT);
+  const d=shapeD(r);
+  el("path",{d,class:"shape",fill:`var(--f${r.n})`},g);
+  if(r.shape==="golden"){const h=136,w=h*1.618;el("path",{d:`M${r.x-w/2+h},${r.y-h/2} V${r.y+h/2} M${r.x-w/2},${r.y+h/2} A${h},${h} 0 0,1 ${r.x-w/2+h},${r.y-h/2}`,fill:"none",stroke:"var(--muted)","stroke-width":1,"stroke-dasharray":"3 3"},g)}
+  const ty=r.shape==="triangle"?r.y+14:r.y;
+  el("text",{x:r.x,y:ty-30,"text-anchor":"middle","font-family":"IBM Plex Mono, monospace","font-size":11,fill:"var(--muted)"},g).textContent=`STEP ${r.n}`;
+  el("text",{x:r.x,y:ty-6,"text-anchor":"middle","font-size":23,"font-weight":700,fill:"var(--ink)"},g).textContent=r.title;
+  el("text",{x:r.x,y:ty+14,"text-anchor":"middle","font-size":12,fill:"var(--muted)"},g).textContent=r.sub;
+  const w=Math.min(170,r.out.length*6.4+16);
+  el("rect",{x:r.x-w/2,y:ty+24,width:w,height:22,rx:3,fill:"var(--paper)",stroke:"var(--ink)","stroke-width":1},g);
+  el("text",{x:r.x,y:ty+39,"text-anchor":"middle","font-size":11,fill:"var(--ink)"},g).textContent=r.out;
+  if(r.ai==="stop"){el("path",{d,fill:"url(#hatch)",stroke:"var(--stop)","stroke-width":3,"pointer-events":"none"},LA);
+    const bx=r.x+62,by=r.y-(r.shape==="square"?100:86);el("rect",{x:bx-44,y:by-12,width:88,height:22,rx:3,fill:"var(--stop)"},LA);
+    el("text",{x:bx,y:by+3,"text-anchor":"middle","font-size":11,"font-weight":700,fill:"var(--paper)"},LA).textContent="NO AI HERE";}
+  if(r.ai==="insert"){const ax=r.x+128,ay=r.y-92;
+    el("path",{d:`M${ax},${ay-20} L${ax+20},${ay} L${ax},${ay+20} L${ax-20},${ay} Z`,fill:"var(--ai)"},LA);
+    el("text",{x:ax,y:ay+5,"text-anchor":"middle","font-size":13,"font-weight":700,fill:"#fff"},LA).textContent="AI";
+    el("text",{x:ax+28,y:ay-4,"font-size":11,fill:"var(--ai)","font-weight":700},LA).textContent="IN: student's own draft";
+    el("text",{x:ax+28,y:ay+11,"font-size":11,fill:"var(--ai)","font-weight":700},LA).textContent="OUT: one hint, no steps";}
+  if(r.human){const hx=r.x-r.ring,hy=r.y-(r.shape==="golden"?86:62);el("circle",{cx:hx,cy:hy,r:15,fill:"var(--paper)",stroke:"var(--human)","stroke-width":4},LD);el("circle",{cx:hx,cy:hy,r:5,fill:"var(--human)"},LD);}
+  const py=r.y+(r.shape==="golden"?92:112);
+  r.people.forEach(([id],k)=>{const px=r.x-(r.people.length-1)*18+k*36,nv=P[id].nv;
+    el("circle",{cx:px,cy:py,r:15,fill:"var(--paper)",stroke:nv?"var(--muted)":"var(--ink)","stroke-width":1.5,"stroke-dasharray":nv?"3 3":"none"},LP);
+    el("text",{x:px,y:py+4,"text-anchor":"middle","font-family":"IBM Plex Mono, monospace","font-size":10,"font-weight":600,fill:nv?"var(--muted)":"var(--ink)"},LP).textContent=id;});
+  const dy=py+26;
+  el("rect",{x:r.x-60,y:dy,width:14,height:14,fill:"var(--ink)"},LD);
+  el("text",{x:r.x-40,y:dy+11,"font-size":12,"font-weight":700,fill:"var(--ink)"},LD).textContent=short(r.formal[0]);
+  el("rect",{x:r.x-59,y:dy+20,width:12,height:12,fill:"none",stroke:"var(--ink)","stroke-width":1.5,"stroke-dasharray":"3 2"},LD);
+  el("text",{x:r.x-40,y:dy+31,"font-size":11.5,fill:"var(--muted)"},LD).textContent=r.n===3?"The tool's framing":r.n===5?"The rubric wording":short(r.informal[0]);
+});
+const r3=R[2],r4=R[3];
+el("path",{d:`M${r3.x+114},${r3.y-72} L${r3.x+92},${r3.y-50}`,fill:"none",stroke:"var(--hand)","stroke-width":3,"stroke-dasharray":"5 3","marker-end":"url(#arrH)"},LH);
+el("text",{x:r3.x+156,y:r3.y-52,"font-size":11,"font-weight":700,fill:"var(--hand)"},LH).textContent="① Student checks the hint";
+el("text",{x:r3.x+170,y:r3.y-37,"font-size":11,fill:"var(--hand)"},LH).textContent="against the theorem list";
+el("path",{d:`M${r3.x+104},${r3.y+20} C${r3.x+170},${r3.y+60} ${r4.x-150},${r4.y-140} ${r4.x-92},${r4.y-70}`,fill:"none",stroke:"var(--hand)","stroke-width":3,"stroke-dasharray":"6 4","marker-end":"url(#arrH)"},LH);
+el("text",{x:r3.x+196,y:r3.y+100,"font-size":11,"font-weight":700,fill:"var(--hand)"},LH).textContent="② Instructor reads the hint log";
+el("text",{x:r3.x+196,y:r3.y+115,"font-size":11,fill:"var(--hand)"},LH).textContent="Can override any hint";
+el("text",{x:r3.x+196,y:r3.y+130,"font-size":11,fill:"var(--hand)"},LH).textContent="Bad hint → flagged, instructor rules";
+
+document.querySelectorAll(".chip").forEach(b=>b.addEventListener("click",()=>{const on=b.getAttribute("aria-pressed")!=="true";b.setAttribute("aria-pressed",on);document.getElementById("L-"+b.dataset.layer).classList.toggle("off",!on)}));
+
+const ev=t=>({e:'<span class="ev ev-e">evidence</span>',a:'<span class="ev ev-a">assumption</span>',t:'<span class="ev ev-t">proposed test</span>'}[t]);
+function detailHTML(r){
+  const aiTag=r.ai==="insert"?'<span class="tag t-ai">◆ AI insertion point</span>':r.ai==="stop"?'<span class="tag t-stop">Non-use boundary</span>':'';
+  const hTag=r.human?'<span class="tag t-human">Preserve human judgment</span>':'';
+  const ppl=r.people.map(([id,doing])=>`<li><span class="av ${P[id].nv?'nv':''}">${id}</span><span><b>${P[id].name}</b>: ${doing}</span></li>`).join("");
+  const hand=r.hand?`<section><span class="eyebrow">4 · Hand-off</span><dl class="kv"><dt>Verifies</dt><dd>${r.hand.verify}</dd><dt>Overrides</dt><dd>${r.hand.override}</dd><dt>If it fails</dt><dd>${r.hand.fail}</dd></dl></section>`:`<section><span class="eyebrow">4 · Hand-off</span><p>No AI output arrives here.</p></section>`;
+  return `<div class="head"><span class="eyebrow">Step ${r.n} of 5</span><h2>${r.title}: ${r.sub}</h2>${aiTag}${hTag}</div>
+  <section><span class="eyebrow">1 · Territory</span><dl class="kv"><dt>Goal</dt><dd>${r.goal}</dd><dt>Activity</dt><dd>${r.act}</dd><dt>Output</dt><dd>${r.out}</dd><dt>Feedback</dt><dd>${r.evidence}</dd></dl></section>
+  <section><span class="eyebrow">2 · People</span><ul class="people">${ppl}</ul></section>
+  <section><span class="eyebrow">3 · AI</span><p>${r.aiText}</p>${r.aiIn?`<dl class="kv"><dt>In</dt><dd>${r.aiIn}</dd><dt>Out</dt><dd>${r.aiOut}</dd><dt>Test</dt><dd>Instructor checks the tutor's hints on 20 sample drafts ${ev("t")}</dd></dl>`:""}</section>
+  ${hand}
+  <section><span class="eyebrow">5 · Decision power</span><dl class="kv"><dt>Formal</dt><dd><b>${P[r.formal[0]].name}</b>: ${r.formal[1]}</dd><dt>Informal</dt><dd>${r.n===3?"<b>The tool</b>":"<b>"+P[r.informal[0]].name+"</b>"}: ${r.informal[1]}</dd><dt>If automated</dt><dd>${r.n===3?"The tool, not the student, would decide what the proof says.":r.n===5?"A grade would lose its accountable owner.":"The skill this step builds would never be practiced."}</dd></dl></section>`;
+}
+const detail=document.getElementById("detail");
+function openRegion(n){detail.innerHTML=detailHTML(R[n-1]);document.querySelectorAll(".region").forEach(g=>g.classList.toggle("on",+g.dataset.n===n));try{localStorage.setItem("m140-region",n)}catch(e){}}
+document.querySelectorAll(".region").forEach(g=>{g.addEventListener("click",()=>openRegion(+g.dataset.n));g.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();openRegion(+g.dataset.n)}})});
+let start=3;try{const s=+localStorage.getItem("m140-region");if(s>=1&&s<=5)start=s}catch(e){}
+openRegion(start);
+document.getElementById("print-details").innerHTML=R.map(r=>`<div class="detail" style="margin-bottom:16px">${detailHTML(r)}</div>`).join("");
+document.getElementById("cards").innerHTML=CARDS.map(c=>`<article class="card"><h3>${c.t} ${ev(c.tag)}</h3><p class="src">${c.src}</p><dl class="kv"><dt>Stakeholders</dt><dd>${c.who}</dd><dt>Benefit</dt><dd>${c.ben}</dd><dt>Concern</dt><dd>${c.con}</dd><dt>Course implication</dt><dd>${c.imp}</dd><dt>Open question</dt><dd>${c.q}</dd></dl></article>`).join("");
+
+const store={get(k,d){try{return JSON.parse(localStorage.getItem(k)||"null")??d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const traced=store.get("m140-trace",{});
+const traceEl=document.getElementById("trace");
+traceEl.innerHTML=TRACE.map((t,i)=>`<li><label><input type="checkbox" id="trace-${i}" ${traced[i]?"checked":""}> <span>${t}</span></label></li>`).join("");
+traceEl.addEventListener("change",e=>{traced[e.target.id.split("-")[1]]=e.target.checked;store.set("m140-trace",traced)});
+const ta=document.getElementById("revision");ta.value=store.get("m140-rev","");ta.addEventListener("input",()=>store.set("m140-rev",ta.value));
+
+const log=document.getElementById("chat-log"),form=document.getElementById("chat-form"),input=document.getElementById("chat-input"),sendBtn=document.getElementById("chat-send"),runBody=document.getElementById("run-log");
+let chat=store.get("m140-chat",[]),runs=store.get("m140-runs",[]);
+function addMsg(cls,text){const d=document.createElement("div");d.className="msg "+cls;d.textContent=text;log.appendChild(d);log.scrollTop=log.scrollHeight;return d}
+function drawRuns(){if(!runs.length)return;runBody.innerHTML="";runs.forEach((r,i)=>{const tr=document.createElement("tr");
+  tr.innerHTML=`<td>#${i+1}</td><td>${new Date(r.at).toLocaleString([], {month:"short",day:"numeric",hour:"numeric",minute:"2-digit"})}</td><td class="mono">${r.model||"unknown"}</td><td>${r.secs}s</td><td><label><input type="checkbox" data-k="checked" ${r.checked?"checked":""}> Checked</label></td><td><label><input type="checkbox" data-k="leaked" ${r.leaked?"checked":""}> Yes, flag it</label></td>`;
+  tr.querySelectorAll("input").forEach(c=>c.addEventListener("change",e=>{r[e.target.dataset.k]=e.target.checked;store.set("m140-runs",runs)}));runBody.appendChild(tr)})}
+chat.forEach(m=>addMsg(m.role==="user"?"user":"ai",m.content));drawRuns();
+form.addEventListener("submit",async e=>{e.preventDefault();const text=input.value.trim();if(!text||sendBtn.disabled)return;
+  chat.push({role:"user",content:text});addMsg("user",text);input.value="";store.set("m140-chat",chat);
+  sendBtn.disabled=true;sendBtn.textContent="Checking…";const wait=addMsg("ai","…");const t0=Date.now();
+  try{const r=await fetch("/api/proof-check",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({messages:chat})});
+    const data=await r.json().catch(()=>({error:"The server sent back something unreadable. Try again."}));
+    if(!r.ok||data.error){wait.remove();chat.pop();store.set("m140-chat",chat);addMsg("err",(data.error||"Proof check didn't respond.")+" Your draft is back in the box; send it again.");input.value=text}
+    else{wait.textContent=data.reply;chat.push({role:"assistant",content:data.reply});store.set("m140-chat",chat);runs.push({at:Date.now(),model:data.model,secs:Math.round((Date.now()-t0)/1000),checked:false,leaked:false});store.set("m140-runs",runs);drawRuns()}
+  }catch(err){wait.remove();chat.pop();store.set("m140-chat",chat);addMsg("err","Couldn't reach Proof check. Check your connection and send again.");input.value=text}
+  finally{sendBtn.disabled=false;sendBtn.textContent="Check my proof";log.scrollTop=log.scrollHeight}});
+document.getElementById("chat-clear").addEventListener("click",()=>{chat=[];store.set("m140-chat",chat);log.querySelectorAll(".msg:not(:first-child)").forEach(n=>n.remove())});
+</script>
+</body>
+</html>
