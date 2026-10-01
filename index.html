@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>MATH 140 Proof Map</title>
+<script>(function(){var m="simple";try{m=localStorage.getItem("m140-mode")||m}catch(e){}var h=location.hash.slice(1);if(h==="full"||h==="simple")m=h;document.documentElement.dataset.mode=m})();</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&family=IBM+Plex+Mono:wght@400;600&display=swap">
 <style>
@@ -69,7 +70,7 @@ svg text{font-family:var(--display)}
 .layer.off{opacity:0;pointer-events:none}
 .legend{display:flex;flex-wrap:wrap;gap:14px 26px;padding:14px 18px;border-top:1px solid var(--rule);font-size:15px}
 .legend span{display:inline-flex;gap:8px;align-items:center}
-.detail{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:6px;overflow:hidden}
+.detail{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:6px;overflow:hidden}
 .detail>section,.detail>.head{background:var(--paper);padding:16px 18px;display:flex;flex-direction:column;gap:8px}
 .detail .head{grid-column:1/-1;flex-direction:row;flex-wrap:wrap;gap:10px 18px;align-items:baseline}
 .tag{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:3px;display:inline-block}
@@ -77,6 +78,8 @@ svg text{font-family:var(--display)}
 .kv{display:grid;grid-template-columns:auto 1fr;gap:4px 10px;font-size:15.5px;margin:0}
 .kv dt{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);padding-top:4px}
 .kv dd{margin:0}
+.kv.stack{grid-template-columns:1fr;gap:2px}
+.kv.stack dd{margin-bottom:6px}
 .ev{font-family:var(--mono);font-size:10.5px;padding:1px 5px;border-radius:3px;border:1px solid currentColor;margin-left:4px;white-space:nowrap}
 .ev-e{color:var(--human)} .ev-a{color:var(--hand)} .ev-t{color:var(--ai)} .ev-c{color:var(--stop)}
 ul.people{list-style:none;margin:0;padding:0;display:grid;gap:6px;font-size:15.5px}
@@ -118,6 +121,20 @@ textarea{width:100%;min-height:74px;font:inherit;font-size:16px;padding:10px;bor
 .runs select{font:inherit;font-size:13.5px;padding:3px 6px;border:1px solid var(--rule);border-radius:4px;background:var(--ground);color:var(--ink)}
 .runs td:first-child{font-family:var(--mono);font-weight:400}
 .print-only{display:none}
+html[data-mode="simple"] .m-f,html[data-mode="full"] .m-s{display:none!important}
+.topbar{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;justify-content:space-between}
+.mode{display:inline-flex;align-items:center;gap:10px}
+.mode .lbl{font-family:var(--mono);font-size:12px;color:var(--muted)}
+.mode .seg{display:inline-flex;border:1.5px solid var(--ink);border-radius:999px;overflow:hidden}
+.mode button{font-family:var(--display);font-weight:600;font-size:14px;background:transparent;color:var(--ink);border:0;padding:7px 16px;cursor:pointer}
+.mode button[aria-pressed="true"]{background:var(--ink);color:var(--ground)}
+.ideas{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:16px 20px}
+.ideas>div{display:flex;flex-direction:column;gap:4px;border-left:3px solid var(--ai);padding-left:12px}
+.ideas>div:nth-child(2){border-color:var(--stop)} .ideas>div:nth-child(3){border-color:var(--hand)} .ideas>div:nth-child(4){border-color:var(--human)} .ideas>div:nth-child(5){border-color:var(--muted)} .ideas>div:nth-child(6){border-color:var(--ink)}
+.ideas b{font-family:var(--display);font-size:17px;line-height:1.25}
+.words{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;margin:0;font-size:16px}
+.words dt{font-family:var(--display);font-weight:700}
+.words dd{margin:0}
 @media (max-width:760px){header{grid-template-columns:1fr}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 @media print{
@@ -145,25 +162,58 @@ textarea{width:100%;min-height:74px;font:inherit;font-size:16px;padding:10px;bor
     Live interactive map: https://math140-course-map.vercel.app/
   </div>
 
+  <div class="topbar">
+    <p class="eyebrow">DIGI 230 · Milestone 1 · Team map</p>
+    <div class="mode" role="group" aria-label="Reading level"><span class="lbl">READ IT IN</span><span class="seg"><button type="button" data-mode="simple">Simple words</button><button type="button" data-mode="full">Full detail</button></span></div>
+  </div>
+
   <header>
-    <div>
+    <div class="m-s">
+      <p class="eyebrow">A map of one geometry class (MATH 140) · the unit on drawing shapes and proving things</p>
+      <h1>Where a computer helper fits in geometry class</h1>
+      <p class="bq">Can <span class="a1">geometry students<sub>who</sub></span> <span class="a2">fixing proofs they wrote themselves<sub>doing what</sub></span> use <span class="a3">an AI that only points at the first weak step<sub>with what</sub></span> <span class="a4">to find their mistakes before the quiz<sub>why</sub></span>, <span class="a5">while every step stays theirs and only the teacher gives grades<sub>what stays safe</sub></span>?</p>
+    </div>
+    <div class="m-f">
       <p class="eyebrow">DIGI 230 · Milestone 1 · client course MATH 140 The Geometry of Physical Space · unit: Constructions &amp; Proof</p>
       <h1>Where AI touches a geometry proof</h1>
       <p class="bq">How might <span class="a1">MATH 140 students<sub>actor</sub></span> <span class="a2">revising their own two-column proofs<sub>activity</sub></span> use <span class="a3">a hint-only AI tutor that points to the first unjustified step<sub>capability</sub></span> <span class="a4">to find gaps in their reasoning before the graded quiz<sub>purpose</sub></span>, <span class="a5">while every proof step stays the student's own and grading stays with the instructor<sub>protected value</sub></span>?</p>
     </div>
-    <dl class="test" aria-label="Five-minute test answers">
+    <dl class="test m-s" aria-label="The two big questions">
+      <div><dt>Where is the AI?</dt><dd><b>In one place only: Step 3, the hint helper.</b> It reads a proof you already wrote and points at the weakest step. No AI when you draw, explain, or take the quiz.</dd></div>
+      <div><dt>Who does it affect?</dt><dd><b>You, the student,</b> write the proof and decide if a hint makes sense. <b>The teacher</b> double-checks any hint you're unsure about and gives every grade. <b>Your partner</b> asks "why?" when you explain at the board.</dd></div>
+    </dl>
+    <dl class="test m-f" aria-label="Five-minute test answers">
       <div><dt>Where does AI touch this course?</dt><dd><b>One place: Step 3, Proof check.</b> A hint tutor reads a proof the student already wrote and points to the first weak step. It stays out of constructions and the whiteboard defense.</dd></div>
       <div><dt>Who does it touch?</dt><dd>The <b>student</b> drafts the proof and marks each hint. The <b>instructor</b> reviews every disputed hint before the defense and grades every proof. The <b>proof partner</b> questions the proof at the board.</dd></div>
     </dl>
   </header>
 
+  <section class="panel">
+    <h2>The big ideas, in plain words</h2>
+    <div class="ideas">
+      <div><b>The AI is a hint helper, not a homework machine.</b><p>It can point at a weak step and ask you a question. It's never allowed to write a step for you.</p></div>
+      <div><b>AI can sound sure and still be wrong.</b><p>When experts checked AI answers to hard proofs, most AIs got less than 5% right. So the AI never grades and never says "your proof is correct."</p></div>
+      <div><b>The person who needs help is the worst at spotting a bad hint.</b><p>That's why "Not sure" is a smart answer. The teacher checks every Not sure hint before you present.</p></div>
+      <div><b>Try first, then get a hint.</b><p>You write at least 2 steps yourself. In one study, kids who got answers handed to them did 17% worse on the real test later. Kids who only got hints didn't.</p></div>
+      <div><b>Fair for everyone.</b><p>Some kids don't have a computer at home. They get a paper list of math rules and help from the teacher, and it counts exactly the same.</p></div>
+      <div><b>A hint that's too exact is the same as the answer.</b><p>In our first test, one hint almost named the exact rule to write. We're still fixing that.</p></div>
+    </div>
+    <dl class="words m-s">
+      <dt>Proof</dt><dd>A list of steps that shows something is true, with a reason for every step.</dd>
+      <dt>Theorem</dt><dd>A math rule that has already been proven, so you can use it as a reason.</dd>
+      <dt>Compass</dt><dd>A tool that draws perfect circles.</dd>
+      <dt>AI</dt><dd>A computer program that reads and writes words. On this page, it's the hint helper.</dd>
+      <dt>Hint list</dt><dd>A record of every hint the helper gave you, which your teacher can see.</dd>
+    </dl>
+  </section>
+
   <div class="bar" role="group" aria-label="Map layers">
-    <span class="lbl">LAYERS</span>
-    <button class="chip" data-layer="territory" aria-pressed="true"><span class="n">1</span>Territory</button>
-    <button class="chip" data-layer="people" aria-pressed="true"><span class="n">2</span>People</button>
-    <button class="chip" data-layer="ai" aria-pressed="true"><span class="n">3</span>AI touchpoints &amp; non-use</button>
-    <button class="chip" data-layer="handoff" aria-pressed="true"><span class="n">4</span>Hand-offs</button>
-    <button class="chip" data-layer="decision" aria-pressed="true"><span class="n">5</span>Decision power</button>
+    <span class="lbl"><span class="m-s">SHOW ON THE MAP</span><span class="m-f">LAYERS</span></span>
+    <button class="chip" data-layer="territory" aria-pressed="true"><span class="n">1</span><span class="m-s">The 5 stops</span><span class="m-f">Territory</span></button>
+    <button class="chip" data-layer="people" aria-pressed="true"><span class="n">2</span><span class="m-s">The people</span><span class="m-f">People</span></button>
+    <button class="chip" data-layer="ai" aria-pressed="true"><span class="n">3</span><span class="m-s">Where AI is (and isn't)</span><span class="m-f">AI touchpoints &amp; non-use</span></button>
+    <button class="chip" data-layer="handoff" aria-pressed="true"><span class="n">4</span><span class="m-s">Checking the AI</span><span class="m-f">Hand-offs</span></button>
+    <button class="chip" data-layer="decision" aria-pressed="true"><span class="n">5</span><span class="m-s">Who's in charge</span><span class="m-f">Decision power</span></button>
   </div>
 
   <div class="mapbox">
@@ -184,13 +234,13 @@ textarea{width:100%;min-height:74px;font:inherit;font-size:16px;padding:10px;bor
       <g id="L-decision" class="layer"></g>
     </svg>
     <div class="legend">
-      <span><svg width="22" height="22" viewBox="0 0 22 22"><path d="M11 2 L20 11 L11 20 L2 11 z" fill="var(--ai)"/></svg>AI insertion point</span>
-      <span><svg width="22" height="22" viewBox="0 0 22 22"><rect x="2" y="2" width="18" height="18" fill="url(#hatch)" stroke="var(--stop)" stroke-width="2"/></svg>Non-use boundary</span>
-      <span><svg width="22" height="22" viewBox="0 0 22 22"><circle cx="11" cy="11" r="8" fill="none" stroke="var(--human)" stroke-width="3"/><circle cx="11" cy="11" r="3" fill="var(--human)"/></svg>Preserve-human-judgment zone</span>
-      <span><svg width="30" height="22" viewBox="0 0 30 22"><path d="M2 11 H24" stroke="var(--hand)" stroke-width="3" stroke-dasharray="5 3" marker-end="url(#arrH)"/></svg>Hand-off: AI output → human check</span>
-      <span><svg width="22" height="22" viewBox="0 0 22 22"><rect x="3" y="3" width="16" height="16" fill="var(--ink)"/></svg>Formal decider</span>
-      <span><svg width="22" height="22" viewBox="0 0 22 22"><rect x="3" y="3" width="16" height="16" fill="none" stroke="var(--ink)" stroke-width="2" stroke-dasharray="3 2"/></svg>Informal influence</span>
-      <span class="screen-only note">Click any shape to open it.</span>
+      <span><svg width="22" height="22" viewBox="0 0 22 22"><path d="M11 2 L20 11 L11 20 L2 11 z" fill="var(--ai)"/></svg><span class="m-f">AI insertion point</span><span class="m-s">AI is allowed here</span></span>
+      <span><svg width="22" height="22" viewBox="0 0 22 22"><rect x="2" y="2" width="18" height="18" fill="url(#hatch)" stroke="var(--stop)" stroke-width="2"/></svg><span class="m-f">Non-use boundary</span><span class="m-s">No AI zone</span></span>
+      <span><svg width="22" height="22" viewBox="0 0 22 22"><circle cx="11" cy="11" r="8" fill="none" stroke="var(--human)" stroke-width="3"/><circle cx="11" cy="11" r="3" fill="var(--human)"/></svg><span class="m-f">Preserve-human-judgment zone</span><span class="m-s">A person must decide here</span></span>
+      <span><svg width="30" height="22" viewBox="0 0 30 22"><path d="M2 11 H24" stroke="var(--hand)" stroke-width="3" stroke-dasharray="5 3" marker-end="url(#arrH)"/></svg><span class="m-f">Hand-off: AI output → human check</span><span class="m-s">A person checks the AI's work</span></span>
+      <span><svg width="22" height="22" viewBox="0 0 22 22"><rect x="3" y="3" width="16" height="16" fill="var(--ink)"/></svg><span class="m-f">Formal decider</span><span class="m-s">The boss of this step</span></span>
+      <span><svg width="22" height="22" viewBox="0 0 22 22"><rect x="3" y="3" width="16" height="16" fill="none" stroke="var(--ink)" stroke-width="2" stroke-dasharray="3 2"/></svg><span class="m-f">Informal influence</span><span class="m-s">Has sway, but isn't the boss</span></span>
+      <span class="screen-only note"><span class="m-f">Click any shape to open it.</span><span class="m-s">Tap a shape to read about that stop.</span></span>
     </div>
   </div>
 
@@ -198,8 +248,15 @@ textarea{width:100%;min-height:74px;font:inherit;font-size:16px;padding:10px;bor
   <div id="print-details" class="print-only"></div>
 
   <section class="panel">
-    <h2>Concern, safeguard, non-goal</h2>
-    <div class="four">
+    <h2 class="m-f">Concern, safeguard, non-goal</h2>
+    <h2 class="m-s">What could go wrong, and how we stop it</h2>
+    <div class="four m-s">
+      <div><span class="eyebrow">What could go wrong (a made-up example)</span><p>A student types "just tell me the next step" again and again. If the helper gives in, it ends up writing the whole proof. The student turns in a perfect proof they don't understand, and the teacher can't tell.</p></div>
+      <div><span class="eyebrow">How we stop it</span><p>The helper only answers once you've written 2 steps. It gives one hint at a time and isn't allowed to write steps. Every hint is saved, so the teacher can see it.</p><p><b>No computer?</b> Use the paper list of math rules and visit the teacher's office hours. It counts just the same.</p></div>
+      <div><span class="eyebrow">What we will never do</span><p>Let AI write proofs, finish proofs or give grades. No AI when you draw, explain at the board, or take the quiz.</p></div>
+      <div><span class="eyebrow">What we still don't know</span><p>Do kids who use the helper do as well on the no-computer quiz as kids who use the paper list? We'd find out by splitting a class in half and comparing.</p></div>
+    </div>
+    <div class="four m-f">
       <div><span class="eyebrow">Documented concern <span class="ev ev-c">constructed scenario</span></span>
         <p>A student pastes only the theorem, with no draft, and keeps asking "what's the next step?" If the tutor gives in, it writes the proof one step at a time. The student hands in a clean proof they can't defend, and the instructor has no way to tell. <b>Risk to test:</b> does the hint-only rule hold up against repeated pushing?</p></div>
       <div><span class="eyebrow">Preliminary safeguard</span>
@@ -213,8 +270,19 @@ textarea{width:100%;min-height:74px;font:inherit;font-size:16px;padding:10px;bor
   </section>
 
   <section class="panel">
-    <h2>Stakeholder snapshot</h2>
-    <div class="tbl"><table>
+    <h2 class="m-f">Stakeholder snapshot</h2>
+    <h2 class="m-s">Who's in this story</h2>
+    <div class="tbl m-s"><table>
+      <thead><tr><th>Who</th><th>What they want</th><th>What could go wrong</th><th>The good part</th><th>What we still wonder</th></tr></thead>
+      <tbody>
+        <tr><td>Students</td><td>Pass the class, and really get why proofs work</td><td>Leaning on hints so much they can't start a proof alone</td><td>Help at night, when the teacher isn't around</td><td>How many hints is too many before it's the AI's work?</td></tr>
+        <tr><td>The teacher</td><td>Fair grades, and students who can think for themselves</td><td>Grading a proof the AI secretly wrote</td><td>Can see every hint a student got</td><td>Is there time to check every Not sure hint?</td></tr>
+        <tr><td>Partners and tutors</td><td>Fair questions and useful help sessions</td><td>Asking about a proof the student didn't really write</td><td>Tutors can see where students got stuck</td><td>Should tutors see the hint list too?</td></tr>
+        <tr><td>Who might be left out</td><td>Kids with no computer at home, and kids who use a screen reader (the helper can't see drawings) want the same help as everyone</td><td>Falling behind kids who use the helper</td><td>The paper rule list keeps it fair</td><td>Can the paper way be as fast as the helper?</td></tr>
+        <tr><td>Who gets hurt if it goes wrong</td><td>Students (bad habits, cheating worries) and the teacher (unfair grades) want clear rules</td><td>A wrong hint sends a student the wrong way</td><td>Hints-only rules protect learning</td><td><b>The teacher is responsible for wrong hints.</b> Will kids say "Not sure" honestly?</td></tr>
+      </tbody>
+    </table></div>
+    <div class="tbl m-f"><table>
       <thead><tr><th>Group</th><th>Who</th><th>Interests</th><th>Risks</th><th>Benefits</th><th>Concerns</th><th>Unresolved questions</th></tr></thead>
       <tbody>
         <tr><td>Users</td><td>MATH 140 students, mostly art and design majors meeting the math requirement <span class="ev ev-a">assumption</span></td><td>Pass the course; understand why a proof works, not just copy one</td><td>Leaning on hints until they can't start a proof alone</td><td>Feedback at 11 p.m., not only in office hours</td><td>Being accused of cheating for using an allowed tool</td><td>How much hinting is too much before it counts as the AI's work?</td></tr>
@@ -227,15 +295,16 @@ textarea{width:100%;min-height:74px;font:inherit;font-size:16px;padding:10px;bor
   </section>
 
   <section style="display:flex;flex-direction:column;gap:14px">
-    <h2>Evidence cards behind the boundaries</h2>
+    <h2 class="m-f">Evidence cards behind the boundaries</h2><h2 class="m-s">What scientists found</h2>
     <div class="cards" id="cards"></div>
   </section>
 
   <section class="panel" id="chat">
     <div style="display:flex;flex-wrap:wrap;gap:8px 16px;align-items:baseline">
-      <h2>Proof check</h2><span class="tag t-ai">◆ Step 3 · the AI insertion point</span>
+      <h2><span class="m-f">Proof check</span><span class="m-s">Try the hint helper</span></h2><span class="tag t-ai">◆ Step 3 · <span class="m-f">the AI insertion point</span><span class="m-s">the only place AI is allowed</span></span>
     </div>
-    <p class="note">Paste the theorem and <b>your own draft proof</b> (at least 2 steps). The tutor points to the first step that needs a better reason. It won't write any step for you, and it can be wrong, so check every hint against your theorem list.</p>
+    <p class="note m-s">Paste your proof (at least 2 steps). The helper points at one step that needs a better reason and asks you a question. It won't do it for you, and it can be wrong. If a hint confuses you, mark it <b>Not sure</b> in the list below.</p>
+    <p class="note m-f">Paste the theorem and <b>your own draft proof</b> (at least 2 steps). The tutor points to the first step that needs a better reason. It won't write any step for you, and it can be wrong, so check every hint against your theorem list.</p>
     <div class="chat-log" id="chat-log" aria-live="polite">
       <div class="msg ai">Example draft to try:
 Prove: the base angles of an isosceles triangle are congruent.
@@ -254,10 +323,17 @@ Prove: the base angles of an isosceles triangle are congruent.
 
   <section class="panel" id="transparency">
     <div style="display:flex;flex-wrap:wrap;gap:8px 16px;align-items:baseline">
-      <h2>Transparency log: Proof check</h2><span class="status">Status: prototype, testing needed</span>
+      <h2><span class="m-f">Transparency log: Proof check</span><span class="m-s">The honest truth about the helper</span></h2><span class="status">Status: prototype, testing needed</span>
     </div>
-    <p>The tutor is a text-only language model. It gives hints in words; it doesn't calculate, see drawings or prove anything is correct. Every reply below is logged so the student and instructor can see what the tool did.</p>
-    <div class="four">
+    <p class="m-s">The helper only reads and writes words. It can't do math calculations, can't see drawings, and can't prove anything is right. Every answer it gives is saved below, so you and your teacher can see it.</p>
+    <div class="four m-s">
+      <div><span class="eyebrow">What it really does</span><ul><li>Reads the proof you paste</li><li>Points at one step with a weak reason</li><li>Says what kind of rule to look up, not the answer</li><li>Asks you one question</li><li>Can give a different answer each time</li></ul></div>
+      <div><span class="eyebrow">What it's supposed to do</span><ul><li>Act like a patient tutor: find the first problem, then stop</li><li>Refuse to help until you've tried</li><li>Never write a step for you</li></ul></div>
+      <div><span class="eyebrow">What it can't do</span><ul><li>See drawings</li><li>Promise a proof is right (AIs often bluff on proofs)</li><li>Give grades</li><li>It might still slip and give away too much. That's what we're testing.</li><li>Remember anything except the list below, on this computer only</li></ul></div>
+      <div><span class="eyebrow">What people have to do</span><ul><li><b>You:</b> try first. For each hint, pick Agree (makes sense), Not sure, or Disagree. Flag any hint that gave away a step.</li><li><b>You:</b> explain your proof at the board, with no AI</li><li><b>Teacher:</b> check every Not sure or Disagree hint within 2 days, before you present, and give all grades</li><li><b>Teacher:</b> offer the paper rule list and office hours to anyone who doesn't use AI</li></ul></div>
+    </div>
+    <p class="m-f">The tutor is a text-only language model. It gives hints in words; it doesn't calculate, see drawings or prove anything is correct. Every reply below is logged so the student and instructor can see what the tool did.</p>
+    <div class="four m-f">
       <div><span class="eyebrow">What the tool actually does</span><ul>
         <li>Reads the proof text the student pasted</li>
         <li>Points to one step whose reason looks missing or wrong</li>
@@ -285,7 +361,7 @@ Prove: the base angles of an isosceles triangle are congruent.
       </ul></div>
     </div>
     <div class="screen-only" style="display:flex;flex-direction:column;gap:8px">
-      <span class="eyebrow">Hint log (this browser)</span>
+      <span class="eyebrow"><span class="m-f">Hint log (this browser)</span><span class="m-s">Your hint list (saved on this computer)</span></span>
       <div class="tbl"><table class="runs">
         <thead><tr><th>Run</th><th>Time</th><th>Model</th><th>Reply time</th><th>Your verdict</th><th>Hint wrote a step?</th></tr></thead>
         <tbody id="run-log"><tr><td colspan="6" class="note">No runs yet. Every reply from Proof check is logged here.</td></tr></tbody>
@@ -295,19 +371,20 @@ Prove: the base angles of an isosceles triangle are congruent.
 
   <section class="grid2">
     <div class="panel">
-      <h2>Peer trace test</h2>
-      <p class="note">Hand the map to another team with no explanation. Tick what they can do unaided.</p>
+      <h2><span class="m-f">Peer trace test</span><span class="m-s">Test the map on someone new</span></h2>
+      <p class="note"><span class="m-f">Hand the map to another team with no explanation. Tick what they can do unaided.</span><span class="m-s">Show the map to someone who has never seen it, and don't explain it. Tick what they can figure out alone.</span></p>
       <ul class="trace" id="trace"></ul>
     </div>
     <div class="panel">
-      <h2>Revision after the trace test</h2>
+      <h2><span class="m-f">Revision after the trace test</span><span class="m-s">What we changed after the test</span></h2>
       <label for="revision" class="note">Record what the other team missed and what you changed.</label>
       <textarea id="revision" placeholder="Not yet run. Fill this in after the trace test."></textarea>
       <p class="note screen-only">Saved in this browser only.</p>
     </div>
   </section>
 
-  <p class="note">The unit sequence is modeled on the MATH 140 catalog description (proofs, Euclidean constructions, right-triangle theorems, circles, the Golden Ratio). Its steps and roles are <span class="ev ev-a">assumptions</span> to confirm against the MATH 140 syllabus or with the instructor. Evidence tags: <span class="ev ev-e">evidence</span> <span class="ev ev-a">assumption</span> <span class="ev ev-t">proposed test</span> <span class="ev ev-c">constructed</span>.</p>
+  <p class="note m-s">We built these 5 steps from the course description, not the real class plan, so they're our best guess until we check with the teacher.</p>
+  <p class="note m-f">The unit sequence is modeled on the MATH 140 catalog description (proofs, Euclidean constructions, right-triangle theorems, circles, the Golden Ratio). Its steps and roles are <span class="ev ev-a">assumptions</span> to confirm against the MATH 140 syllabus or with the instructor. Evidence tags: <span class="ev ev-e">evidence</span> <span class="ev ev-a">assumption</span> <span class="ev ev-t">proposed test</span> <span class="ev ev-c">constructed</span>.</p>
 </div>
 
 <script>
@@ -393,6 +470,49 @@ const CARDS = [
 ];
 const TRACE = ["Follow the sequence from learning goal to feedback and assessment","Name who acts and who decides at each step","Locate the AI insertion point","Locate the non-use boundaries","Locate every preserve-human-judgment zone"];
 
+const KP={ST:"Student",PP:"Partner",IN:"Teacher",TU:"Tutor",NA:"Kids without the helper"};
+const K={
+ 1:{title:"Draw",sub:"With a compass",out:"Your drawings",
+    what:"You draw shapes with a compass (a tool that makes perfect circles) and a straight edge with no numbers on it. Then you write one sentence on why your drawing works.",
+    who:{ST:"Draws every shape by hand",PP:"Compares drawings at the table",IN:"Checks each drawing at the desk"},
+    ai:"No AI here. Drawing it yourself is how your brain learns it. Also, the AI can't see drawings at all.",
+    boss:"The teacher decides if each drawing is right.",sway:"Table buddies might show you shortcuts.",swayShort:"Table buddies",
+    auto:"If a computer did it, you'd never learn to draw it."},
+ 2:{title:"Write",sub:"Your own proof",out:"First try",
+    what:"You write a proof by yourself. A proof is a list of steps, and every step needs a reason, like \"because those two sides are equal.\"",
+    who:{ST:"Writes every step and reason",TU:"Can help outside class (a person, not AI)"},
+    ai:"No AI yet. You have to try first, so the ideas are really yours.",
+    boss:"You decide what to prove and how.",sway:"The examples the teacher showed in class shape how you write.",swayShort:"Class examples",
+    auto:"If a computer wrote it, the proof wouldn't be yours."},
+ 3:{title:"Hint",sub:"From the AI helper",out:"Fixed proof + hint list",
+    what:"You paste your proof into the hint helper. It points at the first step with a weak reason and asks you a question. Then you fix it yourself.",
+    who:{ST:"Pastes the proof and decides if each hint makes sense",IN:"Double-checks any hint you're unsure about",NA:"Use a paper list of rules and teacher help instead"},
+    ai:"Yes. This is the only place AI is allowed. It may point and ask. It may never write a step for you, and it never says your whole proof is right.",
+    gets:"Your own proof (at least 2 steps)",gives:"One hint, never an answer",
+    check:"For every hint, you pick: Makes sense, Not sure, or I disagree. Here's the tricky part: the student who needs help is also the one least able to tell when a hint is wrong. So every Not sure or I disagree goes to the teacher, who checks it within 2 days, before you present. If the hint was wrong, the teacher tells you.",
+    boss:"The teacher has the final say on any hint you're unsure about. You decide how to fix your proof.",
+    sway:"The helper picks which step to talk about. That steers what you fix, even though it isn't the boss.",swayShort:"How the hint is worded",
+    auto:"If the computer decided, it would be writing your proof instead of you."},
+ 4:{title:"Explain",sub:"Out loud at the board",out:"Talk at the board",
+    what:"You explain your proof at the whiteboard. Your partner and classmates ask, \"Why is that true?\"",
+    who:{ST:"Explains and answers questions",PP:"Asks \"why?\" about each step",IN:"Runs the talk and notes what's missing"},
+    ai:"No AI here. If you can explain it out loud, it shows the hint helped you learn, not just copy.",
+    boss:"The teacher decides if your proof works.",sway:"The kid who asks the hardest questions sets the bar.",swayShort:"Toughest questioner",
+    auto:"If a computer judged it, no one would hear you explain your thinking."},
+ 5:{title:"Quiz",sub:"No computers",out:"Quiz + all proofs",
+    what:"A quiz with no phones or computers: one proof, one drawing, and one question about the golden ratio (a special number, about 1.618, that shows up in art and nature).",
+    who:{ST:"Takes the quiz",IN:"Grades every proof"},
+    ai:"No AI here. The quiz shows what you can do on your own, and only the teacher gives grades.",
+    boss:"The teacher gives every grade.",sway:"The words in the grading guide decide what counts as a \"complete\" proof.",swayShort:"Grading guide words",
+    auto:"If a computer graded it, no person would be responsible for your grade."}
+};
+const KC=[
+ {t:"Hints help. Handing out answers hurts.",f:"About 1,000 high school students practiced math with AI. Kids who could ask ChatGPT anything did better in practice, then 17% worse on the real test once the AI was gone. Kids whose AI only gave hints didn't get worse.",m:"Our helper gives hints only, and the quiz has no computers."},
+ {t:"A well-built tutor can really help.",f:"College physics students learned more from an AI tutor designed by teachers than from a regular hands-on class.",m:"Our helper follows teaching rules: one problem at a time, and a question back. Physics isn't geometry, so we still have to check that it works here."},
+ {t:"AIs bluff on hard proofs.",f:"Experts graded AI answers to very hard math-contest proofs. Most AIs got less than 5% right, even though they sounded sure.",m:"The AI never grades and never says a proof is correct. People do."}
+];
+const TRACE_S=["Follow the 5 stops from start to quiz","Say who does what, and who's in charge, at each stop","Find where the AI is allowed","Find the no-AI zones","Find every place a person must decide"];
+
 const NS="http://www.w3.org/2000/svg";
 const el=(t,a={},p)=>{const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e};
 function shapeD(r){const {x,y}=r;
@@ -402,58 +522,77 @@ function shapeD(r){const {x,y}=r;
   if(r.shape==="square")return `M${x-88},${y-88} H${x+88} V${y+88} H${x-88}Z`;
   if(r.shape==="golden"){const h=136,w=h*1.618;return `M${x-w/2},${y-h/2} H${x+w/2} V${y+h/2} H${x-w/2}Z`}
 }
-const arcs=document.getElementById("arcs");
-[[130,170,150],[610,170,170],[370,450,160],[850,450,150],[1080,170,160]].forEach(([cx,cy,rr])=>el("circle",{cx,cy,r:rr,fill:"none",stroke:"var(--rule)","stroke-width":1,"stroke-dasharray":"2 5"},arcs));
-el("text",{x:18,y:676,"font-family":"IBM Plex Mono, monospace","font-size":11,fill:"var(--muted)"},arcs).textContent="LEARNING GOAL →";
-el("text",{x:1182,y:676,"text-anchor":"end","font-family":"IBM Plex Mono, monospace","font-size":11,fill:"var(--muted)"},arcs).textContent="→ ASSESSMENT";
-
-const LT=document.getElementById("L-territory"),LA=document.getElementById("L-ai"),LH=document.getElementById("L-handoff"),LP=document.getElementById("L-people"),LD=document.getElementById("L-decision");
-el("path",{d:"M30,320 "+R.map(r=>`L${r.x},${r.y}`).join(" ")+" L1190,320",fill:"none",stroke:"var(--ink)","stroke-width":1.5,"stroke-dasharray":"1 6","stroke-linecap":"round"},LT);
+const mode=()=>document.documentElement.dataset.mode==="full"?"full":"simple";
+const LAYERS=["arcs","L-territory","L-ai","L-handoff","L-people","L-decision"].map(id=>document.getElementById(id));
+const [arcs,LT,LA,LH,LP,LD]=LAYERS;
 const short=n=>P[n].name.replace("MATH 140 ","");
-R.forEach(r=>{
-  const g=el("g",{class:"region",tabindex:0,role:"button","aria-label":`Step ${r.n}: ${r.title}`,"data-n":r.n},LT);
-  const d=shapeD(r);
-  el("path",{d,class:"shape",fill:`var(--f${r.n})`},g);
-  if(r.shape==="golden"){const h=136,w=h*1.618;el("path",{d:`M${r.x-w/2+h},${r.y-h/2} V${r.y+h/2} M${r.x-w/2},${r.y+h/2} A${h},${h} 0 0,1 ${r.x-w/2+h},${r.y-h/2}`,fill:"none",stroke:"var(--muted)","stroke-width":1,"stroke-dasharray":"3 3"},g)}
-  const ty=r.shape==="triangle"?r.y+14:r.y;
-  el("text",{x:r.x,y:ty-30,"text-anchor":"middle","font-family":"IBM Plex Mono, monospace","font-size":11,fill:"var(--muted)"},g).textContent=`STEP ${r.n}`;
-  el("text",{x:r.x,y:ty-6,"text-anchor":"middle","font-size":23,"font-weight":700,fill:"var(--ink)"},g).textContent=r.title;
-  el("text",{x:r.x,y:ty+14,"text-anchor":"middle","font-size":12,fill:"var(--muted)"},g).textContent=r.sub;
-  const w=Math.min(170,r.out.length*6.4+16);
-  el("rect",{x:r.x-w/2,y:ty+24,width:w,height:22,rx:3,fill:"var(--paper)",stroke:"var(--ink)","stroke-width":1},g);
-  el("text",{x:r.x,y:ty+39,"text-anchor":"middle","font-size":11,fill:"var(--ink)"},g).textContent=r.out;
-  if(r.ai==="stop"){el("path",{d,fill:"url(#hatch)",stroke:"var(--stop)","stroke-width":3,"pointer-events":"none"},LA);
-    const bx=r.x+62,by=r.y-(r.shape==="square"?100:86);el("rect",{x:bx-44,y:by-12,width:88,height:22,rx:3,fill:"var(--stop)"},LA);
-    el("text",{x:bx,y:by+3,"text-anchor":"middle","font-size":11,"font-weight":700,fill:"var(--paper)"},LA).textContent="NO AI HERE";}
-  if(r.ai==="insert"){const ax=r.x+128,ay=r.y-92;
-    el("path",{d:`M${ax},${ay-20} L${ax+20},${ay} L${ax},${ay+20} L${ax-20},${ay} Z`,fill:"var(--ai)"},LA);
-    el("text",{x:ax,y:ay+5,"text-anchor":"middle","font-size":13,"font-weight":700,fill:"#fff"},LA).textContent="AI";
-    el("text",{x:ax+28,y:ay-4,"font-size":11,fill:"var(--ai)","font-weight":700},LA).textContent="IN: student's own draft";
-    el("text",{x:ax+28,y:ay+11,"font-size":11,fill:"var(--ai)","font-weight":700},LA).textContent="OUT: one hint, no steps";}
-  if(r.human){const hx=r.x-r.ring,hy=r.y-(r.shape==="golden"?86:62);el("circle",{cx:hx,cy:hy,r:15,fill:"var(--paper)",stroke:"var(--human)","stroke-width":4},LD);el("circle",{cx:hx,cy:hy,r:5,fill:"var(--human)"},LD);}
-  const py=r.y+(r.shape==="golden"?92:112);
-  r.people.forEach(([id],k)=>{const px=r.x-(r.people.length-1)*18+k*36,nv=P[id].nv;
-    el("circle",{cx:px,cy:py,r:15,fill:"var(--paper)",stroke:nv?"var(--muted)":"var(--ink)","stroke-width":1.5,"stroke-dasharray":nv?"3 3":"none"},LP);
-    el("text",{x:px,y:py+4,"text-anchor":"middle","font-family":"IBM Plex Mono, monospace","font-size":10,"font-weight":600,fill:nv?"var(--muted)":"var(--ink)"},LP).textContent=id;});
-  const dy=py+26;
-  el("rect",{x:r.x-60,y:dy,width:14,height:14,fill:"var(--ink)"},LD);
-  el("text",{x:r.x-40,y:dy+11,"font-size":12,"font-weight":700,fill:"var(--ink)"},LD).textContent=short(r.formal[0]);
-  el("rect",{x:r.x-59,y:dy+20,width:12,height:12,fill:"none",stroke:"var(--ink)","stroke-width":1.5,"stroke-dasharray":"3 2"},LD);
-  el("text",{x:r.x-40,y:dy+31,"font-size":11.5,fill:"var(--muted)"},LD).textContent=r.n===3?"The tool's framing":r.n===5?"The rubric wording":short(r.informal[0]);
-});
-const r3=R[2],r4=R[3];
-el("path",{d:`M${r3.x+114},${r3.y-72} L${r3.x+92},${r3.y-50}`,fill:"none",stroke:"var(--hand)","stroke-width":3,"stroke-dasharray":"5 3","marker-end":"url(#arrH)"},LH);
-el("text",{x:r3.x+156,y:r3.y-52,"font-size":11,"font-weight":700,fill:"var(--hand)"},LH).textContent="① Student marks the hint";
-el("text",{x:r3.x+170,y:r3.y-37,"font-size":11,fill:"var(--hand)"},LH).textContent="Agree / Not sure / Disagree";
-el("path",{d:`M${r3.x+104},${r3.y+20} C${r3.x+170},${r3.y+60} ${r4.x-150},${r4.y-140} ${r4.x-92},${r4.y-70}`,fill:"none",stroke:"var(--hand)","stroke-width":3,"stroke-dasharray":"6 4","marker-end":"url(#arrH)"},LH);
-el("text",{x:r3.x+196,y:r3.y+100,"font-size":11,"font-weight":700,fill:"var(--hand)"},LH).textContent="② Not sure or Disagree → instructor";
-el("text",{x:r3.x+196,y:r3.y+115,"font-size":11,fill:"var(--hand)"},LH).textContent="Reviewed within 48 h, before Step 4";
-el("text",{x:r3.x+196,y:r3.y+130,"font-size":11,fill:"var(--hand)"},LH).textContent="Wrong hint → logged, student told";
+function drawMap(){
+  const S=mode()==="simple";
+  LAYERS.forEach(g=>{while(g.firstChild)g.removeChild(g.firstChild)});
+  [[130,170,150],[610,170,170],[370,450,160],[850,450,150],[1080,170,160]].forEach(([cx,cy,rr])=>el("circle",{cx,cy,r:rr,fill:"none",stroke:"var(--rule)","stroke-width":1,"stroke-dasharray":"2 5"},arcs));
+  el("text",{x:18,y:676,"font-family":"IBM Plex Mono, monospace","font-size":11,fill:"var(--muted)"},arcs).textContent=S?"START: WHAT TO LEARN →":"LEARNING GOAL →";
+  el("text",{x:1182,y:676,"text-anchor":"end","font-family":"IBM Plex Mono, monospace","font-size":11,fill:"var(--muted)"},arcs).textContent=S?"→ FINISH: THE QUIZ":"→ ASSESSMENT";
+  el("path",{d:"M30,320 "+R.map(r=>`L${r.x},${r.y}`).join(" ")+" L1190,320",fill:"none",stroke:"var(--ink)","stroke-width":1.5,"stroke-dasharray":"1 6","stroke-linecap":"round"},LT);
+  R.forEach(r=>{
+    const k=K[r.n],title=S?k.title:r.title,sub=S?k.sub:r.sub,out=S?k.out:r.out;
+    const g=el("g",{class:"region",tabindex:0,role:"button","aria-label":`Step ${r.n}: ${title}`,"data-n":r.n},LT);
+    const d=shapeD(r);
+    el("path",{d,class:"shape",fill:`var(--f${r.n})`},g);
+    if(r.shape==="golden"){const h=136,w=h*1.618;el("path",{d:`M${r.x-w/2+h},${r.y-h/2} V${r.y+h/2} M${r.x-w/2},${r.y+h/2} A${h},${h} 0 0,1 ${r.x-w/2+h},${r.y-h/2}`,fill:"none",stroke:"var(--muted)","stroke-width":1,"stroke-dasharray":"3 3"},g)}
+    const ty=r.shape==="triangle"?r.y+14:r.y;
+    el("text",{x:r.x,y:ty-30,"text-anchor":"middle","font-family":"IBM Plex Mono, monospace","font-size":11,fill:"var(--muted)"},g).textContent=`STEP ${r.n}`;
+    el("text",{x:r.x,y:ty-6,"text-anchor":"middle","font-size":23,"font-weight":700,fill:"var(--ink)"},g).textContent=title;
+    el("text",{x:r.x,y:ty+14,"text-anchor":"middle","font-size":12,fill:"var(--muted)"},g).textContent=sub;
+    const w=Math.min(170,out.length*6.4+16);
+    el("rect",{x:r.x-w/2,y:ty+24,width:w,height:22,rx:3,fill:"var(--paper)",stroke:"var(--ink)","stroke-width":1},g);
+    el("text",{x:r.x,y:ty+39,"text-anchor":"middle","font-size":11,fill:"var(--ink)"},g).textContent=out;
+    if(r.ai==="stop"){el("path",{d,fill:"url(#hatch)",stroke:"var(--stop)","stroke-width":3,"pointer-events":"none"},LA);
+      const bx=r.x+62,by=r.y-(r.shape==="square"?100:86);el("rect",{x:bx-44,y:by-12,width:88,height:22,rx:3,fill:"var(--stop)"},LA);
+      el("text",{x:bx,y:by+3,"text-anchor":"middle","font-size":11,"font-weight":700,fill:"var(--paper)"},LA).textContent="NO AI HERE";}
+    if(r.ai==="insert"){const ax=r.x+128,ay=r.y-92;
+      el("path",{d:`M${ax},${ay-20} L${ax+20},${ay} L${ax},${ay+20} L${ax-20},${ay} Z`,fill:"var(--ai)"},LA);
+      el("text",{x:ax,y:ay+5,"text-anchor":"middle","font-size":13,"font-weight":700,fill:"#fff"},LA).textContent="AI";
+      el("text",{x:ax+28,y:ay-4,"font-size":11,fill:"var(--ai)","font-weight":700},LA).textContent=S?"Gets: your own proof":"IN: student's own draft";
+      el("text",{x:ax+28,y:ay+11,"font-size":11,fill:"var(--ai)","font-weight":700},LA).textContent=S?"Gives: 1 hint, never answers":"OUT: one hint, no steps";}
+    if(r.human){const hx=r.x-r.ring,hy=r.y-(r.shape==="golden"?86:62);el("circle",{cx:hx,cy:hy,r:15,fill:"var(--paper)",stroke:"var(--human)","stroke-width":4},LD);el("circle",{cx:hx,cy:hy,r:5,fill:"var(--human)"},LD);}
+    const py=r.y+(r.shape==="golden"?92:112);
+    r.people.forEach(([id],i)=>{const px=r.x-(r.people.length-1)*18+i*36,nv=P[id].nv;
+      el("circle",{cx:px,cy:py,r:15,fill:"var(--paper)",stroke:nv?"var(--muted)":"var(--ink)","stroke-width":1.5,"stroke-dasharray":nv?"3 3":"none"},LP);
+      el("text",{x:px,y:py+4,"text-anchor":"middle","font-family":"IBM Plex Mono, monospace","font-size":10,"font-weight":600,fill:nv?"var(--muted)":"var(--ink)"},LP).textContent=id;});
+    const dy=py+26;
+    el("rect",{x:r.x-60,y:dy,width:14,height:14,fill:"var(--ink)"},LD);
+    el("text",{x:r.x-40,y:dy+11,"font-size":12,"font-weight":700,fill:"var(--ink)"},LD).textContent=S?KP[r.formal[0]]:short(r.formal[0]);
+    el("rect",{x:r.x-59,y:dy+20,width:12,height:12,fill:"none",stroke:"var(--ink)","stroke-width":1.5,"stroke-dasharray":"3 2"},LD);
+    el("text",{x:r.x-40,y:dy+31,"font-size":11.5,fill:"var(--muted)"},LD).textContent=S?k.swayShort:(r.n===3?"The tool's framing":r.n===5?"The rubric wording":short(r.informal[0]));
+  });
+  const r3=R[2],r4=R[3];
+  el("path",{d:`M${r3.x+114},${r3.y-72} L${r3.x+92},${r3.y-50}`,fill:"none",stroke:"var(--hand)","stroke-width":3,"stroke-dasharray":"5 3","marker-end":"url(#arrH)"},LH);
+  el("text",{x:r3.x+156,y:r3.y-52,"font-size":11,"font-weight":700,fill:"var(--hand)"},LH).textContent=S?"① You pick: Makes sense,":"① Student marks the hint";
+  el("text",{x:r3.x+170,y:r3.y-37,"font-size":11,fill:"var(--hand)"},LH).textContent=S?"Not sure, or I disagree":"Agree / Not sure / Disagree";
+  el("path",{d:`M${r3.x+104},${r3.y+20} C${r3.x+170},${r3.y+60} ${r4.x-150},${r4.y-140} ${r4.x-92},${r4.y-70}`,fill:"none",stroke:"var(--hand)","stroke-width":3,"stroke-dasharray":"6 4","marker-end":"url(#arrH)"},LH);
+  el("text",{x:r3.x+196,y:r3.y+100,"font-size":11,"font-weight":700,fill:"var(--hand)"},LH).textContent=S?"② Not sure? The teacher checks it":"② Not sure or Disagree → instructor";
+  el("text",{x:r3.x+196,y:r3.y+115,"font-size":11,fill:"var(--hand)"},LH).textContent=S?"within 2 days, before you present":"Reviewed within 48 h, before Step 4";
+  el("text",{x:r3.x+196,y:r3.y+130,"font-size":11,fill:"var(--hand)"},LH).textContent=S?"Wrong hint? The teacher tells you":"Wrong hint → logged, student told";
+  document.querySelectorAll(".region").forEach(g=>{g.addEventListener("click",()=>openRegion(+g.dataset.n));g.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();openRegion(+g.dataset.n)}})});
+}
 
 document.querySelectorAll(".chip").forEach(b=>b.addEventListener("click",()=>{const on=b.getAttribute("aria-pressed")!=="true";b.setAttribute("aria-pressed",on);document.getElementById("L-"+b.dataset.layer).classList.toggle("off",!on)}));
 
 const ev=t=>({e:'<span class="ev ev-e">evidence</span>',a:'<span class="ev ev-a">assumption</span>',t:'<span class="ev ev-t">proposed test</span>'}[t]);
-function detailHTML(r){
+function simpleHTML(r){
+  const k=K[r.n];
+  const aiTag=r.ai==="insert"?'<span class="tag t-ai">◆ AI allowed here (only here)</span>':r.ai==="stop"?'<span class="tag t-stop">No AI zone</span>':'';
+  const hTag=r.human?'<span class="tag t-human">A person decides</span>':'';
+  const ppl=r.people.map(([id])=>`<li><span class="av ${P[id].nv?'nv':''}">${id}</span><span><b>${KP[id]}</b>: ${k.who[id]}</span></li>`).join("");
+  return `<div class="head"><span class="eyebrow">Stop ${r.n} of 5</span><h2>${k.title}: ${k.sub}</h2>${aiTag}${hTag}</div>
+  <section><span class="eyebrow">What happens</span><p>${k.what}</p></section>
+  <section><span class="eyebrow">Who's there</span><ul class="people">${ppl}</ul></section>
+  <section><span class="eyebrow">Is AI allowed?</span><p>${k.ai}</p>${k.gets?`<dl class="kv"><dt>Gets</dt><dd>${k.gets}</dd><dt>Gives</dt><dd>${k.gives}</dd></dl>`:""}</section>
+  <section><span class="eyebrow">Checking the AI</span><p>${k.check||"Nothing from the AI comes here, so there's nothing to check."}</p></section>
+  <section><span class="eyebrow">Who's in charge</span><dl class="kv stack"><dt>Boss</dt><dd>${k.boss}</dd><dt>Has sway</dt><dd>${k.sway}</dd><dt>If a computer did it</dt><dd>${k.auto}</dd></dl></section>`;
+}
+function detailHTML(r,forceFull){
+  if(!forceFull&&mode()==="simple")return simpleHTML(r);
   const aiTag=r.ai==="insert"?'<span class="tag t-ai">◆ AI insertion point</span>':r.ai==="stop"?'<span class="tag t-stop">Non-use boundary</span>':'';
   const hTag=r.human?'<span class="tag t-human">Preserve human judgment</span>':'';
   const ppl=r.people.map(([id,doing])=>`<li><span class="av ${P[id].nv?'nv':''}">${id}</span><span><b>${P[id].name}</b>: ${doing}</span></li>`).join("");
@@ -466,17 +605,28 @@ function detailHTML(r){
   <section><span class="eyebrow">5 · Decision power</span><dl class="kv"><dt>Formal</dt><dd><b>${P[r.formal[0]].name}</b>: ${r.formal[1]}</dd><dt>Informal</dt><dd>${r.n===3?"<b>The tool</b>":"<b>"+P[r.informal[0]].name+"</b>"}: ${r.informal[1]}</dd><dt>If automated</dt><dd>${r.n===3?"The tool, not the student, would decide what the proof says.":r.n===5?"A grade would lose its accountable owner.":"The skill this step builds would never be practiced."}</dd></dl></section>`;
 }
 const detail=document.getElementById("detail");
-function openRegion(n){detail.innerHTML=detailHTML(R[n-1]);document.querySelectorAll(".region").forEach(g=>g.classList.toggle("on",+g.dataset.n===n));try{localStorage.setItem("m140-region",n)}catch(e){}}
-document.querySelectorAll(".region").forEach(g=>{g.addEventListener("click",()=>openRegion(+g.dataset.n));g.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();openRegion(+g.dataset.n)}})});
-let start=3;try{const s=+localStorage.getItem("m140-region");if(s>=1&&s<=5)start=s}catch(e){}
-openRegion(start);
-document.getElementById("print-details").innerHTML=R.map(r=>`<div class="detail" style="margin-bottom:16px">${detailHTML(r)}</div>`).join("");
-document.getElementById("cards").innerHTML=CARDS.map(c=>`<article class="card"><h3>${c.t} ${ev(c.tag)}</h3><p class="src">${c.src}</p><dl class="kv"><dt>Stakeholders</dt><dd>${c.who}</dd><dt>Benefit</dt><dd>${c.ben}</dd><dt>Concern</dt><dd>${c.con}</dd><dt>Course implication</dt><dd>${c.imp}</dd><dt>Open question</dt><dd>${c.q}</dd></dl></article>`).join("");
+let current=3;try{const s=+localStorage.getItem("m140-region");if(s>=1&&s<=5)current=s}catch(e){}
+function openRegion(n){current=n;detail.innerHTML=detailHTML(R[n-1]);document.querySelectorAll(".region").forEach(g=>g.classList.toggle("on",+g.dataset.n===n));try{localStorage.setItem("m140-region",n)}catch(e){}}
+function drawCards(){
+  document.getElementById("cards").innerHTML=mode()==="simple"
+    ?CARDS.map((c,i)=>`<article class="card"><h3>${KC[i].t}</h3><p>${KC[i].f}</p><dl class="kv"><dt>So on our map</dt><dd>${KC[i].m}</dd></dl><p class="src">${c.src}</p></article>`).join("")
+    :CARDS.map(c=>`<article class="card"><h3>${c.t} ${ev(c.tag)}</h3><p class="src">${c.src}</p><dl class="kv"><dt>Stakeholders</dt><dd>${c.who}</dd><dt>Benefit</dt><dd>${c.ben}</dd><dt>Concern</dt><dd>${c.con}</dd><dt>Course implication</dt><dd>${c.imp}</dd><dt>Open question</dt><dd>${c.q}</dd></dl></article>`).join("");
+}
+function render(){drawMap();openRegion(current);drawCards()}
+document.querySelectorAll(".mode button").forEach(b=>b.addEventListener("click",()=>{
+  document.documentElement.dataset.mode=b.dataset.mode;
+  document.querySelectorAll(".mode button").forEach(x=>x.setAttribute("aria-pressed",x===b));
+  try{localStorage.setItem("m140-mode",b.dataset.mode)}catch(e){}
+  render();
+}));
+document.querySelectorAll(".mode button").forEach(x=>x.setAttribute("aria-pressed",x.dataset.mode===mode()));
+render();
+document.getElementById("print-details").innerHTML=R.map(r=>`<div class="detail" style="margin-bottom:16px">${detailHTML(r,true)}</div>`).join("");
 
 const store={get(k,d){try{return JSON.parse(localStorage.getItem(k)||"null")??d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
 const traced=store.get("m140-trace",{});
 const traceEl=document.getElementById("trace");
-traceEl.innerHTML=TRACE.map((t,i)=>`<li><label><input type="checkbox" id="trace-${i}" ${traced[i]?"checked":""}> <span>${t}</span></label></li>`).join("");
+traceEl.innerHTML=TRACE.map((t,i)=>`<li><label><input type="checkbox" id="trace-${i}" ${traced[i]?"checked":""}> <span class="m-f">${t}</span><span class="m-s">${TRACE_S[i]}</span></label></li>`).join("");
 traceEl.addEventListener("change",e=>{traced[e.target.id.split("-")[1]]=e.target.checked;store.set("m140-trace",traced)});
 const ta=document.getElementById("revision");ta.value=store.get("m140-rev","");ta.addEventListener("input",()=>store.set("m140-rev",ta.value));
 

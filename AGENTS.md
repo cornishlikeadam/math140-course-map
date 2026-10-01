@@ -16,6 +16,7 @@ DIGI 230 Milestone 1 (due Oct 1, 2026, 11:00 AM ET): an interactive map of SCAD 
 - Steps 1 (Construct) and 4 (Defend) are non-use boundaries.
 - Steps 1, 2, 4 and 5 are preserve-human-judgment zones. The instructor grades everything.
 - The non-AI alternative is a printed justification checklist plus office hours.
+- The page has two reading levels: "Simple words" (default, written so a 10-year-old can follow it, including the nuance) and "Full detail". Any content change must be made in both: static HTML pairs use `.m-s` / `.m-f`, and the map and step text live in the `K` (simple) and `R` (full) objects. The PDF is exported from `index.html#full`.
 - The unit steps are assumptions built from the catalog description; confirm them with the MATH 140 syllabus.
 - Tag claims as evidence, assumption, proposed test or constructed. Never invent citations.
 - Keep the transparency log honest about what the tool can't do.
