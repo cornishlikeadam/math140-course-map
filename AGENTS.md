@@ -12,6 +12,7 @@ DIGI 230 Milestone 1 (due Oct 1, 2026, 11:00 AM ET): an interactive map of SCAD 
 
 ## Rules the map encodes (don't break these)
 - AI is used in one place only: Step 3, Proof check. It is hint-only: one gap per reply, and it never writes a statement or reason. It only responds to a student draft of 2 or more steps.
+- The student marks each hint Agree, Not sure or Disagree. The instructor reviews every Not sure or Disagree hint within 48 hours, before the Step 4 defense, and is accountable for wrong hints. (Revision of Oct 1: a struggling student is not the last check on a hint.)
 - Steps 1 (Construct) and 4 (Defend) are non-use boundaries.
 - Steps 1, 2, 4 and 5 are preserve-human-judgment zones. The instructor grades everything.
 - The non-AI alternative is a printed justification checklist plus office hours.

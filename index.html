@@ -115,6 +115,7 @@ textarea{width:100%;min-height:74px;font:inherit;font-size:16px;padding:10px;bor
 .linkbtn{background:none;border:0;color:var(--muted);font:inherit;font-size:14px;text-decoration:underline;cursor:pointer;padding:0;align-self:flex-start}
 .status{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:3px;background:var(--human-soft);color:var(--human)}
 .runs td,.runs th{font-size:13.5px}
+.runs select{font:inherit;font-size:13.5px;padding:3px 6px;border:1px solid var(--rule);border-radius:4px;background:var(--ground);color:var(--ink)}
 .runs td:first-child{font-family:var(--mono);font-weight:400}
 .print-only{display:none}
 @media (max-width:760px){header{grid-template-columns:1fr}}
@@ -152,7 +153,7 @@ textarea{width:100%;min-height:74px;font:inherit;font-size:16px;padding:10px;bor
     </div>
     <dl class="test" aria-label="Five-minute test answers">
       <div><dt>Where does AI touch this course?</dt><dd><b>One place: Step 3, Proof check.</b> A hint tutor reads a proof the student already wrote and points to the first weak step. It stays out of constructions and the whiteboard defense.</dd></div>
-      <div><dt>Who does it touch?</dt><dd>The <b>student</b> drafts the proof and decides whether the hint is right. The <b>instructor</b> sees the hint log and grades every proof. The <b>proof partner</b> questions the proof at the board.</dd></div>
+      <div><dt>Who does it touch?</dt><dd>The <b>student</b> drafts the proof and marks each hint. The <b>instructor</b> reviews every disputed hint before the defense and grades every proof. The <b>proof partner</b> questions the proof at the board.</dd></div>
     </dl>
   </header>
 
@@ -217,10 +218,10 @@ textarea{width:100%;min-height:74px;font:inherit;font-size:16px;padding:10px;bor
       <thead><tr><th>Group</th><th>Who</th><th>Interests</th><th>Risks</th><th>Benefits</th><th>Concerns</th><th>Unresolved questions</th></tr></thead>
       <tbody>
         <tr><td>Users</td><td>MATH 140 students, mostly art and design majors meeting the math requirement <span class="ev ev-a">assumption</span></td><td>Pass the course; understand why a proof works, not just copy one</td><td>Leaning on hints until they can't start a proof alone</td><td>Feedback at 11 p.m., not only in office hours</td><td>Being accused of cheating for using an allowed tool</td><td>How much hinting is too much before it counts as the AI's work?</td></tr>
-        <tr><td>Decision makers</td><td>MATH 140 instructor; SCAD math faculty who set the syllabus AI policy</td><td>Valid grades; students who can reason on their own</td><td>Grading work that was quietly AI-written</td><td>A log that shows how each proof was revised</td><td>Extra time spent reading hint logs</td><td>Does the log change how proofs are graded?</td></tr>
+        <tr><td>Decision makers</td><td>MATH 140 instructor; SCAD math faculty who set the syllabus AI policy</td><td>Valid grades; students who can reason on their own</td><td>Grading work that was quietly AI-written</td><td>A log that shows how each proof was revised</td><td>Extra time: reviewing disputed hints within 48 hours</td><td>How many disputed hints per week can one instructor review?</td></tr>
         <tr><td>People affected</td><td>Proof partners; SCAD Learning Center tutors <span class="ev ev-a">assumption</span></td><td>Fair critique; useful tutoring sessions</td><td>Partners questioning proofs the author didn't really write</td><td>Tutors see where students got stuck</td><td>Tutoring demand shifts in unknown ways</td><td>Should tutors see the hint log too?</td></tr>
         <tr><td>May be excluded</td><td>Students without a reliable device or internet at home; screen-reader users, because the tutor can't read diagrams</td><td>The same help as everyone else</td><td>Falling behind classmates who use the tool</td><td>The non-AI checklist keeps Step 3 open to them</td><td>Their voice isn't in the tool's design</td><td>Can the checklist be made as fast and useful as the tutor?</td></tr>
-        <tr><td>May carry the risk</td><td>Students (integrity cases, weaker skills); the instructor (grade validity)</td><td>Clear rules on what's allowed</td><td>A wrong hint sends a student the wrong way <span class="ev ev-e">evidence: Petrov et al. 2025</span></td><td>Safeguards cut the learning loss <span class="ev ev-e">evidence: Bastani et al. 2025</span></td><td>Who is responsible when the hint is wrong?</td><td>How does a student prove a hint misled them?</td></tr>
+        <tr><td>May carry the risk</td><td>Students (integrity cases, weaker skills); the instructor (grade validity)</td><td>Clear rules on what's allowed</td><td>A wrong hint sends a student the wrong way <span class="ev ev-e">evidence: Petrov et al. 2025</span></td><td>Safeguards cut the learning loss <span class="ev ev-e">evidence: Bastani et al. 2025</span></td><td>Responsibility for a wrong hint: <b>the instructor</b>, who adopts the tool and reviews disputed hints</td><td>Will students mark "Not sure" honestly, or just accept every hint?</td></tr>
       </tbody>
     </table></div>
   </section>
@@ -277,16 +278,16 @@ Prove: the base angles of an isosceles triangle are congruent.
         <li>Keeps no record except the log below, in this browser only</li>
       </ul></div>
       <div><span class="eyebrow">What the human has to do</span><ul>
-        <li><b>Student:</b> write the draft first; check each hint against the theorem list; tick the log if a hint wrote a step</li>
+        <li><b>Student:</b> write the draft first; mark each hint Agree, Not sure or Disagree; flag any hint that wrote a step</li>
         <li><b>Student:</b> defend the proof at the board in Step 4, with no AI</li>
-        <li><b>Instructor:</b> read the hint log with the submission and grade every proof</li>
+        <li><b>Instructor:</b> review every Not sure or Disagree hint within 48 hours, before the Step 4 defense; grade every proof</li>
         <li><b>Instructor:</b> offer the checklist and office hours as the no-AI route</li>
       </ul></div>
     </div>
     <div class="screen-only" style="display:flex;flex-direction:column;gap:8px">
       <span class="eyebrow">Hint log (this browser)</span>
       <div class="tbl"><table class="runs">
-        <thead><tr><th>Run</th><th>Time</th><th>Model</th><th>Reply time</th><th>Checked vs theorem list?</th><th>Hint wrote a step?</th></tr></thead>
+        <thead><tr><th>Run</th><th>Time</th><th>Model</th><th>Reply time</th><th>Your verdict</th><th>Hint wrote a step?</th></tr></thead>
         <tbody id="run-log"><tr><td colspan="6" class="note">No runs yet. Every reply from Proof check is logged here.</td></tr></tbody>
       </table></div>
     </div>
@@ -340,13 +341,13 @@ const R = [
    goal:"Find and fix gaps in your own reasoning.",
    act:"The student pastes their draft into Proof check, gets a hint about the first weak step, and revises it themselves.",
    out:"Revised proof + hint log",
-   people:[["ST","Pastes the draft; decides if the hint is right"],["IN","Reads the hint log later"],["NA","Uses the checklist and office hours instead"]],
+   people:[["ST","Pastes the draft; marks each hint Agree, Not sure or Disagree"],["IN","Reviews every Not sure or Disagree hint before Step 4"],["NA","Uses the checklist and office hours instead"]],
    ai:"insert", aiText:"AI insertion point. A language model names the first step that needs a better reason, and the kind of theorem to review. It never writes a step.",
    aiIn:"The student's own draft proof (2+ steps) and the theorem",
    aiOut:"One hint: which step, and what kind of reason is missing",
-   hand:{verify:"Student checks the hint against the theorem list before changing anything", override:"Student can ignore any hint; the instructor decides what's correct", fail:"A wrong or step-giving hint is flagged in the log; the instructor rules on it"},
+   hand:{verify:"The student marks each hint Agree, Not sure or Disagree. A struggling student can't reliably spot a wrong hint, so they aren't the last check.", override:"The instructor reviews every Not sure or Disagree hint within 48 hours, before the Step 4 defense, and rules on it", fail:"A wrong or step-giving hint is logged; the instructor tells the student and adds it to the tool's test set"},
    human:false,
-   formal:["ST","Decides whether to accept the hint and how to revise"], informal:["ST","The tool's choice of 'first gap' steers what gets revised"],
+   formal:["IN","Rules on any disputed hint; the student still decides how to revise"], informal:["ST","The tool's choice of 'first gap' steers what gets revised"],
    evidence:"Hint log submitted with the proof."},
   {n:4, x:850, y:450, shape:"square", title:"Defend", sub:"Proof at the board",
    goal:"Explain and defend a proof out loud.",
@@ -442,12 +443,12 @@ R.forEach(r=>{
 });
 const r3=R[2],r4=R[3];
 el("path",{d:`M${r3.x+114},${r3.y-72} L${r3.x+92},${r3.y-50}`,fill:"none",stroke:"var(--hand)","stroke-width":3,"stroke-dasharray":"5 3","marker-end":"url(#arrH)"},LH);
-el("text",{x:r3.x+156,y:r3.y-52,"font-size":11,"font-weight":700,fill:"var(--hand)"},LH).textContent="① Student checks the hint";
-el("text",{x:r3.x+170,y:r3.y-37,"font-size":11,fill:"var(--hand)"},LH).textContent="against the theorem list";
+el("text",{x:r3.x+156,y:r3.y-52,"font-size":11,"font-weight":700,fill:"var(--hand)"},LH).textContent="① Student marks the hint";
+el("text",{x:r3.x+170,y:r3.y-37,"font-size":11,fill:"var(--hand)"},LH).textContent="Agree / Not sure / Disagree";
 el("path",{d:`M${r3.x+104},${r3.y+20} C${r3.x+170},${r3.y+60} ${r4.x-150},${r4.y-140} ${r4.x-92},${r4.y-70}`,fill:"none",stroke:"var(--hand)","stroke-width":3,"stroke-dasharray":"6 4","marker-end":"url(#arrH)"},LH);
-el("text",{x:r3.x+196,y:r3.y+100,"font-size":11,"font-weight":700,fill:"var(--hand)"},LH).textContent="② Instructor reads the hint log";
-el("text",{x:r3.x+196,y:r3.y+115,"font-size":11,fill:"var(--hand)"},LH).textContent="Can override any hint";
-el("text",{x:r3.x+196,y:r3.y+130,"font-size":11,fill:"var(--hand)"},LH).textContent="Bad hint → flagged, instructor rules";
+el("text",{x:r3.x+196,y:r3.y+100,"font-size":11,"font-weight":700,fill:"var(--hand)"},LH).textContent="② Not sure or Disagree → instructor";
+el("text",{x:r3.x+196,y:r3.y+115,"font-size":11,fill:"var(--hand)"},LH).textContent="Reviewed within 48 h, before Step 4";
+el("text",{x:r3.x+196,y:r3.y+130,"font-size":11,fill:"var(--hand)"},LH).textContent="Wrong hint → logged, student told";
 
 document.querySelectorAll(".chip").forEach(b=>b.addEventListener("click",()=>{const on=b.getAttribute("aria-pressed")!=="true";b.setAttribute("aria-pressed",on);document.getElementById("L-"+b.dataset.layer).classList.toggle("off",!on)}));
 
@@ -483,8 +484,9 @@ const log=document.getElementById("chat-log"),form=document.getElementById("chat
 let chat=store.get("m140-chat",[]),runs=store.get("m140-runs",[]);
 function addMsg(cls,text){const d=document.createElement("div");d.className="msg "+cls;d.textContent=text;log.appendChild(d);log.scrollTop=log.scrollHeight;return d}
 function drawRuns(){if(!runs.length)return;runBody.innerHTML="";runs.forEach((r,i)=>{const tr=document.createElement("tr");
-  tr.innerHTML=`<td>#${i+1}</td><td>${new Date(r.at).toLocaleString([], {month:"short",day:"numeric",hour:"numeric",minute:"2-digit"})}</td><td class="mono">${r.model||"unknown"}</td><td>${r.secs}s</td><td><label><input type="checkbox" data-k="checked" ${r.checked?"checked":""}> Checked</label></td><td><label><input type="checkbox" data-k="leaked" ${r.leaked?"checked":""}> Yes, flag it</label></td>`;
-  tr.querySelectorAll("input").forEach(c=>c.addEventListener("change",e=>{r[e.target.dataset.k]=e.target.checked;store.set("m140-runs",runs)}));runBody.appendChild(tr)})}
+  tr.innerHTML=`<td>#${i+1}</td><td>${new Date(r.at).toLocaleString([], {month:"short",day:"numeric",hour:"numeric",minute:"2-digit"})}</td><td class="mono">${r.model||"unknown"}</td><td>${r.secs}s</td><td><select data-k="verdict" aria-label="Your verdict on run ${i+1}"><option value="">Choose…</option><option>Agree</option><option>Not sure</option><option>Disagree</option></select>${r.verdict==="Not sure"||r.verdict==="Disagree"?' <span class="note">→ instructor review</span>':""}</td><td><label><input type="checkbox" data-k="leaked" ${r.leaked?"checked":""}> Yes, flag it</label></td>`;
+  const sel=tr.querySelector("select");sel.value=r.verdict||"";sel.addEventListener("change",e=>{r.verdict=e.target.value;store.set("m140-runs",runs);drawRuns()});
+  tr.querySelector("input").addEventListener("change",e=>{r.leaked=e.target.checked;store.set("m140-runs",runs)});runBody.appendChild(tr)})}
 chat.forEach(m=>addMsg(m.role==="user"?"user":"ai",m.content));drawRuns();
 form.addEventListener("submit",async e=>{e.preventDefault();const text=input.value.trim();if(!text||sendBtn.disabled)return;
   chat.push({role:"user",content:text});addMsg("user",text);input.value="";store.set("m140-chat",chat);
@@ -492,7 +494,7 @@ form.addEventListener("submit",async e=>{e.preventDefault();const text=input.val
   try{const r=await fetch("/api/proof-check",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({messages:chat})});
     const data=await r.json().catch(()=>({error:"The server sent back something unreadable. Try again."}));
     if(!r.ok||data.error){wait.remove();chat.pop();store.set("m140-chat",chat);addMsg("err",(data.error||"Proof check didn't respond.")+" Your draft is back in the box; send it again.");input.value=text}
-    else{wait.textContent=data.reply;chat.push({role:"assistant",content:data.reply});store.set("m140-chat",chat);runs.push({at:Date.now(),model:data.model,secs:Math.round((Date.now()-t0)/1000),checked:false,leaked:false});store.set("m140-runs",runs);drawRuns()}
+    else{wait.textContent=data.reply;chat.push({role:"assistant",content:data.reply});store.set("m140-chat",chat);runs.push({at:Date.now(),model:data.model,secs:Math.round((Date.now()-t0)/1000),verdict:"",leaked:false});store.set("m140-runs",runs);drawRuns()}
   }catch(err){wait.remove();chat.pop();store.set("m140-chat",chat);addMsg("err","Couldn't reach Proof check. Check your connection and send again.");input.value=text}
   finally{sendBtn.disabled=false;sendBtn.textContent="Check my proof";log.scrollTop=log.scrollHeight}});
 document.getElementById("chat-clear").addEventListener("click",()=>{chat=[];store.set("m140-chat",chat);log.querySelectorAll(".msg:not(:first-child)").forEach(n=>n.remove())});
