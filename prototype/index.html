@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Hint Helper Prototype</title>
+<style>
+:root{
+  --ground:#EDF0F3; --paper:#FAFBFC; --ink:#1A1F2B; --muted:#586174; --rule:#C9D0DA;
+  --ai:#2447D6; --ai-soft:#DDE3FA; --stop:#AE2F2F; --stop-soft:#F4DCDB;
+  --human:#2B6A3D; --human-soft:#D7E9DB; --hand:#B06F14; --hand-soft:#F6E7CF;
+  --display:"Avenir Next","Helvetica Neue",Arial,sans-serif;
+  --body:Charter,"Iowan Old Style",Georgia,serif;
+  --mono:ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --ground:#12151C; --paper:#191D26; --ink:#E4E8EF; --muted:#98A1B2; --rule:#2F3542;
+    --ai:#8199FF; --ai-soft:#1F2850; --stop:#F07C70; --stop-soft:#4A2322;
+    --human:#79C48B; --human-soft:#1E3A26; --hand:#E3A94A; --hand-soft:#3D2E14;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --ground:#12151C; --paper:#191D26; --ink:#E4E8EF; --muted:#98A1B2; --rule:#2F3542;
+  --ai:#8199FF; --ai-soft:#1F2850; --stop:#F07C70; --stop-soft:#4A2322;
+  --human:#79C48B; --human-soft:#1E3A26; --hand:#E3A94A; --hand-soft:#3D2E14;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--body);font-size:18px;line-height:1.5;padding-inline:clamp(16px,4vw,40px);padding-block:24px 64px}
+.wrap{max-width:980px;margin:0 auto;display:flex;flex-direction:column;gap:20px}
+h1,h2,h3{font-family:var(--display);line-height:1.1;margin:0;text-wrap:balance}
+h1{font-size:clamp(28px,4.5vw,44px);letter-spacing:-.02em}
+h2{font-size:24px}
+p{margin:0}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.panel{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:20px 22px;display:flex;flex-direction:column;gap:14px}
+.banner{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;font-size:15px}
+.pill{font-family:var(--mono);font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;padding:4px 9px;border-radius:4px;font-weight:600}
+.p-sim{background:var(--hand-soft);color:var(--hand)} .p-off{background:var(--stop-soft);color:var(--stop)} .p-safe{background:var(--human-soft);color:var(--human)}
+.steps{display:flex;flex-wrap:wrap;gap:6px;font-family:var(--mono);font-size:12px;color:var(--muted)}
+.steps span{padding:4px 9px;border:1px solid var(--rule);border-radius:999px}
+.steps span.on{background:var(--ink);color:var(--ground);border-color:var(--ink)}
+.choices{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+button{font:inherit;cursor:pointer}
+.big{font-family:var(--display);font-weight:700;font-size:18px;text-align:left;background:var(--paper);color:var(--ink);border:2px solid var(--ink);border-radius:8px;padding:16px 18px;display:flex;flex-direction:column;gap:6px}
+.big small{font-family:var(--body);font-weight:400;font-size:15.5px;color:var(--muted)}
+.big:hover{background:var(--ground)}
+.big.ai{border-color:var(--ai)} .big.noai{border-color:var(--human)}
+.btn{font-family:var(--display);font-weight:700;font-size:15.5px;border:0;border-radius:6px;padding:11px 18px;background:var(--ink);color:var(--ground)}
+.btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--ink)}
+.btn.warn{background:transparent;color:var(--stop);border:1.5px solid var(--stop)}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+button:focus-visible,textarea:focus-visible,input:focus-visible{outline:3px solid var(--ai);outline-offset:2px}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.proof{font-family:var(--mono);font-size:15px;border:1px solid var(--rule);border-radius:6px;overflow:hidden}
+.proof div{display:grid;grid-template-columns:28px 1fr 1fr;gap:10px;padding:8px 12px;border-top:1px solid var(--rule)}
+.proof div:first-child{border-top:0;background:var(--ground);font-weight:600}
+.proof .weak{background:var(--hand-soft)}
+.hint{border-left:4px solid var(--ai);background:var(--ai-soft);border-radius:6px;padding:14px 16px;display:flex;flex-direction:column;gap:8px}
+.verdicts{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px}
+.verdicts label{display:flex;gap:10px;align-items:center;border:1.5px solid var(--rule);border-radius:6px;padding:10px 12px;cursor:pointer;font-family:var(--display);font-weight:600}
+.verdicts input{width:18px;height:18px;accent-color:var(--ink)}
+textarea,input[type=text]{width:100%;font:inherit;font-size:16px;padding:10px;border:1px solid var(--rule);border-radius:6px;background:var(--ground);color:var(--ink)}
+textarea{min-height:70px}
+.msg{border-radius:6px;padding:12px 14px;font-size:16.5px}
+.m-stop{background:var(--stop-soft);color:var(--stop)} .m-ok{background:var(--human-soft);color:var(--human)} .m-hand{background:var(--hand-soft);color:var(--hand)}
+ul.check{list-style:none;padding:0;margin:0;display:grid;gap:8px}
+ul.check label{display:flex;gap:10px;align-items:flex-start;cursor:pointer}
+ul.check input{width:18px;height:18px;margin-top:4px;accent-color:var(--human)}
+.rules{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:6px 18px;font-size:16px;margin:0;padding-left:20px}
+.queue{font-size:15.5px;display:grid;gap:8px}
+.queue .item{border:1px solid var(--rule);border-radius:6px;padding:10px 12px;display:flex;flex-direction:column;gap:4px}
+.note{font-size:15px;color:var(--muted)}
+.side{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header style="display:flex;flex-direction:column;gap:10px">
+    <p class="eyebrow">DIGI 230 · Milestone 3 · First build slice · MATH 140 Constructions &amp; Proof</p>
+    <h1>Hint Helper: practice prototype</h1>
+    <div class="banner">
+      <span class="pill p-sim">Simulated hints</span><span>Every hint here was written ahead of time by our team. No real AI is running.</span>
+    </div>
+    <div class="banner">
+      <span class="pill p-off">Live AI: off</span><span>We haven't checked where the backup AIs keep data yet, so they stay off.</span>
+    </div>
+    <div class="banner">
+      <span class="pill p-safe">Your data</span><span>Goes nowhere. Nothing is saved or sent. <b>Start over</b> clears everything.</span>
+    </div>
+  </header>
+
+  <div class="steps" id="steps" aria-label="Where you are"></div>
+
+  <main class="panel" id="screen" aria-live="polite"></main>
+
+  <div class="side">
+    <section class="panel">
+      <h2>Teacher's check list</h2>
+      <p class="note">Hints you mark <b>Not sure</b> or <b>I disagree</b> land here. In the real class, the teacher checks each one within 2 days, before you present. <b>In this demo, nobody actually sees it.</b></p>
+      <div class="queue" id="queue"><p class="note">Empty so far.</p></div>
+    </section>
+    <section class="panel">
+      <h2>Demo controls</h2>
+      <p class="note">These help testers try the hard cases.</p>
+      <div class="row">
+        <button class="btn warn" id="fail" type="button">Pretend the helper is broken</button>
+        <button class="btn ghost" id="reset" type="button">Start over (clear everything)</button>
+      </div>
+      <p class="note" id="status"></p>
+    </section>
+  </div>
+</div>
+
+<script>
+// Constructed practice proofs only. No real student work.
+const PROOFS = [
+  {id:"iso", name:"Isosceles triangle", goal:"In triangle ABC, if AB = AC, then angle B = angle C.",
+   steps:[["AB = AC","Given"],["Draw AD, cutting angle A in half","You can always cut an angle in half"],["Angle BAD = angle CAD","That's what cutting in half means"],["AD = AD","Anything equals itself"],["Triangle ABD and triangle ACD are the same shape and size","Two sides and the angle between them match (SAS)"],["Angle B = angle C","They look equal"]],
+   weak:6, hint:"Look at step 6. \"They look equal\" is a picture reason, not a math reason. Look back at step 5: what did you prove there? Check your rule list for what that lets you say about the matching parts.", q:"Which angle in triangle ACD matches angle B?"},
+  {id:"vert", name:"Crossing lines", goal:"When two lines cross, angle 1 = angle 3 (they're across from each other).",
+   steps:[["Angles 1 and 2 sit side by side on a straight line","Given"],["Angle 1 + angle 2 = 180°","Angles on a straight line add to 180°"],["Angles 2 and 3 sit side by side on a straight line","Given"],["Angle 2 + angle 3 = 180°","Angles on a straight line add to 180°"],["Angle 1 + angle 2 = angle 2 + angle 3","(no reason written)"],["Angle 1 = angle 3","Take angle 2 away from both sides"]],
+   weak:5, hint:"Step 5 has no reason yet. Look at steps 2 and 4: they both equal the same number. Check your rule list for a rule about two things that equal the same thing.", q:"What do steps 2 and 4 have in common?"},
+  {id:"short", name:"Just started", goal:"In triangle ABC, if AB = AC, then angle B = angle C.",
+   steps:[["AB = AC","Given"]], weak:0, hint:null},
+  {id:"done", name:"A finished proof", goal:"If angle A = angle B and angle B = angle C, then angle A = angle C.",
+   steps:[["Angle A = angle B","Given"],["Angle B = angle C","Given"],["Angle A = angle C","If two things equal the same thing, they equal each other"]],
+   weak:0, hint:"I didn't spot a weak reason. But I can't tell you a proof is correct; only your teacher can. Check each reason against your rule list one more time.", q:"Can you explain step 3 out loud in your own words?"}
+];
+const RULES = ["Given (the problem tells you)","Anything equals itself","If two things equal the same thing, they equal each other","Take the same amount away from both sides","Angles on a straight line add to 180°","Cutting an angle in half makes two equal angles","SAS, SSS, ASA: when two triangles are the same shape and size","Matching parts of same-shape-and-size triangles are equal (CPCTC)"];
+const REFUSE = /\b(grade|score|points?|pass|fail|an? a\b|correct|right|ready|answer|solve|finish|complete|write|next step|do it|for me)\b/i;
+
+// All state lives in this one object, in memory. Nothing is saved.
+let S;
+function fresh(){return {screen:"path",path:null,proof:null,broken:false,verdict:null,reason:"",queue:[],stopped:{},checks:{}}}
+S=fresh();
+
+const $=id=>document.getElementById(id);
+const esc=t=>String(t).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const STEP_NAMES={path:"1 Pick a way",pick:"2 Pick a proof",hint:"3 Read the hint",review:"4 Decide",fix:"5 Fix it yourself",checklist:"3 Use the rule list",refused:"Helper said no",broken:"Helper broken",stopped:"Stopped",board:"Last: explain at the board"};
+function drawSteps(){
+  const order=S.path==="noai"?["path","pick","checklist","fix","board"]:["path","pick","hint","review","fix","board"];
+  $("steps").innerHTML=order.map(k=>`<span class="${k===S.screen?"on":""}">${STEP_NAMES[k]}</span>`).join("")+(order.includes(S.screen)?"":`<span class="on">${STEP_NAMES[S.screen]}</span>`);
+}
+function proofTable(p,showWeak){
+  return `<div class="proof" role="table" aria-label="Practice proof"><div role="row"><span>#</span><span>Statement</span><span>Reason</span></div>${p.steps.map((s,i)=>`<div role="row" class="${showWeak&&p.weak===i+1?"weak":""}"><span>${i+1}</span><span>${esc(s[0])}</span><span>${esc(s[1])}</span></div>`).join("")}</div>`;
+}
+function rulesCard(){return `<div class="panel" style="background:var(--ground)"><h3>Rule list (no AI)</h3><ol class="rules">${RULES.map(r=>`<li>${esc(r)}</li>`).join("")}</ol>
+  <p><b>Check each step:</b> Does it have a reason? Is the reason a <b>rule</b>, not a picture? Does it follow from the steps before it?</p></div>`}
+function askBox(){return `<div style="display:flex;flex-direction:column;gap:8px"><label for="ask" class="note">Ask the helper something (for testing what it refuses):</label>
+  <div class="row"><input type="text" id="ask" placeholder="e.g. Is my proof ready for an A?" style="flex:1 1 260px" autocomplete="off"><button class="btn ghost" id="askBtn" type="button">Ask</button></div></div>`}
+
+function render(){
+  drawSteps();
+  const m=$("screen"), p=S.proof&&PROOFS.find(x=>x.id===S.proof);
+  if(S.screen==="path"){
+    m.innerHTML=`<h2>How do you want to check your proof?</h2>
+    <div class="choices">
+      <button class="big ai" data-path="ai" type="button">Get a hint from the helper<small>It points at one weak step and asks you a question. It never writes steps or gives grades.</small></button>
+      <button class="big noai" data-path="noai" type="button">Use the rule list (no AI)<small>Check each step yourself with a printed list of rules. It counts exactly the same.</small></button>
+    </div>`;
+    m.querySelectorAll("[data-path]").forEach(b=>b.onclick=()=>{S.path=b.dataset.path;S.screen="pick";render()});
+  }
+  else if(S.screen==="pick"){
+    m.innerHTML=`<h2>Pick a practice proof</h2><p class="note">These are made-up practice proofs. Never paste real classwork into a demo.</p>
+    <div class="choices">${PROOFS.map(x=>`<button class="big" data-proof="${x.id}" type="button">${esc(x.name)}<small>${esc(x.goal)} · ${x.steps.length} step${x.steps.length>1?"s":""}</small></button>`).join("")}</div>
+    <div class="row"><button class="btn ghost" data-back type="button">Back</button></div>`;
+    m.querySelectorAll("[data-proof]").forEach(b=>b.onclick=()=>{S.proof=b.dataset.proof;S.verdict=null;S.reason="";
+      if(S.path==="noai"){S.screen="checklist"}
+      else if(S.broken){S.screen="broken"}
+      else if(S.stopped[S.proof]){S.screen="stopped"}
+      else{S.screen="hint"}
+      render()});
+    m.querySelector("[data-back]").onclick=()=>{S.screen="path";S.path=null;render()};
+  }
+  else if(S.screen==="hint"){
+    if(p.steps.length<2){
+      m.innerHTML=`<h2>${esc(p.name)}</h2><p><b>Prove:</b> ${esc(p.goal)}</p>${proofTable(p,false)}
+      <div class="msg m-hand"><b>The helper says:</b> Please write at least 2 steps yourself first. Then I can point at one weak spot. I won't start the proof for you.</div>
+      <div class="row"><button class="btn ghost" data-pick type="button">Pick another proof</button><button class="btn ghost" data-list type="button">Use the rule list instead</button></div>`;
+    } else {
+      m.innerHTML=`<h2>${esc(p.name)}</h2><p><b>Prove:</b> ${esc(p.goal)}</p>${proofTable(p,true)}
+      <div class="hint"><span class="pill p-sim" style="align-self:flex-start">Simulated hint · written ahead of time</span>
+        <p>${esc(p.hint)}</p>${p.q?`<p><b>Question for you:</b> ${esc(p.q)}</p>`:""}
+        <p class="note">This hint could be wrong. Check it against your rule list. Your teacher decides what's correct.</p></div>
+      ${askBox()}
+      <div class="row" id="hintRow"><button class="btn" data-review type="button">Next: decide about this hint</button><button class="btn warn" data-leak type="button">This hint gave away a step</button></div>`;
+      m.querySelector("[data-review]").onclick=()=>{S.screen="review";render()};
+      m.querySelector("[data-leak]").onclick=()=>{S.stopped[p.id]=true;S.queue.push({proof:p.name,verdict:"STOP",reason:"Student says the hint gave away a step. The helper is stopped for this proof."});S.screen="stopped";render()};
+      wireAsk();
+    }
+    m.querySelector("[data-pick]")&&(m.querySelector("[data-pick]").onclick=()=>{S.screen="pick";render()});
+    m.querySelector("[data-list]")&&(m.querySelector("[data-list]").onclick=()=>{S.path="noai";S.screen="checklist";render()});
+  }
+  else if(S.screen==="review"){
+    m.innerHTML=`<h2>What do you think of the hint?</h2><p>You're the first check. <b>You must pick one and say why</b> before you can go on.</p>
+    <div class="hint"><span class="pill p-sim" style="align-self:flex-start">Simulated hint</span><p>${esc(p.hint)}</p></div>
+    <fieldset style="border:0;padding:0;margin:0"><legend class="note" style="margin-bottom:8px">Your choice</legend>
+    <div class="verdicts">${["Makes sense","Not sure","I disagree"].map(v=>`<label><input type="radio" name="v" value="${v}" ${S.verdict===v?"checked":""}> ${v}</label>`).join("")}</div></fieldset>
+    <label for="why" class="note">Why? (at least 10 letters)</label><textarea id="why" placeholder="In your own words…">${esc(S.reason)}</textarea>
+    <div class="row"><button class="btn" id="decide" type="button" disabled>Done</button><button class="btn ghost" data-back type="button">Back to the hint</button></div>
+    <p class="note" id="gate">Pick a choice and write a reason to unlock Done.</p>`;
+    const upd=()=>{S.verdict=(m.querySelector("input[name=v]:checked")||{}).value||null;S.reason=$("why").value;const ok=!!S.verdict&&S.reason.trim().length>=10;$("decide").disabled=!ok;$("gate").textContent=ok?"Ready.":"Pick a choice and write a reason to unlock Done."};
+    m.querySelectorAll("input[name=v]").forEach(r=>r.onchange=upd);$("why").oninput=upd;upd();
+    $("decide").onclick=()=>{if($("decide").disabled)return;
+      if(S.verdict!=="Makes sense"){S.queue.push({proof:p.name,verdict:S.verdict,reason:S.reason.trim()});}
+      S.screen="fix";render()};
+    m.querySelector("[data-back]").onclick=()=>{S.screen="hint";render()};
+  }
+  else if(S.screen==="checklist"){
+    m.innerHTML=`<h2>${esc(p.name)}: check it with the rule list</h2><p><b>Prove:</b> ${esc(p.goal)}</p>${proofTable(p,false)}${rulesCard()}
+    <div class="row"><button class="btn" data-fix type="button">Next: fix it yourself</button><button class="btn ghost" data-pick type="button">Pick another proof</button></div>`;
+    m.querySelector("[data-fix]").onclick=()=>{S.screen="fix";render()};
+    m.querySelector("[data-pick]").onclick=()=>{S.screen="pick";render()};
+  }
+  else if(S.screen==="fix"){
+    const sent=S.path==="ai"&&S.verdict&&S.verdict!=="Makes sense";
+    const items=["I wrote my fix myself, in my notebook","My new reason is a rule from the rule list, not a picture","I can explain this step out loud"];
+    m.innerHTML=`<h2>Fix it yourself</h2>
+    ${sent?`<div class="msg m-hand">You marked this hint <b>${esc(S.verdict)}</b>, so it went to the teacher's check list. <b>Don't use it</b> until your teacher says it's OK. It is <b>not</b> in your fix list below.</div>`:""}
+    ${S.path==="ai"&&S.verdict==="Makes sense"?`<div class="msg m-ok">You said the hint makes sense. The helper still didn't write anything. The fix is yours to write.</div>`:""}
+    <ul class="check">${items.map((t,i)=>`<li><label><input type="checkbox" id="c${i}" ${S.checks[i]?"checked":""}> <span>${t}</span></label></li>`).join("")}</ul>
+    <div class="row"><button class="btn" data-board type="button">Next: explain it at the board</button><button class="btn ghost" data-pick type="button">Try another proof</button></div>`;
+    m.querySelectorAll("ul.check input").forEach((c,i)=>c.onchange=()=>{S.checks[i]=c.checked});
+    m.querySelector("[data-board]").onclick=()=>{S.screen="board";render()};
+    m.querySelector("[data-pick]").onclick=()=>{S.screen="pick";S.checks={};render()};
+  }
+  else if(S.screen==="board"){
+    m.innerHTML=`<h2>Last stop: explain it at the board</h2><p>This part has <b>no AI</b>. You explain your proof out loud, and your partner asks "why?" If you can explain it, you learned it.</p>
+    <p class="note">This is where the demo ends. The real class continues with the board talk and the no-computer quiz.</p>
+    <div class="row"><button class="btn ghost" data-pick type="button">Try another proof</button></div>`;
+    m.querySelector("[data-pick]").onclick=()=>{S.screen="pick";S.checks={};render()};
+  }
+  else if(S.screen==="refused"){
+    m.innerHTML=`<h2>The helper said no</h2><div class="msg m-stop"><b>I can't do that.</b> I don't give grades, say if a proof is right, or write steps. I can only point at one weak spot in a proof you wrote.</div>
+    <p>You can use the rule list instead, or ask your teacher.</p>
+    <div class="row"><button class="btn ghost" data-hint type="button">Back to the hint</button><button class="btn ghost" data-list type="button">Use the rule list instead</button></div>`;
+    m.querySelector("[data-hint]").onclick=()=>{S.screen="hint";render()};
+    m.querySelector("[data-list]").onclick=()=>{S.path="noai";S.screen="checklist";render()};
+  }
+  else if(S.screen==="broken"){
+    m.innerHTML=`<h2>The helper isn't working right now</h2><div class="msg m-stop">No hint came back. That's OK: you can still do this step without AI.</div>
+    <div class="row"><button class="btn" data-list type="button">Use the rule list instead</button></div>`;
+    m.querySelector("[data-list]").onclick=()=>{S.path="noai";S.screen="checklist";render()};
+  }
+  else if(S.screen==="stopped"){
+    m.innerHTML=`<h2>Stopped</h2><div class="msg m-stop">You said a hint gave away a step. The helper is <b>stopped for this proof</b>, and your teacher has been told (in this demo: added to the teacher's check list).</div>
+    <div class="row"><button class="btn" data-list type="button">Finish with the rule list</button></div>`;
+    m.querySelector("[data-list]").onclick=()=>{S.path="noai";S.screen="checklist";render()};
+  }
+  $("queue").innerHTML=S.queue.length?S.queue.map(q=>`<div class="item"><b>${esc(q.proof)} · ${esc(q.verdict)}</b><span>${esc(q.reason)}</span></div>`).join(""):`<p class="note">Empty so far.</p>`;
+  $("status").textContent=S.broken?"Helper is pretending to be broken.":"";
+  $("fail").textContent=S.broken?"Fix the helper again":"Pretend the helper is broken";
+}
+function wireAsk(){
+  const go=()=>{const v=$("ask").value.trim();if(!v)return;
+    if(REFUSE.test(v)){$("ask").value="";S.screen="refused";render();return}
+    $("ask").value="";const m=$("screen");const n=document.createElement("div");n.className="msg m-hand";
+    n.innerHTML="<b>The helper says:</b> In this demo I only talk about the practice proofs. Look at the hint above, or use the rule list.";
+    m.insertBefore(n,$("hintRow"));};
+  $("askBtn").onclick=go;$("ask").onkeydown=e=>{if(e.key==="Enter"){e.preventDefault();go()}};
+}
+$("fail").onclick=()=>{S.broken=!S.broken;if(S.broken&&S.screen==="hint")S.screen="broken";render()};
+$("reset").onclick=()=>{S=fresh();render()};
+render();
+</script>
+</body>
+</html>
