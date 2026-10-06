@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How We Made It</title>
+<style>html,body{margin:0;height:100%;background:#0E1430;display:grid;place-items:center}canvas{display:block;width:100%;height:auto;max-height:100vh;aspect-ratio:16/9;cursor:pointer}</style>
+</head><body><canvas aria-label="Animation: a timeline of what our team decided and what the AI built"></canvas>
+<script>
+window.SCENE = {
+
+n:"A", emoji:"📜", name:"How we made it", dur:20,
+captions:[[0.3,3,"This is how we made the project."],[3,8,"1. We chose the rules. We made the decisions."],[8,13,"2. The AI wrote the code and the videos."],[13,17,"3. We wrote down every prompt and every test."],[17,20,"Nothing is hidden. 🌸"]],
+draw(t){
+  const dim=t>17?1-0.6*prog(t,17,17.6):1;
+  line(640,150,640,560,prog(t,0.8,2.4),"rgba(255,255,255,.35)",3);
+  label("🧑‍🎓 Our team",420,140,prog(t,1.2,2)*dim,C.pink,`700 26px ${SANS}`);
+  label("🤖 AI (Claude)",860,140,prog(t,1.2,2)*dim,C.cyan,`700 26px ${SANS}`);
+  const rows=[["Sep 24","Picked the class","Built the first map"],["Sep 29","Switched to MATH 140","Built the new map"],["Oct 1","Named the teacher responsible","Ran 3 hint tests"],["Oct 6","Asked for kid-friendly words","Built the helper + videos"]];
+  rows.forEach(([d,us,ai],i)=>{const y=210+i*92, a=prog(t,2.6+i*0.9,3.2+i*0.9)*dim, b=prog(t,7.6+i*0.9,8.2+i*0.9)*dim;
+    dot(640,y,a,C.ink,8); label(d,640,y-26,a,C.dim,`600 16px ${SANS}`);
+    g.font=`600 21px ${SANS}`; const w1=g.measureText(us).width+36, w2=g.measureText(ai).width+36;
+    box(612-w1,y-22,w1,44,22,"rgba(255,95,162,.16)",C.pink,a,2); label(us,612-w1/2,y,a,C.ink,`600 21px ${SANS}`);
+    box(668,y-22,w2,44,22,"rgba(34,211,238,.14)",C.cyan,b,2); label(ai,668+w2/2,y,b,C.ink,`600 21px ${SANS}`);});
+  const k=prog(t,13.2,16); const z=fade(t,13,13.6)*dim;
+  box(330,520,620,64,32,"rgba(79,123,255,.18)",C.blue,z,2);
+  label(`📜 ${Math.round(30*k)} prompts  ·  ${Math.round(34*k)} test checks  ·  ${Math.round(3*k)} sources`,640,552,z,C.ink,`700 24px ${SANS}`);
+  const c=prog(t,17.4,18.4); if(c>0){g.strokeStyle=C.pink;g.lineWidth=14;g.lineCap="round";g.beginPath();g.moveTo(560,360);g.lineTo(560+60*Math.min(1,c*2),360+60*Math.min(1,c*2));if(c>0.5)g.lineTo(620+140*(c-0.5)*2,420-160*(c-0.5)*2);g.stroke();}
+}
+};
+</script>
+<script src="engine.js"></script>
+</body></html>

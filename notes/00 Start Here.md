@@ -49,6 +49,9 @@ Each part of the class is a garden stage.
 | **8** | 📗 Answers to every question | [00 Garden Guide (live)](00%20Garden%20Guide%20%28live%29.md) |
 | **9** | Due dates | [Milestones Index](01%20Milestones/Milestones%20Index.md) |
 | **10** | What we turn in | [Deliverables Index](04%20Deliverables%20%26%20Submissions/Deliverables%20Index.md) |
+| **11** | 📜 **Our full disclosure** | [00-start-here (disclosure)](06%20Disclosure/00-start-here%20%28disclosure%29.md) |
+| **12** | 🎥 **Professor interview kit** | [Professor Interview Kit](Professor%20Interview%20Kit.md) |
+| **13** | 🗓️ **Plan, trial and metrics** | [White Paper - Plan, Trial and Metrics](White%20Paper%20-%20Plan%2C%20Trial%20and%20Metrics.md) |
 
 ## 🔗 Links
 - 🗺️ **Live map:** https://math140-course-map.vercel.app

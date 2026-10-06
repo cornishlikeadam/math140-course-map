@@ -26,6 +26,13 @@ Each video is about **20 seconds**. 🎥 The MP4 files are in [`explainers/media
 > [!TIP]
 > 💧 **A little water helps a plant grow. Too much water drowns it.** A small hint helps. A hint that gives the answer is too much.
 
+## 📜 Disclosure, interview, and plan
+| # | Page | Video |
+|---|---|---|
+| **A** | 📜 **How we made it.** Our full disclosure, in the AI 101 order. Every prompt and source. → [`notes/06 Disclosure/`](notes/06%20Disclosure/) | ![How we made it](explainers/media/extra6.gif) |
+| **B** | 🎥 **Professor interview kit.** Consent script, 20 questions, a place for the video. → [`notes/Professor Interview Kit.md`](notes/Professor%20Interview%20Kit.md) | ![Interview](explainers/media/extra7.gif) |
+| **C** | 🗓️ **White paper.** The 6-week plan, the trial class, what we measure, and the quick syllabus. → [`notes/White Paper - Plan, Trial and Metrics.md`](notes/White%20Paper%20-%20Plan,%20Trial%20and%20Metrics.md) | ![Plan](explainers/media/extra8.gif) |
+
 ## 🌱 The 5 stops
 | # | Stop | What happens | AI? | Boss |
 |---|---|---|---|---|
@@ -51,8 +58,8 @@ Each video is about **20 seconds**. 🎥 The MP4 files are in [`explainers/media
 | **1** | `index.html` | 🗺️ The map. **Simple words** and **Full detail** modes. |
 | **2** | `api/proof-check.js` | 💧 The live hint helper. It uses free **OpenCode Zen** models. |
 | **3** | `prototype/` | 🧪 The M3 practice helper. Pretend hints. Nothing you type is sent. |
-| **4** | `guide/` | 📗 The Garden Guide. Our notes and **40 answers**. No AI. |
-| **5** | `explainers/` | 🎬 The 5 videos. Each frame is drawn in code. |
+| **4** | `guide/` | 📗 The Garden Guide. Our notes and **48 answers**. No AI. |
+| **5** | `explainers/` | 🎬 The **8** videos (5 parts + 3 extras). Each frame is drawn in code. |
 | **6** | `notes/` | 📒 A copy of our **Obsidian** notes (the DIGI 230 folder). |
 | **7** | `assets/` | 🎨 The shared look: colors, fonts, and the video pop-up. |
 | **8** | `scripts/sync-notes.sh` | 🔄 Copies the Obsidian notes here. Then updates the site. |

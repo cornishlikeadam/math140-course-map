@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Professor Interview</title>
+<style>html,body{margin:0;height:100%;background:#0E1430;display:grid;place-items:center}canvas{display:block;width:100%;height:auto;max-height:100vh;aspect-ratio:16/9;cursor:pointer}</style>
+</head><body><canvas aria-label="Animation: three steps for the professor interview: ask to record, ask the questions, save the video"></canvas>
+<script>
+window.SCENE = {
+
+n:"B", emoji:"🎥", name:"The professor interview", dur:18,
+captions:[[0.3,3,"Part of our plan: talk to a professor."],[3,7,"1. Ask if you can record. Get a yes."],[7,13,"2. Ask the questions in order."],[13,16,"3. Save the video in the DIGI 230 folder."],[16,18,"Then write what you learned. 🎥"]],
+draw(t){
+  const f=prog(t,0.8,2.2); box(340,150,600,340,24,"rgba(255,255,255,.04)",C.blue,f,4);
+  const rec=t>3.6&&Math.floor(t*2)%2===0; dot(380,186,rec?1:0.25*f,C.pink,10); label("REC",420,187,f,rec?C.pink:C.dim,`700 18px ${SANS}`,"left");
+  const y=prog(t,3.4,4.4)*(t<7?1:1-prog(t,7,7.4)); box(470,280,340,76,38,"rgba(255,95,162,.2)",C.pink,y,3); label("✅  “Can we record?”  Yes!",640,318,y,C.ink,`700 26px ${SANS}`);
+  const qs=["1  The class","2  AI now","3  Our helper","4  Fairness","5  Grades","6  The trial"];
+  qs.forEach((q,i)=>{const k=prog(t,7.4+i*0.8,8+i*0.8)*(t<13?1:1-prog(t,13,13.4)); const col=[C.pink,C.blue,C.cyan][i%3];
+    const x=420+(i%3)*220, yy=250+Math.floor(i/3)*110; box(x-95,yy-34,190,68,18,col+"26",col,k,2); label(q,x,yy,k,C.ink,`700 22px ${SANS}`);});
+  const u=prog(t,13.4,15.4); if(u>0){box(560,420-60*u,160,100,14,"rgba(79,123,255,.25)",C.blue,1,3); label("🎬 video.mp4",640,470-60*u,1,C.ink,`700 20px ${SANS}`);
+    box(520,500,240,70,16,"rgba(255,95,162,.18)",C.pink,u,3); label("📁 DIGI 230",640,535,u,C.ink,`700 24px ${SANS}`);}
+  const w=prog(t,16,16.8); label("📝 What we learned:  ______",640,250,w,C.ink,`700 30px ${SANS}`);
+}
+};
+</script>
+<script src="engine.js"></script>
+</body></html>

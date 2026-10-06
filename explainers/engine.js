@@ -59,7 +59,7 @@ function box(x, y, w, h, r, fill, stroke, a = 1, lw = 2) {
 // Title in the top-left: part number, emoji, name.
 function title(t, n, emoji, name) {
   const a = fade(t, 0, .8);
-  label(`PART ${n} OF 5`, 48, 46, a, C.dim, `600 16px ${SANS}`, "left");
+  label(typeof n === "number" ? `PART ${n} OF 5` : `EXPLAINER ${n}`, 48, 46, a, C.dim, `600 16px ${SANS}`, "left");
   label(`${emoji}  ${name}`, 48, 82, a, C.ink, `700 34px ${SANS}`, "left");
 }
 // Caption: one short sentence at a time, in a pill at the bottom.

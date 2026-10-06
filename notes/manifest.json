@@ -104,16 +104,76 @@
    "title": "⚖️ Two Ways to Build It"
   },
   {
+   "path": "06 Disclosure/00-start-here (disclosure).md",
+   "folder": "06 Disclosure",
+   "name": "00-start-here (disclosure)",
+   "title": "📜 Start Here: How We Made the Proof Garden"
+  },
+  {
+   "path": "06 Disclosure/01-intent.md",
+   "folder": "06 Disclosure",
+   "name": "01-intent",
+   "title": "🎯 01 · Intent: Our Problem, Before Any AI"
+  },
+  {
+   "path": "06 Disclosure/02-research-brief.md",
+   "folder": "06 Disclosure",
+   "name": "02-research-brief",
+   "title": "🔬 02 · Research Brief"
+  },
+  {
+   "path": "06 Disclosure/03-source-verification-log.md",
+   "folder": "06 Disclosure",
+   "name": "03-source-verification-log",
+   "title": "🔎 03 · Source Verification Log"
+  },
+  {
+   "path": "06 Disclosure/04-ai-use-log.md",
+   "folder": "06 Disclosure",
+   "name": "04-ai-use-log",
+   "title": "🤖 04 · AI Use Log"
+  },
+  {
+   "path": "06 Disclosure/05-outputs.md",
+   "folder": "06 Disclosure",
+   "name": "05-outputs",
+   "title": "🧪 05 · Outputs: Runs and Revisions"
+  },
+  {
+   "path": "06 Disclosure/06-decision-note.md",
+   "folder": "06 Disclosure",
+   "name": "06-decision-note",
+   "title": "⚖️ 06 · Decision Note: What We Kept, What We Cut, and Why"
+  },
+  {
+   "path": "06 Disclosure/07-disclosure.md",
+   "folder": "06 Disclosure",
+   "name": "07-disclosure",
+   "title": "📢 07 · Disclosure"
+  },
+  {
    "path": "MATH 140 Course Map - Unified.md",
    "folder": "",
    "name": "MATH 140 Course Map - Unified",
    "title": "📅 MATH 140 Course Map: 10-Week Quarter (Unified)"
   },
   {
+   "path": "Professor Interview Kit.md",
+   "folder": "",
+   "name": "Professor Interview Kit",
+   "title": "🎥 Professor Interview Kit"
+  },
+  {
    "path": "Stakeholder Snapshot.md",
    "folder": "",
    "name": "Stakeholder Snapshot",
    "title": "👥 Who Is in the Story (Stakeholder Snapshot)"
+  },
+  {
+   "path": "White Paper - Plan, Trial and Metrics.md",
+   "folder": "",
+   "name": "White Paper - Plan, Trial and Metrics",
+   "title": "🗓️ White Paper: Plan, Trial and Metrics"
   }
  ]
 }

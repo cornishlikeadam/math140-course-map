@@ -18,6 +18,18 @@ if not SRC.is_dir():
 notes = sorted(p for p in SRC.rglob("*.md") if not any(part.startswith(SKIP) for part in p.relative_to(SRC).parts))
 by_name = {p.stem: p.relative_to(SRC) for p in notes}
 
+# Videos in the vault's _media folder → the same video in the repo.
+MEDIA = {"how-we-made-it.mp4": "explainers/media/extra6.mp4",
+         "professor-interview-explainer.mp4": "explainers/media/extra7.mp4",
+         "our-plan.mp4": "explainers/media/extra8.mp4"}
+
+def video(m, here):
+    name = m.group(1).split("|")[0].strip()
+    if name in MEDIA:
+        href = os.path.relpath(Path("..") / MEDIA[name], here.parent).replace(os.sep, "/")
+        return f"🎥 [Watch the video (MP4)]({urllib.parse.quote(href)})"
+    return "> 📼 *This video stays in Obsidian only. It is not on GitHub or the site.*"
+
 def link(m, here):
     target, _, text = m.group(1).partition("|")
     name, _, heading = target.partition("#")
@@ -34,6 +46,7 @@ items = []
 for p in notes:
     rel = p.relative_to(SRC)
     text = p.read_text(encoding="utf-8")
+    text = re.sub(r"!\[\[([^\]]+\.(?:mp4|mov|webm))\]\]", lambda m: video(m, rel), text)
     text = re.sub(r"\[\[([^\]]+)\]\]", lambda m: link(m, rel), text)
     text = re.sub(r"==([^=\n]+)==", r"<mark>\1</mark>", text)
     out = DST / rel

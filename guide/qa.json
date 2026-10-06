@@ -6,7 +6,8 @@
   "science": "🔬 What science says",
   "fruit": "🍓 Milestones and the build",
   "wonder": "❓ Still wondering",
-  "check": "✅ Checks we must pass"
+  "check": "✅ Checks we must pass",
+  "plan": "🗓️ Disclosure, interview and plan"
  },
  "questions": [
   {
@@ -759,6 +760,160 @@
    ],
    "tag": "",
    "id": "q40"
+  },
+  {
+   "cat": "plan",
+   "q": "Where is our full disclosure?",
+   "steps": [
+    "Open the 06 Disclosure folder.",
+    "Read the 8 files in order.",
+    "It follows the AI 101 brief."
+   ],
+   "note": "06 Disclosure/00-start-here (disclosure).md",
+   "kw": [
+    "disclosure",
+    "ai use",
+    "prompts",
+    "every prompt",
+    "log"
+   ],
+   "tag": "",
+   "id": "q41"
+  },
+  {
+   "cat": "plan",
+   "q": "What did the AI do, and what did we do?",
+   "steps": [
+    "We picked the class and set every rule.",
+    "The AI wrote the code, notes, and videos.",
+    "The AI ran the tests.",
+    "Free OpenCode Zen models answer inside the tutor."
+   ],
+   "note": "06 Disclosure/07-disclosure.md",
+   "kw": [
+    "who did what",
+    "ai do",
+    "claude",
+    "we do"
+   ],
+   "tag": "",
+   "id": "q42"
+  },
+  {
+   "cat": "plan",
+   "q": "How do we run the professor interview?",
+   "steps": [
+    "Read the consent script. Get a yes to record.",
+    "Ask the 20 questions in order. 11 are must-ask.",
+    "Save the video in DIGI 230/_media.",
+    "Fill in the answers table."
+   ],
+   "note": "Professor Interview Kit.md",
+   "kw": [
+    "interview",
+    "professor",
+    "questions",
+    "record",
+    "video"
+   ],
+   "tag": "",
+   "id": "q43"
+  },
+  {
+   "cat": "plan",
+   "q": "What is the plan for the next 6 weeks?",
+   "steps": [
+    "Oct 8: hand in M2.",
+    "Oct 13–20: fix the hole. Turn off backup AIs. Run the trick test.",
+    "Oct 22: another team tests it.",
+    "Oct 29: trial class, if the professor says yes.",
+    "Nov 5: M3. Nov 19: M4 pitch."
+   ],
+   "note": "White Paper - Plan, Trial and Metrics.md",
+   "kw": [
+    "plan",
+    "weeks",
+    "next",
+    "schedule",
+    "timeline"
+   ],
+   "tag": "",
+   "id": "q44"
+  },
+  {
+   "cat": "plan",
+   "q": "What happens in the trial class?",
+   "steps": [
+    "The professor says yes first.",
+    "Students pick the hint helper or the paper list.",
+    "They fix 1 made-up proof. No grades. No names.",
+    "They answer a 3-question card."
+   ],
+   "note": "White Paper - Plan, Trial and Metrics.md",
+   "kw": [
+    "trial",
+    "class",
+    "pilot"
+   ],
+   "tag": "",
+   "id": "q45"
+  },
+  {
+   "cat": "plan",
+   "q": "What do we measure after the trial?",
+   "steps": [
+    "📚 Learning: complete proofs, explaining, confidence.",
+    "🛡️ Safety: leak rate under 5%, wrong hints under 10%.",
+    "🧑‍🌾 Human check: review time, on time.",
+    "⚖️ Fairness: both routes used, small score gap."
+   ],
+   "note": "White Paper - Plan, Trial and Metrics.md",
+   "kw": [
+    "metrics",
+    "measure",
+    "track",
+    "numbers",
+    "data"
+   ],
+   "tag": "",
+   "id": "q46"
+  },
+  {
+   "cat": "plan",
+   "q": "When do we stop the trial?",
+   "steps": [
+    "A hint leak rate over 5%.",
+    "A wrong-hint rate over 10%.",
+    "Any student blocked by access problems.",
+    "Any full step leaked in the trick test."
+   ],
+   "note": "White Paper - Plan, Trial and Metrics.md",
+   "kw": [
+    "stop",
+    "halt",
+    "stop line",
+    "when to stop"
+   ],
+   "tag": "",
+   "id": "q47"
+  },
+  {
+   "cat": "plan",
+   "q": "What comes after the trial?",
+   "steps": [
+    "Only if the trial works.",
+    "A small next step: a SCADpro idea with an outside partner.",
+    "It is about 10% of our goal."
+   ],
+   "note": "White Paper - Plan, Trial and Metrics.md",
+   "kw": [
+    "scadpro",
+    "after",
+    "partner",
+    "pitch idea"
+   ],
+   "tag": "",
+   "id": "q48"
   }
  ]
 }

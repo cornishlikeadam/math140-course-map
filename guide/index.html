@@ -90,6 +90,7 @@ details.qa .body{padding:0 16px 16px;display:flex;flex-direction:column;gap:12px
 .c-note{background:var(--blue-soft);border-color:#C3D1FF} .c-note .ct{color:var(--blue-deep)}
 .c-important,.c-example{background:var(--pink-mist);border-color:var(--pink-soft)} .c-important .ct,.c-example .ct{color:var(--pink-deep)}
 .c-warning,.c-caution{background:#FFF1F6;border-color:var(--pink)} .c-warning .ct,.c-caution .ct{color:var(--pink-deep)}
+.md iframe.vid{width:100%;aspect-ratio:16/9;height:auto;border:0;border-radius:16px;background:#0E1430;display:block;margin:10px 0}
 .mermaid{background:var(--white);border:1.5px solid var(--rule);border-radius:14px;padding:12px;overflow-x:auto;text-align:center}
 @media (max-width:820px){.notes{grid-template-columns:1fr}.nlist{position:static;max-height:none}}
 </style>
@@ -149,7 +150,7 @@ details.qa .body{padding:0 16px 16px;display:flex;flex-direction:column;gap:12px
 <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
 <script>
-const EMO={seed:"🌱",water:"💧",people:"🧑‍🌾",science:"🔬",fruit:"🍓",wonder:"❓",check:"✅"};
+const EMO={plan:"🗓️",seed:"🌱",water:"💧",people:"🧑‍🌾",science:"🔬",fruit:"🍓",wonder:"❓",check:"✅"};
 const STOP=new Set("a an and are at be by can do does for from how i if in is it me my of on or our the this to was we what when where which who why will with you your".split(" "));
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const $=id=>document.getElementById(id);
@@ -213,7 +214,8 @@ function drawList(){
 }
 function prep(md){
   md=md.replace(/^---\n[\s\S]*?\n---\n/,"");
-  md=md.replace(/<iframe[\s\S]*?<\/iframe>/g,"> [!TIP]\n> 🌸 You are in the Garden Guide now.");
+  md=md.replace(/<iframe[^>]*src="[^"]*\/guide\/?"[\s\S]*?<\/iframe>/g,"> [!TIP]\n> 🌸 You are in the Garden Guide now.");
+  md=md.replace(/<iframe([^>]*)>/g,'<iframe$1 class="vid" loading="lazy">');
   const lines=md.split("\n"),out=[],blocks=[];
   for(let i=0;i<lines.length;i++){
     const m=lines[i].match(/^>\s*\[!(\w+)\]\s*(.*)$/);
@@ -243,6 +245,7 @@ async function openNote(path){
       const href=a.getAttribute("href");
       if(/^https?:/.test(href)){a.target="_blank";a.rel="noopener";return}
       const clean=decodeURIComponent(href.split("#")[0]);
+      if(!clean.endsWith(".md")&&!href.startsWith("#")){a.href=new URL(href,new URL("../notes/"+path.split("/").map(encodeURIComponent).join("/"),location.href)).href;a.target="_blank";a.rel="noopener";return}
       if(clean.endsWith(".md")){a.addEventListener("click",e=>{e.preventDefault();const base=path.split("/").slice(0,-1);clean.split("/").forEach(p=>{if(p==="..")base.pop();else if(p&&p!==".")base.push(p)});openNote(base.join("/"))})}
     });
     try{history.replaceState(null,"","#note="+encodeURIComponent(path))}catch(e){}
