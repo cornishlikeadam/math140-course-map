@@ -14,7 +14,7 @@ cssclasses: [garden]
 | **1** | 🗺️ MATH 140 map (Simple words + Full detail) | https://math140-course-map.vercel.app |
 | **2** | 💧 Proof check tutor (live AI, hints only) | https://math140-course-map.vercel.app (bottom of the map) |
 | **3** | 🧪 Practice helper (pretend hints) | https://math140-course-map.vercel.app/prototype/ |
-| **4** | 📗 Garden Guide (notes + 40 answers) | https://math140-course-map.vercel.app/guide/ |
+| **4** | 📗 Garden Guide (Ask box + 48 answers in tabs) | https://math140-course-map.vercel.app/guide/ |
 | **5** | 🎬 8 explainer videos | https://math140-course-map.vercel.app (pop-up) |
 | **6** | 📄 M1 PDF | `~/Downloads/TeamName_M1_CourseMap.pdf` |
 | **7** | 💻 Code | https://github.com/cornishlikeadam/math140-course-map |
@@ -33,6 +33,7 @@ cssclasses: [garden]
 | **8** | Too many words | Hard for kids to read | **Simple words** mode + rewritten notes |
 | **9** | Practice helper v1 | Start over clears a stop | **Still open.** Fix next. |
 | **10** | Redesign | Generic look | White, pink, blue, cyan. Garden theme. Videos. Guide. |
+| **11** | Long pages | Too much on the screen. The tool was hard to find. | **Closed tabs** on the map and the Guide. Notes reader removed. **💧 Hint tool** link in the menu. |
 
 ## 🧪 Test totals
 - **3** live hint tests (Oct 1): 2 pass, 1 close call.

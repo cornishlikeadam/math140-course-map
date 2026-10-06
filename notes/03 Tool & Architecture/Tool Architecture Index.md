@@ -16,7 +16,7 @@ The main page is [03 Proof Check Tool & Build Log](../03%20Proof%20Check%20Tool%
 | **2** | 💧 The helper | `api/proof-check.js` | Sends your proof to the AI |
 | **3** | 🧪 The practice helper | `prototype/index.html` | Pretend hints. Nothing is sent. |
 | **4** | 🎬 The videos | `explainers/` | 5 short videos, 1 for each stop |
-| **5** | 📗 The Garden Guide | `guide/` | Our notes and all the answers |
+| **5** | 📗 The Garden Guide | `guide/` | Ask box + **48 answers** in closed tabs |
 
 📁 **Folder:** `~/Documents/math140-course-map`
 

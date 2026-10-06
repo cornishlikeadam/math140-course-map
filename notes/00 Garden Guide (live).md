@@ -11,10 +11,10 @@ cssclasses: [garden]
 > This is the **Garden Guide** from our website. You can use it **here in Obsidian**. You can also use it **on the site**. It is the same tool.
 
 ## 🔢 How to use it
-1. **Scroll** the box below.
+1. **Scroll** the box below. Everything starts **closed**. Tap to open.
 2. **Type** a question in **"Ask the Guide"**.
 3. **Click** a question card to **see the answer**.
-4. **Open** a note to read it in the garden style.
+4. **Open** a note link. It opens the note on GitHub.
 
 <iframe src="https://math140-course-map.vercel.app/guide/" width="100%" height="900" title="Garden Guide"></iframe>
 

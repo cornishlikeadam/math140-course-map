@@ -11,6 +11,7 @@
 | **1** | 🗺️ **The map** | https://math140-course-map.vercel.app |
 | **2** | 🧪 **The practice helper** | https://math140-course-map.vercel.app/prototype/ |
 | **3** | 📗 **The Garden Guide** (all the answers) | https://math140-course-map.vercel.app/guide/ |
+| **4** | 💧 **The hint tool** (live AI, hints only) | https://math140-course-map.vercel.app/#tool |
 
 ## 🎬 Watch the 5 parts
 Each video is about **20 seconds**. 🎥 The MP4 files are in [`explainers/media/`](explainers/media/).
@@ -58,7 +59,7 @@ Each video is about **20 seconds**. 🎥 The MP4 files are in [`explainers/media
 | **1** | `index.html` | 🗺️ The map. **Simple words** and **Full detail** modes. |
 | **2** | `api/proof-check.js` | 💧 The live hint helper. It uses free **OpenCode Zen** models. |
 | **3** | `prototype/` | 🧪 The M3 practice helper. Pretend hints. Nothing you type is sent. |
-| **4** | `guide/` | 📗 The Garden Guide. Our notes and **48 answers**. No AI. |
+| **4** | `guide/` | 📗 The Garden Guide. An Ask box and **48 answers** in closed tabs. No AI. |
 | **5** | `explainers/` | 🎬 The **8** videos (5 parts + 3 extras). Each frame is drawn in code. |
 | **6** | `notes/` | 📒 A copy of our **Obsidian** notes (the DIGI 230 folder). |
 | **7** | `assets/` | 🎨 The shared look: colors, fonts, and the video pop-up. |

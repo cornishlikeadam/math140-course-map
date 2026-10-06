@@ -56,6 +56,17 @@ details.qa summary::after{content:"＋";margin-left:auto;color:var(--pink-deep);
 details.qa[open] summary::after{content:"－"}
 details.qa .body{padding:0 16px 16px;display:flex;flex-direction:column;gap:12px}
 .count{font:600 14px var(--body);color:var(--muted)}
+/* 🌱 closed tabs */
+.tabs{display:flex;flex-direction:column;gap:8px}
+details.cat{border:1.5px solid var(--rule);border-radius:18px;background:var(--white);overflow:hidden}
+details.cat[open]{border-color:var(--blue)}
+details.cat>summary{cursor:pointer;list-style:none;display:flex;gap:12px;align-items:center;padding:14px 18px;font-family:var(--display);font-size:22px}
+details.cat>summary::-webkit-details-marker{display:none}
+details.cat>summary .ce{font-size:24px}
+details.cat>summary .cc{margin-left:auto;font:700 13px var(--body);background:var(--blue-soft);color:var(--blue-deep);border-radius:999px;padding:3px 10px}
+details.cat>summary::after{content:"▾";font:700 18px var(--body);color:var(--pink-deep);transition:transform .2s}
+details.cat[open]>summary::after{transform:rotate(180deg)}
+.cbody{padding:0 12px 12px;display:flex;flex-direction:column;gap:6px}
 /* 📒 notes */
 .notes{display:grid;grid-template-columns:minmax(220px,300px) 1fr;gap:18px;align-items:start}
 .nlist{display:flex;flex-direction:column;gap:4px;position:sticky;top:12px;max-height:80vh;overflow:auto;padding-right:4px}
@@ -102,6 +113,7 @@ details.qa .body{padding:0 16px 16px;display:flex;flex-direction:column;gap:12px
     <div class="navlinks">
       <a href="../">🗺️ Map</a>
       <button type="button" data-open-videos="1">🎬 Watch the 5 parts</button>
+      <a href="../#tool">💧 Hint tool</a>
       <a href="../prototype/">🧪 Practice helper</a>
       <a href="./" aria-current="page">📗 Garden Guide</a>
     </div>
@@ -109,11 +121,11 @@ details.qa .body{padding:0 16px 16px;display:flex;flex-direction:column;gap:12px
 
   <header style="display:flex;flex-direction:column;gap:16px">
     <h1>📗 Garden Guide</h1>
-    <p class="lead">Our notes and all the answers. In one place. The same notes are in Obsidian.</p>
+    <p class="lead">Ask a question. Get a short answer. Open more only when you want it.</p>
     <ol class="how">
       <li><span class="num">1</span><span><b>Ask</b> a question in the pink box.</span></li>
       <li><span class="num blue">2</span><span><b>Open</b> a question card to see the answer.</span></li>
-      <li><span class="num cyan">3</span><span><b>Read</b> a full note at the bottom.</span></li>
+      <li><span class="num cyan">3</span><span><b>Open</b> a note on GitHub for more.</span></li>
     </ol>
   </header>
 
@@ -133,23 +145,16 @@ details.qa .body{padding:0 16px 16px;display:flex;flex-direction:column;gap:12px
     <div style="display:flex;flex-wrap:wrap;gap:8px 16px;align-items:baseline;justify-content:space-between">
       <h2 id="allh">🌱 All the answers</h2><span class="count" id="count"></span>
     </div>
-    <div class="chips" id="cats" role="group" aria-label="Pick a topic"></div>
-    <div id="groups" style="display:flex;flex-direction:column;gap:14px"></div>
+    <p class="note-safe">Tap a topic to open it. Tap a question to see the answer.</p>
+    <div id="groups" class="tabs"></div>
   </section>
 
-  <section class="panel" aria-labelledby="notesh">
-    <h2 id="notesh">📒 Our notes</h2>
-    <p class="note-safe">These are the Obsidian notes from the <b>DIGI 230</b> folder. They update when we run <code>scripts/sync-notes.sh</code>.</p>
-    <div class="notes">
-      <nav class="nlist" id="nlist" aria-label="Notes"></nav>
-      <article class="reader md" id="reader" aria-live="polite"><p>Pick a note. 🌸</p></article>
-    </div>
-  </section>
+
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
 <script>
+const GH="https://github.com/cornishlikeadam/math140-course-map/blob/main/notes/";
+const noteTitle=p=>p.replace(/\.md$/,"").split("/").pop();
 const EMO={plan:"🗓️",seed:"🌱",water:"💧",people:"🧑‍🌾",science:"🔬",fruit:"🍓",wonder:"❓",check:"✅"};
 const STOP=new Set("a an and are at be by can do does for from how i if in is it me my of on or our the this to was we what when where which who why will with you your".split(" "));
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
@@ -170,7 +175,7 @@ function card(item,opts={}){
   return `<article class="answer"><div class="in">
     <div class="top"><span class="fruit" aria-hidden="true">${EMO[item.cat]||"🌸"}</span><div><div class="cat">${esc(QA.categories[item.cat]||"")}</div><h3>${esc(item.q)}</h3></div></div>
     <ol class="steps">${item.steps.map(s=>`<li><span>${esc(s)}</span></li>`).join("")}</ol>
-    <div class="foot">${tag}<button class="readbtn" type="button" data-note="${esc(item.note)}">📒 Read the note: ${esc(noteTitle(item.note))}</button></div>
+    <div class="foot">${tag}<a class="readbtn" href="${GH}${item.note.split("/").map(encodeURIComponent).join("/")}" target="_blank" rel="noopener">📒 Open the note: ${esc(noteTitle(item.note))} ↗</a></div>
   </div></article>`;
 }
 function ask(q){
@@ -188,79 +193,24 @@ function ask(q){
 }
 function wire(root){
   root.querySelectorAll("[data-ask]").forEach(b=>b.onclick=()=>{$("askq").value=b.dataset.ask;ask(b.dataset.ask)});
-  root.querySelectorAll("[data-note]").forEach(b=>b.onclick=()=>{openNote(b.dataset.note);$("notesh").scrollIntoView({behavior:"smooth"})});
 }
 $("askform").addEventListener("submit",e=>{e.preventDefault();ask($("askq").value)});
 
-// ---------- 🌱 All the answers ----------
-let catOn="all";
+// ---------- 🌱 All the answers: closed tabs ----------
 function drawAll(){
   const cats=Object.keys(QA.categories);
-  $("cats").innerHTML=[`<button class="chip" type="button" data-cat="all" aria-pressed="${catOn==="all"}">🌸 All</button>`].concat(cats.map(c=>`<button class="chip" type="button" data-cat="${c}" aria-pressed="${catOn===c}">${esc(QA.categories[c])}</button>`)).join("");
-  $("cats").querySelectorAll("[data-cat]").forEach(b=>b.onclick=()=>{catOn=b.dataset.cat;drawAll()});
-  const show=cats.filter(c=>catOn==="all"||c===catOn);
-  let n=0;
-  $("groups").innerHTML=show.map(c=>{const qs=QA.questions.filter(q=>q.cat===c);n+=qs.length;return `<div class="qgroup"><h3>${esc(QA.categories[c])}</h3>${qs.map(q=>`<details class="qa" id="${q.id}"><summary>${EMO[q.cat]} ${esc(q.q)}</summary><div class="body">${card(q)}</div></details>`).join("")}</div>`}).join("");
-  $("count").textContent=`${n} questions`;
+  $("groups").innerHTML=cats.map(c=>{const qs=QA.questions.filter(q=>q.cat===c);
+    return `<details class="cat"><summary><span class="ce">${EMO[c]}</span><span class="cn">${esc(QA.categories[c].replace(/^\S+\s/,""))}</span><span class="cc">${qs.length}</span></summary><div class="cbody">${qs.map(q=>`<details class="qa" id="${q.id}"><summary>${esc(q.q)}</summary><div class="body">${card(q)}</div></details>`).join("")}</div></details>`}).join("");
+  $("count").textContent=`${QA.questions.length} answers · ${cats.length} topics`;
   wire($("groups"));
 }
-
-// ---------- 📒 Notes ----------
-const noteTitle=p=>{const n=NOTES.find(x=>x.path===p);return n?n.name:p.replace(/\.md$/,"").split("/").pop()};
-function drawList(){
-  const byFolder={};NOTES.forEach(n=>(byFolder[n.folder]=byFolder[n.folder]||[]).push(n));
-  $("nlist").innerHTML=Object.keys(byFolder).sort().map(f=>`${f?`<div class="fold">📁 ${esc(f)}</div>`:`<div class="fold">🌸 DIGI 230</div>`}${byFolder[f].map(n=>`<button type="button" data-path="${esc(n.path)}" aria-current="${n.path===current}">${esc(n.name)}</button>`).join("")}`).join("");
-  $("nlist").querySelectorAll("[data-path]").forEach(b=>b.onclick=()=>openNote(b.dataset.path));
-}
-function prep(md){
-  md=md.replace(/^---\n[\s\S]*?\n---\n/,"");
-  md=md.replace(/<iframe[^>]*src="[^"]*\/guide\/?"[\s\S]*?<\/iframe>/g,"> [!TIP]\n> 🌸 You are in the Garden Guide now.");
-  md=md.replace(/<iframe([^>]*)>/g,'<iframe$1 class="vid" loading="lazy">');
-  const lines=md.split("\n"),out=[],blocks=[];
-  for(let i=0;i<lines.length;i++){
-    const m=lines[i].match(/^>\s*\[!(\w+)\]\s*(.*)$/);
-    if(!m){out.push(lines[i]);continue}
-    const type=m[1].toLowerCase(),body=[];
-    while(i+1<lines.length&&/^>/.test(lines[i+1])){i++;body.push(lines[i].replace(/^>\s?/,""))}
-    const title=m[2]||({tip:"💡 Tip",note:"📝 Note",important:"⭐ Important",warning:"⚠️ Warning",caution:"🚫 Careful",example:"🧪 Example"}[type]||type);
-    blocks.push(`<div class="callout c-${type}"><div class="ct">${marked.parseInline(title)}</div>${marked.parse(body.join("\n"))}</div>`);
-    out.push("","%%CALLOUT"+(blocks.length-1)+"%%","");
-  }
-  let html=marked.parse(out.join("\n"));
-  html=html.replace(/<p>%%CALLOUT(\d+)%%<\/p>/g,(_,n)=>blocks[+n]);
-  return html;
-}
-async function openNote(path){
-  current=path;drawList();
-  const r=$("reader");r.innerHTML="<p>Loading… 🌱</p>";
-  try{
-    const res=await fetch("../notes/"+path.split("/").map(encodeURIComponent).join("/"));
-    if(!res.ok) throw new Error(res.status);
-    r.innerHTML=prep(await res.text());
-    r.querySelectorAll("table").forEach(t=>{const w=document.createElement("div");w.className="tblwrap";t.parentNode.insertBefore(w,t);w.appendChild(t)});
-    r.querySelectorAll("input[type=checkbox]").forEach(c=>c.disabled=true);
-    r.querySelectorAll("pre code.language-mermaid").forEach(c=>{const d=document.createElement("div");d.className="mermaid";d.textContent=c.textContent;c.parentNode.replaceWith(d)});
-    if(window.mermaid){try{mermaid.initialize({startOnLoad:false,theme:"base",themeVariables:{primaryColor:"#FFE3EF",primaryBorderColor:"#FF5FA2",lineColor:"#2F5BFF",primaryTextColor:"#1C2A6B",fontFamily:"Lexend"}});await mermaid.run({nodes:r.querySelectorAll(".mermaid")})}catch(e){}}
-    r.querySelectorAll("a[href]").forEach(a=>{
-      const href=a.getAttribute("href");
-      if(/^https?:/.test(href)){a.target="_blank";a.rel="noopener";return}
-      const clean=decodeURIComponent(href.split("#")[0]);
-      if(!clean.endsWith(".md")&&!href.startsWith("#")){a.href=new URL(href,new URL("../notes/"+path.split("/").map(encodeURIComponent).join("/"),location.href)).href;a.target="_blank";a.rel="noopener";return}
-      if(clean.endsWith(".md")){a.addEventListener("click",e=>{e.preventDefault();const base=path.split("/").slice(0,-1);clean.split("/").forEach(p=>{if(p==="..")base.pop();else if(p&&p!==".")base.push(p)});openNote(base.join("/"))})}
-    });
-    try{history.replaceState(null,"","#note="+encodeURIComponent(path))}catch(e){}
-  }catch(e){r.innerHTML=`<div class="miss"><b>This note did not load.</b><p>Check the internet. Or open it in Obsidian.</p></div>`}
-}
-
 // ---------- start ----------
-Promise.all([fetch("qa.json").then(r=>r.json()),fetch("../notes/manifest.json").then(r=>r.json()).catch(()=>({notes:[]}))]).then(([qa,man])=>{
-  QA=qa;NOTES=man.notes||[];
+fetch("qa.json").then(r=>r.json()).then(qa=>{
+  QA=qa;
   $("tryme").innerHTML=[6,10,4,17,23].map(i=>QA.questions[i]).filter(Boolean).map(it=>`<button class="chip" type="button" data-ask="${esc(it.q)}">${EMO[it.cat]} ${esc(it.q)}</button>`).join("");
-  wire($("tryme"));drawAll();drawList();
-  const h=decodeURIComponent(location.hash.slice(1));
-  if(h.startsWith("note=")) openNote(h.slice(5)); else if(NOTES.length) openNote(NOTES.find(n=>n.name==="00 Start Here")?.path||NOTES[0].path);
-  const m=h.match(/^q=(q\d+)$/); if(m){const d=$(m[1]);if(d){d.open=true;d.scrollIntoView()}}
-  ask("What if a hint is wrong?");
+  wire($("tryme"));drawAll();
+  const m=decodeURIComponent(location.hash.slice(1)).match(/^q=(q\d+)$/);
+  if(m){const d=$(m[1]);if(d){d.open=true;d.closest("details.cat").open=true;d.scrollIntoView()}}
 });
 </script>
 <script src="../assets/garden.js" data-root="../"></script>

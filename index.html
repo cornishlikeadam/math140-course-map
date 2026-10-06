@@ -93,6 +93,24 @@ textarea{width:100%;min-height:74px;font:inherit;font-size:16px;padding:10px;bor
 .runs td,.runs th{font-size:13.5px}
 .runs select{font:inherit;font-size:13.5px;padding:3px 6px;border:1px solid var(--rule);border-radius:4px;background:var(--ground);color:var(--ink)}
 .runs td:first-child{font-family:var(--mono);font-weight:400}
+/* 🌱 closed tabs: simple until you tap */
+.folds{display:flex;flex-direction:column;gap:10px}
+.foldhint{font-size:15px;color:var(--muted)}
+details.fold{border:1.5px solid var(--rule);border-radius:20px;background:var(--white);box-shadow:0 6px 20px rgba(28,42,107,.05);overflow:hidden}
+details.fold[open]{border-color:var(--pink)}
+details.fold>summary{cursor:pointer;list-style:none;display:flex;gap:12px;align-items:center;padding:16px 20px}
+details.fold>summary::-webkit-details-marker{display:none}
+details.fold>summary .fe{font-size:26px;flex:none}
+details.fold>summary .ft{font-family:var(--display);font-size:clamp(21px,2.4vw,26px);color:var(--ink)}
+details.fold>summary .fh{margin-left:auto;font:600 13.5px var(--body);color:var(--muted);text-align:right}
+details.fold>summary::after{content:"▾";font:700 18px var(--body);color:var(--pink-deep);transition:transform .2s;flex:none}
+details.fold[open]>summary::after{transform:rotate(180deg)}
+details.fold#tool{border-color:var(--cyan);background:linear-gradient(180deg,var(--cyan-soft),var(--white) 70px)}
+.fold-body{padding:0 12px 14px}
+.fold-body>section>h2:first-child,.fold-body>section>h2.m-s:nth-child(2),.fold-body>section>div:first-child>h2{display:none}
+.fold-body>section.panel{box-shadow:none;border:0;padding-top:4px}
+.tapnote{border:2px dashed var(--pink-soft);border-radius:20px;padding:16px 20px;font-size:17px;color:var(--muted);text-align:center}
+@media (max-width:600px){details.fold>summary .fh{display:none}}
 .print-only{display:none}
 html[data-mode="simple"] .m-f,html[data-mode="full"] .m-s{display:none!important}
 .topbar{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;justify-content:space-between}
@@ -140,6 +158,7 @@ html[data-mode="simple"] .m-f,html[data-mode="full"] .m-s{display:none!important
     <div class="navlinks">
       <a href="./" aria-current="page">🗺️ Map</a>
       <button type="button" data-open-videos="1">🎬 Watch the 5 parts</button>
+      <a href="#tool" data-open-tool>💧 Hint tool</a>
       <a href="prototype/">🧪 Practice helper</a>
       <a href="guide/">📗 Garden Guide</a>
     </div>
@@ -171,25 +190,6 @@ html[data-mode="simple"] .m-f,html[data-mode="full"] .m-s{display:none!important
     </dl>
   </header>
 
-  <section class="panel">
-    <h2>The big ideas, in plain words</h2>
-    <div class="ideas">
-      <div><b>1 · 💧 The AI is a hint helper.</b><p>It points at one weak step. It asks you a question. It never writes a step for you.</p></div>
-      <div><b>2 · 🤔 AI can sound sure and still be wrong.</b><p>Experts checked AI answers to hard proofs. Most AIs got less than 5% right. So the AI never grades.</p></div>
-      <div><b>3 · 🧑‍🌾 The teacher checks unsure hints.</b><p>The student who needs help is the worst at spotting a bad hint. So "Not sure" is a smart answer.</p></div>
-      <div><b>4 · 🌱 Try first. Then get a hint.</b><p>You write 2 steps first. In one study, kids who got answers did 17% worse later. Kids who got hints did not.</p></div>
-      <div><b>5 · 📗 Fair for everyone.</b><p>Some kids have no computer at home. They use a paper rule list. It counts the same.</p></div>
-      <div><b>6 · 🚿 A little water helps. Too much drowns.</b><p>A small hint helps your proof grow. A hint that is too exact is the answer. That is not allowed.</p></div>
-    </div>
-    <dl class="words m-s">
-      <dt>Proof</dt><dd>A list of steps that shows something is true, with a reason for every step.</dd>
-      <dt>Theorem</dt><dd>A math rule that has already been proven, so you can use it as a reason.</dd>
-      <dt>Compass</dt><dd>A tool that draws perfect circles.</dd>
-      <dt>AI</dt><dd>A computer program that reads and writes words. On this page, it's the hint helper.</dd>
-      <dt>Hint list</dt><dd>A list of every hint the helper gave you. Your teacher can see it.</dd>
-      <dt>Garden</dt><dd>🌱 Seed = draw · 🌿 Sprout = write · 💧 Water = hint · 🌸 Bloom = explain · 🍓 Fruit = quiz</dd>
-    </dl>
-  </section>
 
   <div class="bar" role="group" aria-label="Map layers">
     <span class="lbl"><span class="m-s">SHOW ON THE MAP</span><span class="m-f">LAYERS</span></span>
@@ -228,9 +228,64 @@ html[data-mode="simple"] .m-f,html[data-mode="full"] .m-s{display:none!important
     </div>
   </div>
 
-  <div id="detail" class="detail" aria-live="polite"></div>
+  <div id="detail" class="tapnote" aria-live="polite"></div>
   <div id="print-details" class="print-only"></div>
 
+  <div class="folds">
+    <p class="foldhint"><span class="m-s">👇 Tap a tab to open it.</span><span class="m-f">Open a section for detail.</span></p>
+  <details class="fold" id="tool">
+    <summary><span class="fe">💧</span><span class="ft"><span class="m-s">Try the hint tool</span><span class="m-f">Proof check (live AI hint tool)</span></span><span class="fh"><span class="m-s">The only AI part</span><span class="m-f">Step 3</span></span></summary>
+    <div class="fold-body">
+  <section class="panel" id="chat">
+    <div style="display:flex;flex-wrap:wrap;gap:8px 16px;align-items:baseline">
+      <h2><span class="m-f">Proof check</span><span class="m-s">Try the hint helper</span></h2><span class="tag t-ai">◆ Step 3 · <span class="m-f">the AI insertion point</span><span class="m-s">the only place AI is allowed</span></span>
+    </div>
+    <p class="note m-s">Paste your proof (at least 2 steps). The helper points at one step that needs a better reason and asks you a question. It won't do it for you, and it can be wrong. If a hint confuses you, mark it <b>Not sure</b> in the list below.</p>
+    <p class="note m-f">Paste the theorem and <b>your own draft proof</b> (at least 2 steps). The tutor points to the first step that needs a better reason. It won't write any step for you, and it can be wrong, so check every hint against your theorem list.</p>
+    <div class="chat-log" id="chat-log" aria-live="polite">
+      <div class="msg ai">Example draft to try:
+Prove: the base angles of an isosceles triangle are congruent.
+1. AB ≅ AC (given)
+2. Draw AD, the bisector of angle A (construction)
+3. Triangle ABD ≅ triangle ACD (SAS)
+4. Angle B ≅ angle C (they look equal)</div>
+    </div>
+    <form class="chat-form" id="chat-form">
+      <label for="chat-input" class="note" style="flex-basis:100%">Theorem + your draft proof</label>
+      <textarea id="chat-input" placeholder="Prove: …&#10;1. … (reason)&#10;2. … (reason)"></textarea>
+      <button class="send" id="chat-send" type="submit">Check my proof</button>
+    </form>
+    <button class="linkbtn" id="chat-clear" type="button">Clear conversation</button>
+  </section>
+    </div>
+  </details>
+  <details class="fold" id="ideas">
+    <summary><span class="fe">💡</span><span class="ft"><span class="m-s">The big ideas</span><span class="m-f">The big ideas, in plain words</span></span><span class="fh"><span class="m-s">6 short ideas</span><span class="m-f">6 ideas</span></span></summary>
+    <div class="fold-body">
+  <section class="panel">
+    <h2>The big ideas, in plain words</h2>
+    <div class="ideas">
+      <div><b>1 · 💧 The AI is a hint helper.</b><p>It points at one weak step. It asks you a question. It never writes a step for you.</p></div>
+      <div><b>2 · 🤔 AI can sound sure and still be wrong.</b><p>Experts checked AI answers to hard proofs. Most AIs got less than 5% right. So the AI never grades.</p></div>
+      <div><b>3 · 🧑‍🌾 The teacher checks unsure hints.</b><p>The student who needs help is the worst at spotting a bad hint. So "Not sure" is a smart answer.</p></div>
+      <div><b>4 · 🌱 Try first. Then get a hint.</b><p>You write 2 steps first. In one study, kids who got answers did 17% worse later. Kids who got hints did not.</p></div>
+      <div><b>5 · 📗 Fair for everyone.</b><p>Some kids have no computer at home. They use a paper rule list. It counts the same.</p></div>
+      <div><b>6 · 🚿 A little water helps. Too much drowns.</b><p>A small hint helps your proof grow. A hint that is too exact is the answer. That is not allowed.</p></div>
+    </div>
+    <dl class="words m-s">
+      <dt>Proof</dt><dd>A list of steps that shows something is true, with a reason for every step.</dd>
+      <dt>Theorem</dt><dd>A math rule that has already been proven, so you can use it as a reason.</dd>
+      <dt>Compass</dt><dd>A tool that draws perfect circles.</dd>
+      <dt>AI</dt><dd>A computer program that reads and writes words. On this page, it's the hint helper.</dd>
+      <dt>Hint list</dt><dd>A list of every hint the helper gave you. Your teacher can see it.</dd>
+      <dt>Garden</dt><dd>🌱 Seed = draw · 🌿 Sprout = write · 💧 Water = hint · 🌸 Bloom = explain · 🍓 Fruit = quiz</dd>
+    </dl>
+  </section>
+    </div>
+  </details>
+  <details class="fold" id="risk">
+    <summary><span class="fe">🛡️</span><span class="ft"><span class="m-s">What can go wrong, and how we stop it</span><span class="m-f">Concern, safeguard, non-goal</span></span><span class="fh"><span class="m-s">A made-up story</span><span class="m-f">M1 items</span></span></summary>
+    <div class="fold-body">
   <section class="panel">
     <h2 class="m-f">Concern, safeguard, non-goal</h2>
     <h2 class="m-s">What could go wrong, and how we stop it</h2>
@@ -252,7 +307,11 @@ html[data-mode="simple"] .m-f,html[data-mode="full"] .m-s{display:none!important
         <p>Do students who use the hint tutor do as well on the no-device quiz as students who use only the checklist? Test: split one section in half for one unit and compare quiz proof scores. Carried to Milestone 2.</p></div>
     </div>
   </section>
-
+    </div>
+  </details>
+  <details class="fold" id="people">
+    <summary><span class="fe">👥</span><span class="ft"><span class="m-s">Who is in the story</span><span class="m-f">Stakeholder snapshot</span></span><span class="fh"><span class="m-s">5 groups</span><span class="m-f">5 rows</span></span></summary>
+    <div class="fold-body">
   <section class="panel">
     <h2 class="m-f">Stakeholder snapshot</h2>
     <h2 class="m-s">Who's in this story</h2>
@@ -277,34 +336,20 @@ html[data-mode="simple"] .m-f,html[data-mode="full"] .m-s{display:none!important
       </tbody>
     </table></div>
   </section>
-
+    </div>
+  </details>
+  <details class="fold" id="science">
+    <summary><span class="fe">🔬</span><span class="ft"><span class="m-s">What scientists found</span><span class="m-f">Evidence cards</span></span><span class="fh"><span class="m-s">3 studies</span><span class="m-f">3 sources</span></span></summary>
+    <div class="fold-body">
   <section style="display:flex;flex-direction:column;gap:14px">
     <h2 class="m-f">Evidence cards behind the boundaries</h2><h2 class="m-s">What scientists found</h2>
     <div class="cards" id="cards"></div>
   </section>
-
-  <section class="panel" id="chat">
-    <div style="display:flex;flex-wrap:wrap;gap:8px 16px;align-items:baseline">
-      <h2><span class="m-f">Proof check</span><span class="m-s">Try the hint helper</span></h2><span class="tag t-ai">◆ Step 3 · <span class="m-f">the AI insertion point</span><span class="m-s">the only place AI is allowed</span></span>
     </div>
-    <p class="note m-s">Paste your proof (at least 2 steps). The helper points at one step that needs a better reason and asks you a question. It won't do it for you, and it can be wrong. If a hint confuses you, mark it <b>Not sure</b> in the list below.</p>
-    <p class="note m-f">Paste the theorem and <b>your own draft proof</b> (at least 2 steps). The tutor points to the first step that needs a better reason. It won't write any step for you, and it can be wrong, so check every hint against your theorem list.</p>
-    <div class="chat-log" id="chat-log" aria-live="polite">
-      <div class="msg ai">Example draft to try:
-Prove: the base angles of an isosceles triangle are congruent.
-1. AB ≅ AC (given)
-2. Draw AD, the bisector of angle A (construction)
-3. Triangle ABD ≅ triangle ACD (SAS)
-4. Angle B ≅ angle C (they look equal)</div>
-    </div>
-    <form class="chat-form" id="chat-form">
-      <label for="chat-input" class="note" style="flex-basis:100%">Theorem + your draft proof</label>
-      <textarea id="chat-input" placeholder="Prove: …&#10;1. … (reason)&#10;2. … (reason)"></textarea>
-      <button class="send" id="chat-send" type="submit">Check my proof</button>
-    </form>
-    <button class="linkbtn" id="chat-clear" type="button">Clear conversation</button>
-  </section>
-
+  </details>
+  <details class="fold" id="truth">
+    <summary><span class="fe">🔍</span><span class="ft"><span class="m-s">The honest truth about the tool</span><span class="m-f">Transparency log</span></span><span class="fh"><span class="m-s">What it can and cannot do</span><span class="m-f">Log + hint list</span></span></summary>
+    <div class="fold-body">
   <section class="panel" id="transparency">
     <div style="display:flex;flex-wrap:wrap;gap:8px 16px;align-items:baseline">
       <h2><span class="m-f">Transparency log: Proof check</span><span class="m-s">The honest truth about the helper</span></h2><span class="status">Status: prototype, testing needed</span>
@@ -352,7 +397,11 @@ Prove: the base angles of an isosceles triangle are congruent.
       </table></div>
     </div>
   </section>
-
+    </div>
+  </details>
+  <details class="fold" id="peertest">
+    <summary><span class="fe">🐝</span><span class="ft"><span class="m-s">Test the map on someone new</span><span class="m-f">Peer trace test</span></span><span class="fh"><span class="m-s">A checklist</span><span class="m-f">Checklist + revision</span></span></summary>
+    <div class="fold-body">
   <section class="grid2">
     <div class="panel">
       <h2><span class="m-f">Peer trace test</span><span class="m-s">Test the map on someone new</span></h2>
@@ -366,6 +415,9 @@ Prove: the base angles of an isosceles triangle are congruent.
       <p class="note screen-only">Saved in this browser only.</p>
     </div>
   </section>
+    </div>
+  </details>
+  </div>
 
   <p class="note m-s">We built these 5 steps from the course description, not the real class plan, so they're our best guess until we check with the teacher.</p>
   <p class="note m-f">The unit sequence is modeled on the MATH 140 catalog description (proofs, Euclidean constructions, right-triangle theorems, circles, the Golden Ratio). Its steps and roles are <span class="ev ev-a">assumptions</span> to confirm against the MATH 140 syllabus or with the instructor. Evidence tags: <span class="ev ev-e">evidence</span> <span class="ev ev-a">assumption</span> <span class="ev ev-t">proposed test</span> <span class="ev ev-c">constructed</span>.</p>
@@ -558,7 +610,7 @@ function drawMap(){
   el("text",{x:r3.x+196,y:r3.y+100,"font-size":11,"font-weight":700,fill:"var(--hand)"},LH).textContent=S?"② Not sure? The teacher checks it":"② Not sure or Disagree → instructor";
   el("text",{x:r3.x+196,y:r3.y+115,"font-size":11,fill:"var(--hand)"},LH).textContent=S?"within 2 days, before you present":"Reviewed within 48 h, before Step 4";
   el("text",{x:r3.x+196,y:r3.y+130,"font-size":11,fill:"var(--hand)"},LH).textContent=S?"Wrong hint? The teacher tells you":"Wrong hint → logged, student told";
-  document.querySelectorAll(".region").forEach(g=>{g.addEventListener("click",()=>openRegion(+g.dataset.n));g.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();openRegion(+g.dataset.n)}})});
+  document.querySelectorAll(".region").forEach(g=>{g.addEventListener("click",()=>openRegion(+g.dataset.n,true));g.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();openRegion(+g.dataset.n,true)}})});
 }
 
 document.querySelectorAll(".chip").forEach(b=>b.addEventListener("click",()=>{const on=b.getAttribute("aria-pressed")!=="true";b.setAttribute("aria-pressed",on);document.getElementById("L-"+b.dataset.layer).classList.toggle("off",!on)}));
@@ -591,7 +643,8 @@ function detailHTML(r,forceFull){
 }
 const detail=document.getElementById("detail");
 let current=3;try{const s=+localStorage.getItem("m140-region");if(s>=1&&s<=5)current=s}catch(e){}
-function openRegion(n){current=n;detail.innerHTML=detailHTML(R[n-1]);document.querySelectorAll(".region").forEach(g=>g.classList.toggle("on",+g.dataset.n===n));try{localStorage.setItem("m140-region",n)}catch(e){}}
+let tapped=false;
+function openRegion(n,fromTap){current=n;if(fromTap)tapped=true;if(!tapped){detail.className="tapnote";detail.innerHTML=mode()==="simple"?"👆 <b>Tap a stop</b> on the map to see what happens there.":"👆 <b>Select a stop</b> on the map to open its details.";return}detail.className="detail";detail.innerHTML=detailHTML(R[n-1]);if(fromTap)detail.scrollIntoView({behavior:"smooth",block:"nearest"});document.querySelectorAll(".region").forEach(g=>g.classList.toggle("on",+g.dataset.n===n));try{localStorage.setItem("m140-region",n)}catch(e){}}
 function drawCards(){
   document.getElementById("cards").innerHTML=mode()==="simple"
     ?CARDS.map((c,i)=>`<article class="card"><h3>${KC[i].t}</h3><p>${KC[i].f}</p><dl class="kv"><dt>So on our map</dt><dd>${KC[i].m}</dd></dl><p class="src">${c.src}</p></article>`).join("")
@@ -606,6 +659,12 @@ document.querySelectorAll(".mode button").forEach(b=>b.addEventListener("click",
 }));
 document.querySelectorAll(".mode button").forEach(x=>x.setAttribute("aria-pressed",x.dataset.mode===mode()));
 render();
+function openFold(id){const d=document.getElementById(id);if(!d)return;d.open=true;d.scrollIntoView({behavior:"smooth",block:"start"})}
+if(location.hash==="#tool")setTimeout(()=>openFold("tool"),300);
+addEventListener("hashchange",()=>{if(location.hash==="#tool")openFold("tool")});
+document.querySelectorAll("[data-open-tool]").forEach(a=>a.addEventListener("click",e=>{e.preventDefault();openFold("tool")}));
+if(location.search.includes("print"))document.querySelectorAll("details.fold").forEach(d=>d.open=true);
+addEventListener("beforeprint",()=>document.querySelectorAll("details.fold").forEach(d=>d.open=true));
 document.getElementById("print-details").innerHTML=R.map(r=>`<div class="detail" style="margin-bottom:16px">${detailHTML(r,true)}</div>`).join("");
 
 const store={get(k,d){try{return JSON.parse(localStorage.getItem(k)||"null")??d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
