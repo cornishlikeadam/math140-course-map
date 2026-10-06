@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Part 3 · Water: Get one hint</title>
+<style>html,body{margin:0;height:100%;background:#0E1430;display:grid;place-items:center}canvas{display:block;width:100%;height:auto;max-height:100vh;aspect-ratio:16/9;cursor:pointer}</style>
+</head><body><canvas aria-label="Animation: the AI hint helper points at one weak step; a little water helps, too much drowns the plant"></canvas>
+<script>
+window.SCENE = {
+
+n:3, emoji:"💧", name:"Water: Get one hint (the AI part)", dur:20,
+captions:[[0.3,3,"Part 3. Get one hint. This is the AI part."],[3,5.5,"1. The helper reads YOUR proof."],[5.5,9,"2. It points at ONE weak step."],[9,13,"3. A little water helps. Too much drowns the plant."],[13,16.5,"4. You decide: makes sense, not sure, or disagree."],[16.5,20,"Not sure? The teacher checks it. 💧"]],
+draw(t){
+  const rows=[["AB = AC","Given"],["Draw AD to cut ∠A in half","Construction"],["∠BAD = ∠CAD","Cut in half"],["AD = AD","Same segment"],["△ABD ≅ △ACD","SAS"],["∠B = ∠C","“They look equal”"]];
+  const tA=t<9?1:1-prog(t,9,9.5);
+  rows.forEach(([s,r],i)=>{const y=160+i*52,a=prog(t,0.8+i*.15,1.4+i*.15)*tA;
+    if(i===5&&t>5){box(180,y-24,920,48,10,"rgba(34,211,238,.14)",C.cyan,a*prog(t,5,5.4),2);}
+    label(String(i+1),200,y,a,C.dim,`600 20px ${SANS}`); label(s,240,y,a,C.ink,'italic 600 26px "Times New Roman", serif',"left");
+    label(r,760,y,a,i===5?C.pink:C.blue,`600 22px ${SANS}`,"left");});
+  if(t<9){const k=prog(t,3.4,5), y=lerp(70,420,k*k); if(k>0&&k<1){g.fillStyle=C.cyan;g.beginPath();g.moveTo(860,y-26);g.bezierCurveTo(876,y-6,880,y+4,860,y+12);g.bezierCurveTo(840,y+4,844,y-6,860,y-26);g.fill();}
+    const rp=prog(t,5,6.5); for(let j=0;j<3;j++){const rr=rp*60-j*14; if(rr>0){g.globalAlpha=(1-rp)*.9;arc(860,420,rr,0,Math.PI*2,1,C.cyan,2);g.globalAlpha=1;}}
+    const b=fade(t,5.6,6.2,8.4,9); box(330,500,620,58,29,"rgba(34,211,238,.12)",C.cyan,b,2);
+    label("Step 6: is “they look equal” a rule?",640,529,b,C.cyan,`700 26px ${SANS}`);}
+  const p=fade(t,9.4,10,12.4,13);
+  if(p>0){ for(const [x,big] of [[430,false],[850,true]]){
+      box(x-70,420,140,90,14,"rgba(255,95,162,.25)",C.pink,p,3);
+      const grow=prog(t,10.4,11.8);
+      if(!big){line(x,420,x,420-110*grow,p,"#7BE0A0",5); dot(x,420-110*grow,p*grow,C.pink,16); dot(x+18,420-60*grow,p*grow,"#7BE0A0",9);
+        g.fillStyle=C.cyan; g.globalAlpha=p; g.beginPath(); g.arc(x-50,300,9,0,7); g.fill(); g.globalAlpha=1;
+        label("A little: it grows ✓",x,560,p,"#7BE0A0",`700 24px ${SANS}`);}
+      else{line(x,420,x+30*grow,420-40*grow,p,"#7BE0A0",5); box(x-110,520-250*grow,220,250*grow+2,18,"rgba(34,211,238,.38)",null,p);
+        label("Too much: it drowns ✗",x,560,p,C.pink,`700 24px ${SANS}`);}
+    } label("Too much water = the answer. Not allowed.",640,200,prog(t,11.4,12)*p,C.ink,`700 26px ${SANS}`);}
+  const q=prog(t,13,13.8); if(q>0){const opts=["Makes sense","Not sure","I disagree"];
+    opts.forEach((o,i)=>{const x=280+i*360, on=i===1&&t>14.6; box(x-150,250,300,72,36,on?"rgba(255,95,162,.25)":"rgba(255,255,255,.06)",on?C.pink:"rgba(255,255,255,.35)",q,on?4:2); label(o,x,286,q,C.ink,`700 28px ${SANS}`);});
+    const a=prog(t,16.6,17.6); line(640,330,640,330+120*a,1,C.pink,4);
+    if(a>0.95){g.fillStyle=C.pink;g.beginPath();g.moveTo(628,440);g.lineTo(652,440);g.lineTo(640,458);g.fill();}
+    const tb=prog(t,17.4,18.2); box(470,466,340,62,31,"rgba(79,123,255,.2)",C.blue,tb,3); label("🧑‍🌾 Teacher checks it",640,497,tb,C.ink,`700 26px ${SANS}`);}
+}
+};
+</script>
+<script src="engine.js"></script>
+</body></html>

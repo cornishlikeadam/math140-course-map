@@ -5,43 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>MATH 140 Proof Map</title>
 <script>(function(){var m="simple";try{m=localStorage.getItem("m140-mode")||m}catch(e){}var h=location.hash.slice(1);if(h==="full"||h==="simple")m=h;document.documentElement.dataset.mode=m})();</script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&family=IBM+Plex+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="assets/garden.css">
 <style>
-:root{
-  --ground:#EDF0F3; --paper:#FAFBFC; --ink:#1A1F2B; --muted:#586174; --rule:#C9D0DA; --grid:#DCE2E9;
-  --f1:#E3E7EE; --f2:#DDE3EB; --f3:#D6DEE8; --f4:#D0D9E4; --f5:#E7E3D6;
-  --ai:#2447D6; --ai-soft:#DDE3FA;
-  --stop:#AE2F2F; --stop-soft:#F4DCDB;
-  --human:#2B6A3D; --human-soft:#D7E9DB;
-  --hand:#B06F14;
-  --display:"Instrument Sans", "Helvetica Neue", Arial, sans-serif;
-  --body:"Newsreader", Georgia, "Times New Roman", serif;
-  --mono:"IBM Plex Mono", ui-monospace, Menlo, monospace;
-}
-@media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){
-    color-scheme:dark;
-    --ground:#12151C; --paper:#191D26; --ink:#E4E8EF; --muted:#98A1B2; --rule:#2F3542; --grid:#222733;
-    --f1:#222835; --f2:#232A38; --f3:#252D3C; --f4:#27303F; --f5:#2E2C26;
-    --ai:#8199FF; --ai-soft:#1F2850; --stop:#F07C70; --stop-soft:#4A2322;
-    --human:#79C48B; --human-soft:#1E3A26; --hand:#E3A94A;
-  }
-}
-:root[data-theme="dark"]{
-  color-scheme:dark;
-  --ground:#12151C; --paper:#191D26; --ink:#E4E8EF; --muted:#98A1B2; --rule:#2F3542; --grid:#222733;
-  --f1:#222835; --f2:#232A38; --f3:#252D3C; --f4:#27303F; --f5:#2E2C26;
-  --ai:#8199FF; --ai-soft:#1F2850; --stop:#F07C70; --stop-soft:#4A2322;
-  --human:#79C48B; --human-soft:#1E3A26; --hand:#E3A94A;
-}
 *{box-sizing:border-box}
-body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.5;padding-inline:clamp(16px,4vw,48px);padding-block:28px 64px}
+body{margin:0;color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.5;padding-inline:clamp(16px,4vw,48px);padding-block:28px 64px}
 .wrap{max-width:1240px;margin:0 auto;display:flex;flex-direction:column;gap:28px}
-h1,h2,h3{font-family:var(--display);line-height:1.08;text-wrap:balance;margin:0}
-h1{font-size:clamp(30px,4.6vw,52px);font-weight:700;letter-spacing:-.025em}
-h2{font-size:clamp(22px,2.4vw,28px);font-weight:700;letter-spacing:-.01em}
-h3{font-size:18px;font-weight:700}
+h1,h2,h3{font-family:var(--display);font-weight:400;line-height:1.12;text-wrap:balance;margin:0}
+h1{font-size:clamp(34px,5vw,58px);font-weight:400;color:var(--ink)}
+h1::after{content:"";display:block;width:120px;height:6px;border-radius:6px;margin-top:10px;background:linear-gradient(90deg,var(--pink),var(--blue) 70%,var(--cyan))}
+h2{font-size:clamp(24px,2.6vw,31px);font-weight:400}
+h3{font-size:21px;font-weight:400}
 p{margin:0}
 .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 .mono{font-family:var(--mono)}
@@ -50,19 +23,19 @@ header{display:grid;grid-template-columns:1.4fr 1fr;gap:24px;align-items:end}
 .bq span{border-bottom:2px solid var(--c);padding-bottom:1px;position:relative}
 .bq sub{font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--c);vertical-align:baseline;margin-left:3px}
 .bq .a1{--c:var(--ink)} .bq .a2{--c:var(--human)} .bq .a3{--c:var(--ai)} .bq .a4{--c:var(--hand)} .bq .a5{--c:var(--stop)}
-.test{background:var(--paper);border:1px solid var(--rule);border-radius:6px;padding:16px 18px;display:grid;gap:10px}
+.test{background:var(--pink-mist);border:1.5px solid var(--pink-soft);border-radius:var(--radius);padding:16px 18px;display:grid;gap:10px}
 .test dt{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 .test dd{margin:2px 0 0;font-size:16px}
-.test b{font-family:var(--display)}
+.test b{color:var(--pink-deep)}
 .bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
 .bar .lbl{font-family:var(--mono);font-size:12px;color:var(--muted);margin-right:4px}
 .chip{font-family:var(--display);font-weight:600;font-size:14px;border:1.5px solid var(--ink);background:transparent;color:var(--ink);border-radius:999px;padding:6px 14px;cursor:pointer;display:inline-flex;gap:8px;align-items:center}
-.chip[aria-pressed="true"]{background:var(--ink);color:var(--ground)}
+.chip[aria-pressed="true"]{background:var(--pink);border-color:var(--pink);color:#fff}
 .chip:focus-visible,.region:focus-visible,button:focus-visible,textarea:focus-visible{outline:3px solid var(--ai);outline-offset:2px}
 .chip .n{font-family:var(--mono);font-size:11px;opacity:.7}
-.mapbox{background:var(--paper);border:1px solid var(--rule);border-radius:6px;overflow-x:auto}
+.mapbox{background:var(--paper);border:1.5px solid var(--rule);border-radius:var(--radius);box-shadow:0 10px 30px rgba(28,42,107,.06);overflow-x:auto}
 #map{display:block;width:100%;min-width:900px;height:auto}
-svg text{font-family:var(--display)}
+svg text{font-family:var(--body)}
 .region{cursor:pointer}
 .region .shape{stroke:var(--ink);stroke-width:1.5;transition:stroke-width .15s}
 .region:hover .shape,.region.on .shape{stroke-width:3.5}
@@ -87,7 +60,7 @@ ul.people li{display:grid;grid-template-columns:34px 1fr;gap:8px;align-items:sta
 .av{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-family:var(--mono);font-size:11px;font-weight:600;border:1.5px solid var(--ink);background:var(--ground)}
 .av.nv{border-style:dashed;color:var(--muted)}
 .grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px}
-.panel{background:var(--paper);border:1px solid var(--rule);border-radius:6px;padding:18px 20px;display:flex;flex-direction:column;gap:12px}
+.panel{background:var(--paper);border:1.5px solid var(--rule);border-radius:var(--radius);box-shadow:0 10px 30px rgba(28,42,107,.06);padding:18px 20px;display:flex;flex-direction:column;gap:12px}
 .four{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
 .four>div{border-top:3px solid var(--ink);padding-top:8px;display:flex;flex-direction:column;gap:6px}
 .four>div:nth-child(1){border-color:var(--stop)} .four>div:nth-child(2){border-color:var(--human)} .four>div:nth-child(3){border-color:var(--ai)} .four>div:nth-child(4){border-color:var(--hand)}
@@ -96,7 +69,7 @@ ul.people li{display:grid;grid-template-columns:34px 1fr;gap:8px;align-items:sta
 table{border-collapse:collapse;width:100%;font-size:15px;min-width:760px}
 th,td{text-align:left;vertical-align:top;padding:9px 10px;border-bottom:1px solid var(--rule)}
 th{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:400}
-td:first-child{font-family:var(--display);font-weight:700;white-space:nowrap}
+td:first-child{font-weight:700;color:var(--blue-deep);white-space:nowrap}
 .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:16px}
 .card{background:var(--paper);border:1px solid var(--rule);border-radius:6px;padding:16px 18px;display:flex;flex-direction:column;gap:8px;font-size:15px}
 .card .src{font-size:14px;color:var(--muted)}
@@ -127,13 +100,13 @@ html[data-mode="simple"] .m-f,html[data-mode="full"] .m-s{display:none!important
 .mode .lbl{font-family:var(--mono);font-size:12px;color:var(--muted)}
 .mode .seg{display:inline-flex;border:1.5px solid var(--ink);border-radius:999px;overflow:hidden}
 .mode button{font-family:var(--display);font-weight:600;font-size:14px;background:transparent;color:var(--ink);border:0;padding:7px 16px;cursor:pointer}
-.mode button[aria-pressed="true"]{background:var(--ink);color:var(--ground)}
+.mode button[aria-pressed="true"]{background:var(--blue);color:#fff}
 .ideas{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:16px 20px}
 .ideas>div{display:flex;flex-direction:column;gap:4px;border-left:3px solid var(--ai);padding-left:12px}
 .ideas>div:nth-child(2){border-color:var(--stop)} .ideas>div:nth-child(3){border-color:var(--hand)} .ideas>div:nth-child(4){border-color:var(--human)} .ideas>div:nth-child(5){border-color:var(--muted)} .ideas>div:nth-child(6){border-color:var(--ink)}
-.ideas b{font-family:var(--display);font-size:17px;line-height:1.25}
+.ideas b{font-family:var(--display);font-weight:400;font-size:21px;line-height:1.25}
 .words{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;margin:0;font-size:16px}
-.words dt{font-family:var(--display);font-weight:700}
+.words dt{font-weight:700;color:var(--pink-deep)}
 .words dd{margin:0}
 @media (max-width:760px){header{grid-template-columns:1fr}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
@@ -161,6 +134,16 @@ html[data-mode="simple"] .m-f,html[data-mode="full"] .m-s{display:none!important
   <div class="print-only" style="font-family:var(--mono);font-size:13px;border:1px solid var(--rule);padding:10px 12px">
     Live interactive map: https://math140-course-map.vercel.app/
   </div>
+
+  <nav class="topnav" aria-label="Site">
+    <a class="brand" href="./">🌸 <span>Proof <b>Garden</b></span></a>
+    <div class="navlinks">
+      <a href="./" aria-current="page">🗺️ Map</a>
+      <button type="button" data-open-videos="1">🎬 Watch the 5 parts</button>
+      <a href="prototype/">🧪 Practice helper</a>
+      <a href="guide/">📗 Garden Guide</a>
+    </div>
+  </nav>
 
   <div class="topbar">
     <p class="eyebrow">DIGI 230 · Milestone 1 · Team map</p>
@@ -191,19 +174,20 @@ html[data-mode="simple"] .m-f,html[data-mode="full"] .m-s{display:none!important
   <section class="panel">
     <h2>The big ideas, in plain words</h2>
     <div class="ideas">
-      <div><b>The AI is a hint helper, not a homework machine.</b><p>It can point at a weak step and ask you a question. It's never allowed to write a step for you.</p></div>
-      <div><b>AI can sound sure and still be wrong.</b><p>When experts checked AI answers to hard proofs, most AIs got less than 5% right. So the AI never grades and never says "your proof is correct."</p></div>
-      <div><b>The person who needs help is the worst at spotting a bad hint.</b><p>That's why "Not sure" is a smart answer. The teacher checks every Not sure hint before you present.</p></div>
-      <div><b>Try first, then get a hint.</b><p>You write at least 2 steps yourself. In one study, kids who got answers handed to them did 17% worse on the real test later. Kids who only got hints didn't.</p></div>
-      <div><b>Fair for everyone.</b><p>Some kids don't have a computer at home. They get a paper list of math rules and help from the teacher, and it counts exactly the same.</p></div>
-      <div><b>A hint that's too exact is the same as the answer.</b><p>In our first test, one hint almost named the exact rule to write. We're still fixing that.</p></div>
+      <div><b>1 · 💧 The AI is a hint helper.</b><p>It points at one weak step. It asks you a question. It never writes a step for you.</p></div>
+      <div><b>2 · 🤔 AI can sound sure and still be wrong.</b><p>Experts checked AI answers to hard proofs. Most AIs got less than 5% right. So the AI never grades.</p></div>
+      <div><b>3 · 🧑‍🌾 The teacher checks unsure hints.</b><p>The student who needs help is the worst at spotting a bad hint. So "Not sure" is a smart answer.</p></div>
+      <div><b>4 · 🌱 Try first. Then get a hint.</b><p>You write 2 steps first. In one study, kids who got answers did 17% worse later. Kids who got hints did not.</p></div>
+      <div><b>5 · 📗 Fair for everyone.</b><p>Some kids have no computer at home. They use a paper rule list. It counts the same.</p></div>
+      <div><b>6 · 🚿 A little water helps. Too much drowns.</b><p>A small hint helps your proof grow. A hint that is too exact is the answer. That is not allowed.</p></div>
     </div>
     <dl class="words m-s">
       <dt>Proof</dt><dd>A list of steps that shows something is true, with a reason for every step.</dd>
       <dt>Theorem</dt><dd>A math rule that has already been proven, so you can use it as a reason.</dd>
       <dt>Compass</dt><dd>A tool that draws perfect circles.</dd>
       <dt>AI</dt><dd>A computer program that reads and writes words. On this page, it's the hint helper.</dd>
-      <dt>Hint list</dt><dd>A record of every hint the helper gave you, which your teacher can see.</dd>
+      <dt>Hint list</dt><dd>A list of every hint the helper gave you. Your teacher can see it.</dd>
+      <dt>Garden</dt><dd>🌱 Seed = draw · 🌿 Sprout = write · 💧 Water = hint · 🌸 Bloom = explain · 🍓 Fruit = quiz</dd>
     </dl>
   </section>
 
@@ -530,8 +514,8 @@ function drawMap(){
   const S=mode()==="simple";
   LAYERS.forEach(g=>{while(g.firstChild)g.removeChild(g.firstChild)});
   [[130,170,150],[610,170,170],[370,450,160],[850,450,150],[1080,170,160]].forEach(([cx,cy,rr])=>el("circle",{cx,cy,r:rr,fill:"none",stroke:"var(--rule)","stroke-width":1,"stroke-dasharray":"2 5"},arcs));
-  el("text",{x:18,y:676,"font-family":"IBM Plex Mono, monospace","font-size":11,fill:"var(--muted)"},arcs).textContent=S?"START: WHAT TO LEARN →":"LEARNING GOAL →";
-  el("text",{x:1182,y:676,"text-anchor":"end","font-family":"IBM Plex Mono, monospace","font-size":11,fill:"var(--muted)"},arcs).textContent=S?"→ FINISH: THE QUIZ":"→ ASSESSMENT";
+  el("text",{x:18,y:676,"font-family":"Lexend, sans-serif","font-size":11,fill:"var(--muted)"},arcs).textContent=S?"START: WHAT TO LEARN →":"LEARNING GOAL →";
+  el("text",{x:1182,y:676,"text-anchor":"end","font-family":"Lexend, sans-serif","font-size":11,fill:"var(--muted)"},arcs).textContent=S?"→ FINISH: THE QUIZ":"→ ASSESSMENT";
   el("path",{d:"M30,320 "+R.map(r=>`L${r.x},${r.y}`).join(" ")+" L1190,320",fill:"none",stroke:"var(--ink)","stroke-width":1.5,"stroke-dasharray":"1 6","stroke-linecap":"round"},LT);
   R.forEach(r=>{
     const k=K[r.n],title=S?k.title:r.title,sub=S?k.sub:r.sub,out=S?k.out:r.out;
@@ -540,8 +524,9 @@ function drawMap(){
     el("path",{d,class:"shape",fill:`var(--f${r.n})`},g);
     if(r.shape==="golden"){const h=136,w=h*1.618;el("path",{d:`M${r.x-w/2+h},${r.y-h/2} V${r.y+h/2} M${r.x-w/2},${r.y+h/2} A${h},${h} 0 0,1 ${r.x-w/2+h},${r.y-h/2}`,fill:"none",stroke:"var(--muted)","stroke-width":1,"stroke-dasharray":"3 3"},g)}
     const ty=r.shape==="triangle"?r.y+14:r.y;
-    el("text",{x:r.x,y:ty-30,"text-anchor":"middle","font-family":"IBM Plex Mono, monospace","font-size":11,fill:"var(--muted)"},g).textContent=`STEP ${r.n}`;
-    el("text",{x:r.x,y:ty-6,"text-anchor":"middle","font-size":23,"font-weight":700,fill:"var(--ink)"},g).textContent=title;
+    el("text",{x:r.x,y:ty-30,"text-anchor":"middle","font-family":"Lexend, sans-serif","font-size":11,fill:"var(--muted)"},g).textContent=`STEP ${r.n}`;
+    el("text",{x:r.x,y:ty-58,"text-anchor":"middle","font-size":26},g).textContent=["🌱","🌿","💧","🌸","🍓"][r.n-1];
+    el("text",{x:r.x,y:ty-4,"text-anchor":"middle","font-size":29,"font-family":"Fondamento, serif",fill:"var(--ink)"},g).textContent=title;
     el("text",{x:r.x,y:ty+14,"text-anchor":"middle","font-size":12,fill:"var(--muted)"},g).textContent=sub;
     const w=Math.min(170,out.length*6.4+16);
     el("rect",{x:r.x-w/2,y:ty+24,width:w,height:22,rx:3,fill:"var(--paper)",stroke:"var(--ink)","stroke-width":1},g);
@@ -558,7 +543,7 @@ function drawMap(){
     const py=r.y+(r.shape==="golden"?92:112);
     r.people.forEach(([id],i)=>{const px=r.x-(r.people.length-1)*18+i*36,nv=P[id].nv;
       el("circle",{cx:px,cy:py,r:15,fill:"var(--paper)",stroke:nv?"var(--muted)":"var(--ink)","stroke-width":1.5,"stroke-dasharray":nv?"3 3":"none"},LP);
-      el("text",{x:px,y:py+4,"text-anchor":"middle","font-family":"IBM Plex Mono, monospace","font-size":10,"font-weight":600,fill:nv?"var(--muted)":"var(--ink)"},LP).textContent=id;});
+      el("text",{x:px,y:py+4,"text-anchor":"middle","font-family":"Lexend, sans-serif","font-size":10,"font-weight":600,fill:nv?"var(--muted)":"var(--ink)"},LP).textContent=id;});
     const dy=py+26;
     el("rect",{x:r.x-60,y:dy,width:14,height:14,fill:"var(--ink)"},LD);
     el("text",{x:r.x-40,y:dy+11,"font-size":12,"font-weight":700,fill:"var(--ink)"},LD).textContent=S?KP[r.formal[0]]:short(r.formal[0]);
@@ -649,5 +634,6 @@ form.addEventListener("submit",async e=>{e.preventDefault();const text=input.val
   finally{sendBtn.disabled=false;sendBtn.textContent="Check my proof";log.scrollTop=log.scrollHeight}});
 document.getElementById("chat-clear").addEventListener("click",()=>{chat=[];store.set("m140-chat",chat);log.querySelectorAll(".msg:not(:first-child)").forEach(n=>n.remove())});
 </script>
+<script src="assets/garden.js" data-root="" data-auto="1"></script>
 </body>
 </html>

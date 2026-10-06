@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Garden Guide</title>
+<link rel="stylesheet" href="../assets/garden.css">
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--body);font-size:17.5px;line-height:1.6;padding-inline:clamp(16px,4vw,44px);padding-block:22px 70px}
+.wrap{max-width:1180px;margin:0 auto;display:flex;flex-direction:column;gap:26px}
+h1{font-size:clamp(38px,6vw,64px);line-height:1.05;margin:0}
+h1::after{content:"";display:block;width:130px;height:6px;border-radius:6px;margin-top:10px;background:linear-gradient(90deg,var(--pink),var(--blue) 70%,var(--cyan))}
+h2{font-size:clamp(26px,3vw,34px);margin:0;line-height:1.15}
+p{margin:0}
+.lead{font-size:19px;color:var(--muted);max-width:60ch}
+.how{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:0;padding:0;list-style:none}
+.how li{display:flex;gap:12px;align-items:flex-start;background:var(--white);border:1.5px solid var(--rule);border-radius:var(--radius);padding:14px 16px}
+.panel{background:var(--white);border:1.5px solid var(--rule);border-radius:24px;padding:22px clamp(16px,3vw,28px);display:flex;flex-direction:column;gap:16px;box-shadow:0 12px 34px rgba(28,42,107,.06)}
+.panel.ask{border-color:var(--pink-soft);background:linear-gradient(180deg,var(--pink-mist),var(--white) 60%)}
+.askrow{display:flex;gap:10px;flex-wrap:wrap}
+.askrow input{flex:1 1 280px;font:500 18px var(--body);padding:14px 18px;border:2px solid var(--pink-soft);border-radius:999px;color:var(--ink);background:var(--white)}
+.askrow input:focus{border-color:var(--pink);outline:none;box-shadow:0 0 0 4px rgba(255,95,162,.18)}
+.go{font:700 17px var(--body);border:0;border-radius:999px;padding:14px 24px;background:var(--pink);color:#fff;cursor:pointer}
+.go:hover{background:var(--pink-deep)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font:600 14.5px var(--body);border:1.5px solid var(--rule);background:var(--white);color:var(--ink);border-radius:999px;padding:7px 13px;cursor:pointer}
+.chip:hover{border-color:var(--blue)}
+.chip[aria-pressed="true"]{background:var(--blue);border-color:var(--blue);color:#fff}
+.note-safe{font-size:14.5px;color:var(--muted)}
+/* 🍓 answer card */
+.answer{position:relative;border-radius:22px;padding:3px;background:linear-gradient(120deg,var(--pink),var(--blue) 60%,var(--cyan))}
+.answer .in{background:var(--white);border-radius:19px;padding:20px 22px 18px;display:flex;flex-direction:column;gap:12px}
+.answer .top{display:flex;gap:14px;align-items:center}
+.answer .fruit{font-size:42px;line-height:1;flex:none;filter:drop-shadow(0 4px 8px rgba(255,95,162,.25))}
+.answer h3{font-size:clamp(23px,2.6vw,30px);margin:0;line-height:1.2}
+.answer .cat{font:600 12.5px var(--body);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+ol.steps{list-style:none;margin:0;padding:0;display:grid;gap:10px;counter-reset:s}
+ol.steps li{counter-increment:s;display:flex;gap:12px;align-items:flex-start;font-size:18px}
+ol.steps li::before{content:counter(s);flex:none;display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:var(--pink-soft);color:var(--pink-deep);font-weight:700;font-size:16px}
+ol.steps li:nth-child(3n+2)::before{background:var(--blue-soft);color:var(--blue-deep)}
+ol.steps li:nth-child(3n+3)::before{background:var(--cyan-soft);color:var(--cyan-text)}
+.foot{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.tag{font:700 12px var(--body);letter-spacing:.05em;text-transform:uppercase;padding:4px 10px;border-radius:999px}
+.t-evidence{background:var(--blue-soft);color:var(--blue-deep)} .t-guess{background:#FFF1D6;color:#8A5A00} .t-test{background:var(--cyan-soft);color:var(--cyan-text)}
+.readbtn{font:600 15px var(--body);background:none;border:0;color:var(--blue-deep);cursor:pointer;text-decoration:underline;padding:0}
+.miss{border:2px dashed var(--pink-soft);border-radius:20px;padding:18px 20px;display:flex;flex-direction:column;gap:10px}
+/* 🌱 all answers */
+.qgroup{display:flex;flex-direction:column;gap:8px}
+.qgroup h3{font-size:24px;margin:6px 0 2px}
+details.qa{border:1.5px solid var(--rule);border-radius:16px;background:var(--white);overflow:hidden}
+details.qa[open]{border-color:var(--pink)}
+details.qa summary{cursor:pointer;list-style:none;padding:13px 16px;font-weight:600;display:flex;gap:10px;align-items:center}
+details.qa summary::-webkit-details-marker{display:none}
+details.qa summary::after{content:"＋";margin-left:auto;color:var(--pink-deep);font-weight:700}
+details.qa[open] summary::after{content:"－"}
+details.qa .body{padding:0 16px 16px;display:flex;flex-direction:column;gap:12px}
+.count{font:600 14px var(--body);color:var(--muted)}
+/* 📒 notes */
+.notes{display:grid;grid-template-columns:minmax(220px,300px) 1fr;gap:18px;align-items:start}
+.nlist{display:flex;flex-direction:column;gap:4px;position:sticky;top:12px;max-height:80vh;overflow:auto;padding-right:4px}
+.nlist .fold{font:700 12.5px var(--body);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:10px 0 2px}
+.nlist button{font:500 15px var(--body);text-align:left;border:0;background:none;color:var(--ink);padding:7px 10px;border-radius:10px;cursor:pointer}
+.nlist button:hover{background:var(--pink-mist)}
+.nlist button[aria-current="true"]{background:var(--pink-soft);color:var(--pink-deep);font-weight:700}
+.reader{background:var(--white);border:1.5px solid var(--rule);border-radius:20px;padding:22px clamp(16px,3vw,32px);min-width:0}
+.md h1{font-size:clamp(30px,4vw,44px);margin:0 0 12px}
+.md h1::after{width:90px;height:5px}
+.md h2{font-size:28px;color:var(--blue-deep);margin:26px 0 10px}
+.md h3{font-size:23px;margin:20px 0 8px}
+.md p,.md li{font-size:17px}
+.md p{margin:10px 0}
+.md strong{color:var(--pink-deep)}
+.md mark{background:var(--pink-soft);color:var(--ink);border-radius:4px;padding:0 3px}
+.md a{color:var(--blue-deep)}
+.md code{font-family:ui-monospace,Menlo,monospace;font-size:.88em;background:var(--blue-soft);padding:1px 6px;border-radius:6px}
+.md pre{background:#0E1430;color:#F4F6FF;padding:14px 16px;border-radius:14px;overflow-x:auto}
+.md pre code{background:none;color:inherit;padding:0}
+.md .tblwrap{overflow-x:auto;margin:12px 0}
+.md table{border-collapse:collapse;width:100%;font-size:15.5px;min-width:520px}
+.md th,.md td{border-bottom:1.5px solid var(--rule);padding:8px 10px;text-align:left;vertical-align:top}
+.md th{background:var(--blue-soft)}
+.md blockquote{margin:12px 0;padding:6px 16px;border-left:4px solid var(--pink);background:var(--pink-mist);border-radius:0 12px 12px 0}
+.md hr{border:0;border-top:2px dashed var(--rule);margin:22px 0}
+.md input[type=checkbox]{accent-color:var(--pink);width:16px;height:16px}
+.callout{border-radius:16px;padding:12px 16px;margin:14px 0;border:1.5px solid}
+.callout .ct{font-weight:700;margin-bottom:4px}
+.callout p:first-child{margin-top:0} .callout p:last-child{margin-bottom:0}
+.c-tip{background:var(--cyan-soft);border-color:#9EEFF9} .c-tip .ct{color:var(--cyan-text)}
+.c-note{background:var(--blue-soft);border-color:#C3D1FF} .c-note .ct{color:var(--blue-deep)}
+.c-important,.c-example{background:var(--pink-mist);border-color:var(--pink-soft)} .c-important .ct,.c-example .ct{color:var(--pink-deep)}
+.c-warning,.c-caution{background:#FFF1F6;border-color:var(--pink)} .c-warning .ct,.c-caution .ct{color:var(--pink-deep)}
+.mermaid{background:var(--white);border:1.5px solid var(--rule);border-radius:14px;padding:12px;overflow-x:auto;text-align:center}
+@media (max-width:820px){.notes{grid-template-columns:1fr}.nlist{position:static;max-height:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav class="topnav" aria-label="Site">
+    <a class="brand" href="../">🌸 <span>Proof <b>Garden</b></span></a>
+    <div class="navlinks">
+      <a href="../">🗺️ Map</a>
+      <button type="button" data-open-videos="1">🎬 Watch the 5 parts</button>
+      <a href="../prototype/">🧪 Practice helper</a>
+      <a href="./" aria-current="page">📗 Garden Guide</a>
+    </div>
+  </nav>
+
+  <header style="display:flex;flex-direction:column;gap:16px">
+    <h1>📗 Garden Guide</h1>
+    <p class="lead">Our notes and all the answers. In one place. The same notes are in Obsidian.</p>
+    <ol class="how">
+      <li><span class="num">1</span><span><b>Ask</b> a question in the pink box.</span></li>
+      <li><span class="num blue">2</span><span><b>Open</b> a question card to see the answer.</span></li>
+      <li><span class="num cyan">3</span><span><b>Read</b> a full note at the bottom.</span></li>
+    </ol>
+  </header>
+
+  <section class="panel ask" aria-labelledby="askh">
+    <h2 id="askh">🔍 Ask the Guide</h2>
+    <form class="askrow" id="askform">
+      <label for="askq" class="note-safe" style="flex-basis:100%">Type a question about our project.</label>
+      <input id="askq" type="text" placeholder="e.g. What if a hint is wrong?" autocomplete="off">
+      <button class="go" type="submit">Ask 💧</button>
+    </form>
+    <div class="chips" id="tryme" aria-label="Try a question"></div>
+    <div id="answer" aria-live="polite"></div>
+    <p class="note-safe">🤖 The Guide does <b>not</b> use AI. It finds the answer in <b>our own notes</b>. So the answer is safe and it is ours.</p>
+  </section>
+
+  <section class="panel" aria-labelledby="allh">
+    <div style="display:flex;flex-wrap:wrap;gap:8px 16px;align-items:baseline;justify-content:space-between">
+      <h2 id="allh">🌱 All the answers</h2><span class="count" id="count"></span>
+    </div>
+    <div class="chips" id="cats" role="group" aria-label="Pick a topic"></div>
+    <div id="groups" style="display:flex;flex-direction:column;gap:14px"></div>
+  </section>
+
+  <section class="panel" aria-labelledby="notesh">
+    <h2 id="notesh">📒 Our notes</h2>
+    <p class="note-safe">These are the Obsidian notes from the <b>DIGI 230</b> folder. They update when we run <code>scripts/sync-notes.sh</code>.</p>
+    <div class="notes">
+      <nav class="nlist" id="nlist" aria-label="Notes"></nav>
+      <article class="reader md" id="reader" aria-live="polite"><p>Pick a note. 🌸</p></article>
+    </div>
+  </section>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+<script>
+const EMO={seed:"🌱",water:"💧",people:"🧑‍🌾",science:"🔬",fruit:"🍓",wonder:"❓",check:"✅"};
+const STOP=new Set("a an and are at be by can do does for from how i if in is it me my of on or our the this to was we what when where which who why will with you your".split(" "));
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const $=id=>document.getElementById(id);
+let QA={categories:{},questions:[]},NOTES=[],current=null;
+
+// ---------- 🔍 Ask the Guide ----------
+const words=s=>s.toLowerCase().replace(/[^a-z0-9%' ]+/g," ").split(/\s+/).filter(w=>w.length>1&&!STOP.has(w));
+function score(q,item){
+  const text=q.toLowerCase();let s=0;
+  for(const k of item.kw) if(text.includes(k)) s+=3;
+  const qw=new Set(words(item.q+" "+item.kw.join(" ")));
+  for(const w of words(q)) if(qw.has(w)) s+=1;
+  return s;
+}
+function card(item,opts={}){
+  const tag=item.tag?`<span class="tag t-${item.tag}">${item.tag==="evidence"?"🔬 evidence":item.tag==="guess"?"🤔 guess":"🧪 test"}</span>`:"";
+  return `<article class="answer"><div class="in">
+    <div class="top"><span class="fruit" aria-hidden="true">${EMO[item.cat]||"🌸"}</span><div><div class="cat">${esc(QA.categories[item.cat]||"")}</div><h3>${esc(item.q)}</h3></div></div>
+    <ol class="steps">${item.steps.map(s=>`<li><span>${esc(s)}</span></li>`).join("")}</ol>
+    <div class="foot">${tag}<button class="readbtn" type="button" data-note="${esc(item.note)}">📒 Read the note: ${esc(noteTitle(item.note))}</button></div>
+  </div></article>`;
+}
+function ask(q){
+  q=q.trim(); if(!q) return;
+  const ranked=QA.questions.map(it=>({it,s:score(q,it)})).sort((a,b)=>b.s-a.s);
+  const best=ranked[0];
+  const out=$("answer");
+  if(best&&best.s>=2){
+    const more=ranked.slice(1,4).filter(r=>r.s>=1);
+    out.innerHTML=card(best.it)+(more.length?`<p class="note-safe" style="margin-top:12px">🌿 Also see:</p><div class="chips">${more.map(r=>`<button class="chip" type="button" data-ask="${esc(r.it.q)}">${EMO[r.it.cat]} ${esc(r.it.q)}</button>`).join("")}</div>`:"");
+  } else {
+    out.innerHTML=`<div class="miss"><b>🌱 I do not have that answer yet.</b><p>Try 1 of these questions. Or ask your teacher.</p><div class="chips">${QA.questions.slice(0,40).sort(()=>0).filter((_,i)=>[0,6,10,17,23].includes(i)).map(it=>`<button class="chip" type="button" data-ask="${esc(it.q)}">${EMO[it.cat]} ${esc(it.q)}</button>`).join("")}</div></div>`;
+  }
+  wire(out);
+}
+function wire(root){
+  root.querySelectorAll("[data-ask]").forEach(b=>b.onclick=()=>{$("askq").value=b.dataset.ask;ask(b.dataset.ask)});
+  root.querySelectorAll("[data-note]").forEach(b=>b.onclick=()=>{openNote(b.dataset.note);$("notesh").scrollIntoView({behavior:"smooth"})});
+}
+$("askform").addEventListener("submit",e=>{e.preventDefault();ask($("askq").value)});
+
+// ---------- 🌱 All the answers ----------
+let catOn="all";
+function drawAll(){
+  const cats=Object.keys(QA.categories);
+  $("cats").innerHTML=[`<button class="chip" type="button" data-cat="all" aria-pressed="${catOn==="all"}">🌸 All</button>`].concat(cats.map(c=>`<button class="chip" type="button" data-cat="${c}" aria-pressed="${catOn===c}">${esc(QA.categories[c])}</button>`)).join("");
+  $("cats").querySelectorAll("[data-cat]").forEach(b=>b.onclick=()=>{catOn=b.dataset.cat;drawAll()});
+  const show=cats.filter(c=>catOn==="all"||c===catOn);
+  let n=0;
+  $("groups").innerHTML=show.map(c=>{const qs=QA.questions.filter(q=>q.cat===c);n+=qs.length;return `<div class="qgroup"><h3>${esc(QA.categories[c])}</h3>${qs.map(q=>`<details class="qa" id="${q.id}"><summary>${EMO[q.cat]} ${esc(q.q)}</summary><div class="body">${card(q)}</div></details>`).join("")}</div>`}).join("");
+  $("count").textContent=`${n} questions`;
+  wire($("groups"));
+}
+
+// ---------- 📒 Notes ----------
+const noteTitle=p=>{const n=NOTES.find(x=>x.path===p);return n?n.name:p.replace(/\.md$/,"").split("/").pop()};
+function drawList(){
+  const byFolder={};NOTES.forEach(n=>(byFolder[n.folder]=byFolder[n.folder]||[]).push(n));
+  $("nlist").innerHTML=Object.keys(byFolder).sort().map(f=>`${f?`<div class="fold">📁 ${esc(f)}</div>`:`<div class="fold">🌸 DIGI 230</div>`}${byFolder[f].map(n=>`<button type="button" data-path="${esc(n.path)}" aria-current="${n.path===current}">${esc(n.name)}</button>`).join("")}`).join("");
+  $("nlist").querySelectorAll("[data-path]").forEach(b=>b.onclick=()=>openNote(b.dataset.path));
+}
+function prep(md){
+  md=md.replace(/^---\n[\s\S]*?\n---\n/,"");
+  md=md.replace(/<iframe[\s\S]*?<\/iframe>/g,"> [!TIP]\n> 🌸 You are in the Garden Guide now.");
+  const lines=md.split("\n"),out=[],blocks=[];
+  for(let i=0;i<lines.length;i++){
+    const m=lines[i].match(/^>\s*\[!(\w+)\]\s*(.*)$/);
+    if(!m){out.push(lines[i]);continue}
+    const type=m[1].toLowerCase(),body=[];
+    while(i+1<lines.length&&/^>/.test(lines[i+1])){i++;body.push(lines[i].replace(/^>\s?/,""))}
+    const title=m[2]||({tip:"💡 Tip",note:"📝 Note",important:"⭐ Important",warning:"⚠️ Warning",caution:"🚫 Careful",example:"🧪 Example"}[type]||type);
+    blocks.push(`<div class="callout c-${type}"><div class="ct">${marked.parseInline(title)}</div>${marked.parse(body.join("\n"))}</div>`);
+    out.push("","%%CALLOUT"+(blocks.length-1)+"%%","");
+  }
+  let html=marked.parse(out.join("\n"));
+  html=html.replace(/<p>%%CALLOUT(\d+)%%<\/p>/g,(_,n)=>blocks[+n]);
+  return html;
+}
+async function openNote(path){
+  current=path;drawList();
+  const r=$("reader");r.innerHTML="<p>Loading… 🌱</p>";
+  try{
+    const res=await fetch("../notes/"+path.split("/").map(encodeURIComponent).join("/"));
+    if(!res.ok) throw new Error(res.status);
+    r.innerHTML=prep(await res.text());
+    r.querySelectorAll("table").forEach(t=>{const w=document.createElement("div");w.className="tblwrap";t.parentNode.insertBefore(w,t);w.appendChild(t)});
+    r.querySelectorAll("input[type=checkbox]").forEach(c=>c.disabled=true);
+    r.querySelectorAll("pre code.language-mermaid").forEach(c=>{const d=document.createElement("div");d.className="mermaid";d.textContent=c.textContent;c.parentNode.replaceWith(d)});
+    if(window.mermaid){try{mermaid.initialize({startOnLoad:false,theme:"base",themeVariables:{primaryColor:"#FFE3EF",primaryBorderColor:"#FF5FA2",lineColor:"#2F5BFF",primaryTextColor:"#1C2A6B",fontFamily:"Lexend"}});await mermaid.run({nodes:r.querySelectorAll(".mermaid")})}catch(e){}}
+    r.querySelectorAll("a[href]").forEach(a=>{
+      const href=a.getAttribute("href");
+      if(/^https?:/.test(href)){a.target="_blank";a.rel="noopener";return}
+      const clean=decodeURIComponent(href.split("#")[0]);
+      if(clean.endsWith(".md")){a.addEventListener("click",e=>{e.preventDefault();const base=path.split("/").slice(0,-1);clean.split("/").forEach(p=>{if(p==="..")base.pop();else if(p&&p!==".")base.push(p)});openNote(base.join("/"))})}
+    });
+    try{history.replaceState(null,"","#note="+encodeURIComponent(path))}catch(e){}
+  }catch(e){r.innerHTML=`<div class="miss"><b>This note did not load.</b><p>Check the internet. Or open it in Obsidian.</p></div>`}
+}
+
+// ---------- start ----------
+Promise.all([fetch("qa.json").then(r=>r.json()),fetch("../notes/manifest.json").then(r=>r.json()).catch(()=>({notes:[]}))]).then(([qa,man])=>{
+  QA=qa;NOTES=man.notes||[];
+  $("tryme").innerHTML=[6,10,4,17,23].map(i=>QA.questions[i]).filter(Boolean).map(it=>`<button class="chip" type="button" data-ask="${esc(it.q)}">${EMO[it.cat]} ${esc(it.q)}</button>`).join("");
+  wire($("tryme"));drawAll();drawList();
+  const h=decodeURIComponent(location.hash.slice(1));
+  if(h.startsWith("note=")) openNote(h.slice(5)); else if(NOTES.length) openNote(NOTES.find(n=>n.name==="00 Start Here")?.path||NOTES[0].path);
+  const m=h.match(/^q=(q\d+)$/); if(m){const d=$(m[1]);if(d){d.open=true;d.scrollIntoView()}}
+  ask("What if a hint is wrong?");
+});
+</script>
+<script src="../assets/garden.js" data-root="../"></script>
+</body>
+</html>

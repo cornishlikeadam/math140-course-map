@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Part 5 · Fruit: Show what you know</title>
+<style>html,body{margin:0;height:100%;background:#0E1430;display:grid;place-items:center}canvas{display:block;width:100%;height:auto;max-height:100vh;aspect-ratio:16/9;cursor:pointer}</style>
+</head><body><canvas aria-label="Animation: build a golden rectangle from squares; the ratio gets close to 1.618"></canvas>
+<script>
+window.SCENE = {
+
+n:5, emoji:"🍓", name:"Fruit: Show what you know", dur:20,
+captions:[[0.3,2,"Part 5. Show what you know."],[2,9,"1. Add squares. Each one is the sum of the last two."],[9,14,"2. Long side ÷ short side gets close to 1.618."],[14,16.5,"That number is the golden ratio."],[16.5,20,"The quiz has no computers. 🍓 Only the teacher grades."]],
+draw(t){
+  const u=38, ox=330, oy=210, X=v=>ox+v*u, Y=v=>oy+v*u;
+  const sq=[[9,5,1],[8,5,1],[8,6,2],[10,5,3],[8,0,5],[0,0,8]], cols=[C.cyan,C.blue,C.pink,C.cyan,C.blue,C.pink];
+  const dimA=t>16.5?1-0.6*prog(t,16.5,17.2):1;
+  sq.forEach(([x,y,s],i)=>{const g0=prog(t,2+i*1.1,2.8+i*1.1), k=g0*dimA; if(k<=0)return;
+    const cx=X(x+s/2),cy=Y(y+s/2),w=s*u*(0.7+0.3*g0);
+    box(cx-w/2,cy-w/2,w,w,3,cols[i]+"2A",cols[i],k,2.5); label(String(s),cx,cy,k*(s>1?1:0.9),C.ink,`700 ${Math.min(40,12+s*5)}px ${SANS}`);});
+  const arcs=[[10,5,1,Math.PI,Math.PI/2,true],[9,6,1,Math.PI,1.5*Math.PI],[10,6,2,Math.PI/2,Math.PI],[10,5,3,0,Math.PI/2],[8,5,5,-Math.PI/2,0],[8,8,8,Math.PI,1.5*Math.PI]];
+  arcs.forEach(([cx,cy,r,a0,a1,ccw],i)=>{const k=prog(t,9.2+i*0.75,9.95+i*0.75)*dimA; if(k<=0)return;
+    g.strokeStyle=C.pink;g.lineWidth=5;g.globalAlpha=Math.min(1,dimA+.2);g.beginPath();g.arc(X(cx),Y(cy),r*u,a0,a0+(a1-a0)*k,!!ccw);g.stroke();g.globalAlpha=1;});
+  const ratios=[["1 ÷ 1","1"],["2 ÷ 1","2"],["3 ÷ 2","1.5"],["5 ÷ 3","1.667"],["8 ÷ 5","1.6"],["13 ÷ 8","1.625"]];
+  ratios.forEach(([a,b],i)=>{const k=fade(t,2.4+i*1.1,2.9+i*1.1)*(t<16.5?1:1-prog(t,16.5,17)); label(`${a} = ${b}`,1050,190+i*44,k,i===5?C.pink:C.dim,'italic 600 26px "Times New Roman", serif',"left");});
+  label("φ ≈ 1.618",1120,500,prog(t,14,14.8),C.pink,'italic 700 46px "Times New Roman", serif');
+  const z=prog(t,17,17.8); box(360,322,560,106,53,"#0E1430",C.pink,z,4); label("📵  No computers in the quiz",640,375,z,C.ink,`700 30px ${SANS}`);
+}
+};
+</script>
+<script src="engine.js"></script>
+</body></html>

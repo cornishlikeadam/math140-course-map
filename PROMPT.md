@@ -1,4 +1,4 @@
-# Prompt: develop the MATH 140 Interactive Course Map
+# 🌸 Prompt: develop the MATH 140 Interactive Course Map
 
 Copy everything below the line into your AI tool (Claude, Claude Design, OpenCode). Attach the MATH 140 syllabus if you have it.
 
@@ -44,3 +44,9 @@ You are helping a DIGI 230 team build Milestone 1 (due October 1): an **Interact
 - Text supports the map; text does not lead.
 - It must pass the five-minute test.
 - It must work on a phone, in dark mode, and printed to PDF, with the live link on page 1.
+
+## 🎨 Style
+- **Colors:** white, pink `#FF5FA2`, blue `#2F5BFF`, and a little cyan `#22D3EE` for the AI.
+- **Fonts:** Fondamento for titles, Lexend for reading.
+- **Garden stages:** 🌱 Draw · 🌿 Write · 💧 Hint · 🌸 Explain · 🍓 Quiz.
+- **Words:** short sentences, one idea each (ASD-STE100), so an 8-year-old can read them.

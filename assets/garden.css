@@ -1,0 +1,72 @@
+/* 🌸 Proof Garden: shared look for every page.
+   Palette: white, strawberry pink, blueberry blue, small hints of water cyan.
+   Fonts: Fondamento (calligraphy, headings only) + Lexend (made for easy reading). */
+@import url("https://fonts.googleapis.com/css2?family=Fondamento&family=Lexend:wght@400;500;600;700&display=swap");
+
+:root{
+  color-scheme: light;
+  --white:#FFFFFF;
+  --ground:#FFFFFF; --paper:#FFFFFF;
+  --ink:#1C2A6B;           /* navy: all body text */
+  --muted:#5B6795;
+  --rule:#DCE3FA; --grid:#EEF2FF;
+  --pink:#FF5FA2; --pink-deep:#D63A7E; --pink-soft:#FFE3EF; --pink-mist:#FFF4F8;
+  --blue:#2F5BFF; --blue-deep:#1C3FD1; --blue-soft:#E6ECFF;
+  --cyan:#22D3EE; --cyan-text:#0A8EA3; --cyan-soft:#DDFBFE;
+  /* meanings on the map */
+  --ai:var(--cyan-text); --ai-soft:var(--cyan-soft);          /* 💧 AI = water */
+  --stop:var(--pink-deep); --stop-soft:var(--pink-soft);       /* 🚫 no-AI zone */
+  --human:var(--blue); --human-soft:var(--blue-soft);          /* 🧑‍🌾 a person decides */
+  --hand:var(--ink);                                           /* ➜ a person checks the AI */
+  /* stop fills: seed, sprout, water, bloom, fruit */
+  --f1:#FFF4F8; --f2:#EEF2FF; --f3:#E3FBFE; --f4:#FFE8F1; --f5:#FFDDEA;
+  --display:"Fondamento", "Apple Chancery", "Palatino", serif;
+  --body:"Lexend", "Avenir Next", "Helvetica Neue", Arial, sans-serif;
+  --mono:"Lexend", "Avenir Next", Arial, sans-serif;
+  --radius:18px;
+}
+body{
+  background:
+    radial-gradient(520px 380px at 6% 2%, rgba(255,95,162,.13), transparent 70%),
+    radial-gradient(460px 360px at 96% 6%, rgba(34,211,238,.12), transparent 70%),
+    radial-gradient(620px 420px at 60% 100%, rgba(47,91,255,.08), transparent 70%),
+    var(--white);
+  background-attachment: fixed;
+  color: var(--ink);
+}
+h1,h2,h3{font-family:var(--display);font-weight:400;letter-spacing:0}
+::selection{background:var(--pink-soft)}
+a{color:var(--blue-deep)}
+
+/* 🧭 top menu */
+.topnav{display:flex;flex-wrap:wrap;gap:8px 10px;align-items:center;justify-content:space-between}
+.brand{font-family:var(--display);font-size:24px;color:var(--ink);text-decoration:none;display:inline-flex;gap:8px;align-items:center}
+.brand b{color:var(--pink-deep);font-weight:400}
+.navlinks{display:flex;flex-wrap:wrap;gap:6px}
+.navlinks a,.navlinks button{font:600 14.5px var(--body);color:var(--ink);text-decoration:none;background:var(--white);border:1.5px solid var(--rule);border-radius:999px;padding:7px 14px;cursor:pointer;display:inline-flex;gap:6px;align-items:center}
+.navlinks a:hover,.navlinks button:hover{border-color:var(--pink)}
+.navlinks a[aria-current="page"]{background:var(--ink);color:var(--white);border-color:var(--ink)}
+:focus-visible{outline:3px solid var(--cyan);outline-offset:2px}
+
+/* 🔢 big step numbers */
+.num{display:inline-grid;place-items:center;min-width:34px;height:34px;border-radius:50%;background:var(--pink);color:var(--white);font:700 17px var(--body);flex:none}
+.num.blue{background:var(--blue)} .num.cyan{background:var(--cyan);color:var(--ink)}
+
+/* 🎬 video pop-up */
+.vmodal{position:fixed;inset:0;z-index:50;display:grid;place-items:center;padding:16px;background:rgba(28,42,107,.55);backdrop-filter:blur(4px)}
+.vmodal[hidden]{display:none!important}
+.vcard{background:var(--white);border-radius:24px;width:min(980px,100%);max-height:calc(100vh - 32px);overflow:auto;padding:18px 20px 20px;display:flex;flex-direction:column;gap:12px;box-shadow:0 30px 80px rgba(28,42,107,.35)}
+.vhead{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.vhead h2{font-size:clamp(24px,3.4vw,34px);margin:0}
+.vtabs{display:flex;flex-wrap:wrap;gap:6px}
+.vtabs button{font:600 14px var(--body);border:1.5px solid var(--rule);background:var(--white);color:var(--ink);border-radius:999px;padding:6px 12px;cursor:pointer}
+.vtabs button[aria-selected="true"]{background:var(--pink);border-color:var(--pink);color:var(--white)}
+.vframe{width:100%;aspect-ratio:16/9;border:0;border-radius:14px;background:#0E1430;display:block}
+.vsay{font:500 16px/1.5 var(--body);color:var(--muted);margin:0}
+.vfoot{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between}
+.vbtn{font:700 15px var(--body);border:0;border-radius:999px;padding:10px 18px;cursor:pointer;background:var(--ink);color:var(--white)}
+.vbtn.ghost{background:var(--white);color:var(--ink);border:1.5px solid var(--ink)}
+.vbtn.pink{background:var(--pink);color:var(--white)}
+.vfoot label{font:500 14px var(--body);color:var(--muted);display:inline-flex;gap:6px;align-items:center}
+@media print{.topnav,.vmodal{display:none!important}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}

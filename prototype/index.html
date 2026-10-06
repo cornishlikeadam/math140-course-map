@@ -4,51 +4,31 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Hint Helper Prototype</title>
+<link rel="stylesheet" href="../assets/garden.css">
 <style>
-:root{
-  --ground:#EDF0F3; --paper:#FAFBFC; --ink:#1A1F2B; --muted:#586174; --rule:#C9D0DA;
-  --ai:#2447D6; --ai-soft:#DDE3FA; --stop:#AE2F2F; --stop-soft:#F4DCDB;
-  --human:#2B6A3D; --human-soft:#D7E9DB; --hand:#B06F14; --hand-soft:#F6E7CF;
-  --display:"Avenir Next","Helvetica Neue",Arial,sans-serif;
-  --body:Charter,"Iowan Old Style",Georgia,serif;
-  --mono:ui-monospace,Menlo,monospace;
-}
-@media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){
-    color-scheme:dark;
-    --ground:#12151C; --paper:#191D26; --ink:#E4E8EF; --muted:#98A1B2; --rule:#2F3542;
-    --ai:#8199FF; --ai-soft:#1F2850; --stop:#F07C70; --stop-soft:#4A2322;
-    --human:#79C48B; --human-soft:#1E3A26; --hand:#E3A94A; --hand-soft:#3D2E14;
-  }
-}
-:root[data-theme="dark"]{
-  color-scheme:dark;
-  --ground:#12151C; --paper:#191D26; --ink:#E4E8EF; --muted:#98A1B2; --rule:#2F3542;
-  --ai:#8199FF; --ai-soft:#1F2850; --stop:#F07C70; --stop-soft:#4A2322;
-  --human:#79C48B; --human-soft:#1E3A26; --hand:#E3A94A; --hand-soft:#3D2E14;
-}
+:root{--hand:#0A8EA3;--hand-soft:#DDFBFE;--muted:#5B6795}
 *{box-sizing:border-box}
-body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--body);font-size:18px;line-height:1.5;padding-inline:clamp(16px,4vw,40px);padding-block:24px 64px}
+body{margin:0;color:var(--ink);font-family:var(--body);font-size:18px;line-height:1.5;padding-inline:clamp(16px,4vw,40px);padding-block:24px 64px}
 .wrap{max-width:980px;margin:0 auto;display:flex;flex-direction:column;gap:20px}
-h1,h2,h3{font-family:var(--display);line-height:1.1;margin:0;text-wrap:balance}
-h1{font-size:clamp(28px,4.5vw,44px);letter-spacing:-.02em}
-h2{font-size:24px}
+h1,h2,h3{font-family:var(--display);font-weight:400;line-height:1.15;margin:0;text-wrap:balance}
+h1{font-size:clamp(32px,5vw,50px)}
+h2{font-size:28px}
 p{margin:0}
 .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-.panel{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:20px 22px;display:flex;flex-direction:column;gap:14px}
+.panel{background:var(--paper);border:1.5px solid var(--rule);border-radius:var(--radius);box-shadow:0 10px 30px rgba(28,42,107,.06);padding:20px 22px;display:flex;flex-direction:column;gap:14px}
 .banner{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;font-size:15px}
 .pill{font-family:var(--mono);font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;padding:4px 9px;border-radius:4px;font-weight:600}
 .p-sim{background:var(--hand-soft);color:var(--hand)} .p-off{background:var(--stop-soft);color:var(--stop)} .p-safe{background:var(--human-soft);color:var(--human)}
 .steps{display:flex;flex-wrap:wrap;gap:6px;font-family:var(--mono);font-size:12px;color:var(--muted)}
 .steps span{padding:4px 9px;border:1px solid var(--rule);border-radius:999px}
-.steps span.on{background:var(--ink);color:var(--ground);border-color:var(--ink)}
+.steps span.on{background:var(--pink);color:#fff;border-color:var(--pink)}
 .choices{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
 button{font:inherit;cursor:pointer}
-.big{font-family:var(--display);font-weight:700;font-size:18px;text-align:left;background:var(--paper);color:var(--ink);border:2px solid var(--ink);border-radius:8px;padding:16px 18px;display:flex;flex-direction:column;gap:6px}
+.big{font-family:var(--display);font-weight:400;font-size:23px;text-align:left;background:var(--paper);color:var(--ink);border:2px solid var(--ink);border-radius:var(--radius);padding:16px 18px;display:flex;flex-direction:column;gap:6px}
 .big small{font-family:var(--body);font-weight:400;font-size:15.5px;color:var(--muted)}
 .big:hover{background:var(--ground)}
-.big.ai{border-color:var(--ai)} .big.noai{border-color:var(--human)}
-.btn{font-family:var(--display);font-weight:700;font-size:15.5px;border:0;border-radius:6px;padding:11px 18px;background:var(--ink);color:var(--ground)}
+.big.ai{border-color:var(--cyan);background:var(--cyan-soft)} .big.noai{border-color:var(--pink);background:var(--pink-mist)}
+.btn{font-family:var(--body);font-weight:700;font-size:15.5px;border:0;border-radius:999px;padding:11px 18px;background:var(--ink);color:var(--ground)}
 .btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--ink)}
 .btn.warn{background:transparent;color:var(--stop);border:1.5px solid var(--stop)}
 .btn:disabled{opacity:.4;cursor:not-allowed}
@@ -60,7 +40,7 @@ button:focus-visible,textarea:focus-visible,input:focus-visible{outline:3px soli
 .proof .weak{background:var(--hand-soft)}
 .hint{border-left:4px solid var(--ai);background:var(--ai-soft);border-radius:6px;padding:14px 16px;display:flex;flex-direction:column;gap:8px}
 .verdicts{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px}
-.verdicts label{display:flex;gap:10px;align-items:center;border:1.5px solid var(--rule);border-radius:6px;padding:10px 12px;cursor:pointer;font-family:var(--display);font-weight:600}
+.verdicts label{display:flex;gap:10px;align-items:center;border:1.5px solid var(--rule);border-radius:999px;padding:10px 14px;cursor:pointer;font-weight:600}
 .verdicts input{width:18px;height:18px;accent-color:var(--ink)}
 textarea,input[type=text]{width:100%;font:inherit;font-size:16px;padding:10px;border:1px solid var(--rule);border-radius:6px;background:var(--ground);color:var(--ink)}
 textarea{min-height:70px}
@@ -79,9 +59,18 @@ ul.check input{width:18px;height:18px;margin-top:4px;accent-color:var(--human)}
 </head>
 <body>
 <div class="wrap">
+  <nav class="topnav" aria-label="Site">
+    <a class="brand" href="../">🌸 <span>Proof <b>Garden</b></span></a>
+    <div class="navlinks">
+      <a href="../">🗺️ Map</a>
+      <button type="button" data-open-videos="3">🎬 Watch the 5 parts</button>
+      <a href="./" aria-current="page">🧪 Practice helper</a>
+      <a href="../guide/">📗 Garden Guide</a>
+    </div>
+  </nav>
   <header style="display:flex;flex-direction:column;gap:10px">
     <p class="eyebrow">DIGI 230 · Milestone 3 · First build slice · MATH 140 Constructions &amp; Proof</p>
-    <h1>Hint Helper: practice prototype</h1>
+    <h1>💧 Hint Helper: practice garden</h1>
     <div class="banner">
       <span class="pill p-sim">Simulated hints</span><span>Every hint here was written ahead of time by our team. No real AI is running.</span>
     </div>
@@ -89,7 +78,7 @@ ul.check input{width:18px;height:18px;margin-top:4px;accent-color:var(--human)}
       <span class="pill p-off">Live AI: off</span><span>We haven't checked where the backup AIs keep data yet, so they stay off.</span>
     </div>
     <div class="banner">
-      <span class="pill p-safe">Your data</span><span>Goes nowhere. Nothing is saved or sent. <b>Start over</b> clears everything.</span>
+      <span class="pill p-safe">Your data</span><span>Nothing you type is saved or sent. <b>Start over</b> clears everything. (The page loads its fonts from Google Fonts.)</span>
     </div>
   </header>
 
@@ -267,5 +256,6 @@ $("fail").onclick=()=>{S.broken=!S.broken;if(S.broken&&S.screen==="hint")S.scree
 $("reset").onclick=()=>{S=fresh();render()};
 render();
 </script>
+<script src="../assets/garden.js" data-root="../"></script>
 </body>
 </html>

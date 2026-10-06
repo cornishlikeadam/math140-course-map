@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Part 4 · Bloom: Explain</title>
+<style>html,body{margin:0;height:100%;background:#0E1430;display:grid;place-items:center}canvas{display:block;width:100%;height:auto;max-height:100vh;aspect-ratio:16/9;cursor:pointer}</style>
+</head><body><canvas aria-label="Animation: flip one half of an isosceles triangle onto the other to show the base angles are equal"></canvas>
+<script>
+window.SCENE = {
+
+n:4, emoji:"🌸", name:"Bloom: Explain it out loud", dur:18,
+captions:[[0.3,3,"Part 4. Explain it out loud."],[3,5.5,"1. Split the triangle in half."],[5.5,12,"2. Flip one half. It fits exactly."],[12,14.5,"3. So angle B equals angle C."],[14.5,18,"Your partner asks why. You answer. 🌸 No AI here."]],
+draw(t){
+  const A=[640,170],B=[440,520],Cc=[840,520],D=[640,520];
+  const fl=prog(t,8.6,11.6), sx=Math.cos(Math.PI*fl);
+  poly([A,D,Cc],prog(t,5.6,6.4),null,"rgba(34,211,238,.22)");
+  poly([A,[640+(B[0]-640)*sx,B[1]],D],prog(t,5.6,6.4),null,"rgba(255,95,162,.28)");
+  if(fl>0) poly([A,[640+(B[0]-640)*sx,B[1]],D],1,C.pink,null,3);
+  line(B[0],B[1],A[0],A[1],prog(t,1,2),C.blue,5); line(A[0],A[1],Cc[0],Cc[1],prog(t,1.5,2.5),C.blue,5); line(Cc[0],Cc[1],B[0],B[1],prog(t,2,3),C.blue,5);
+  label("A",640,140,prog(t,1,1.6)); label("B",410,540,prog(t,2,2.6)); label("C",870,540,prog(t,2.4,3));
+  g.setLineDash([12,10]); line(A[0],A[1],D[0],D[1],prog(t,3.4,5),C.pink,4); g.setLineDash([]); label("D",640,552,prog(t,4.6,5.2));
+  const tk=prog(t,4.4,5); line(530,330,550,350,tk,C.pink,4); line(730,350,750,330,tk,C.pink,4);
+  const gl=fade(t,11.6,12,13.6,14.4); if(gl>0) poly([A,Cc,D],gl,C.cyan,null,7);
+  const an=prog(t,12.2,13); arc(440,520,54,-1.05,0,an,C.pink,5); arc(840,520,54,Math.PI,Math.PI+1.05,an,C.pink,5);
+  label("∠B = ∠C",640,400,prog(t,12.6,13.4),C.ink,'italic 700 40px "Times New Roman", serif');
+  [[1020,250,"Why?",14.8],[1090,340,"Why does it fit?",15.6]].forEach(([x,y,s,a])=>{const k=prog(t,a,a+.5); g.font=`700 24px ${SANS}`; const w=g.measureText(s).width+40; box(x-w/2,y-26,w,52,26,"rgba(255,95,162,.18)",C.pink,k,2); label(s,x,y,k,C.ink,`700 24px ${SANS}`);});
+  label("🐝",1170,250,prog(t,14.6,15.2),C.ink,`40px ${SANS}`);
+}
+};
+</script>
+<script src="engine.js"></script>
+</body></html>

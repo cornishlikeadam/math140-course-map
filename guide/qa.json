@@ -1,0 +1,764 @@
+{
+ "categories": {
+  "seed": "🌱 The basics",
+  "water": "💧 The hint helper",
+  "people": "🧑‍🌾 People and fairness",
+  "science": "🔬 What science says",
+  "fruit": "🍓 Milestones and the build",
+  "wonder": "❓ Still wondering",
+  "check": "✅ Checks we must pass"
+ },
+ "questions": [
+  {
+   "cat": "seed",
+   "q": "What is this project?",
+   "steps": [
+    "We picked 1 class: MATH 140.",
+    "We found the 1 safe place for an AI helper.",
+    "We also found where AI must stay out."
+   ],
+   "note": "00 Start Here.md",
+   "kw": [
+    "project",
+    "about",
+    "what is this",
+    "digi"
+   ],
+   "tag": "",
+   "id": "q1"
+  },
+  {
+   "cat": "seed",
+   "q": "What is MATH 140?",
+   "steps": [
+    "It is a geometry class at SCAD.",
+    "Students draw shapes and write proofs.",
+    "The class lasts 10 weeks."
+   ],
+   "note": "MATH 140 Course Map - Unified.md",
+   "kw": [
+    "math 140",
+    "class",
+    "course",
+    "geometry",
+    "syllabus"
+   ],
+   "tag": "",
+   "id": "q2"
+  },
+  {
+   "cat": "seed",
+   "q": "What is a proof?",
+   "steps": [
+    "A proof is a list of steps.",
+    "Each step has a reason.",
+    "A reason is a math rule. It is not a picture."
+   ],
+   "note": "00 Start Here.md",
+   "kw": [
+    "proof",
+    "step",
+    "reason"
+   ],
+   "tag": "",
+   "id": "q3"
+  },
+  {
+   "cat": "seed",
+   "q": "What is our big question?",
+   "steps": [
+    "Can geometry students fixing their own proofs…",
+    "…use an AI that points only at the first weak step…",
+    "…to find mistakes before the quiz…",
+    "…while every step stays theirs and only the teacher grades?"
+   ],
+   "note": "01 MATH 140 Course Map.md",
+   "kw": [
+    "big question",
+    "bounded",
+    "question"
+   ],
+   "tag": "",
+   "id": "q4"
+  },
+  {
+   "cat": "seed",
+   "q": "What are the 5 stops?",
+   "steps": [
+    "🌱 1 Draw: draw by hand.",
+    "🌿 2 Write: write your own proof.",
+    "💧 3 Hint: get 1 hint. The only AI stop.",
+    "🌸 4 Explain: explain out loud.",
+    "🍓 5 Quiz: show what you know."
+   ],
+   "note": "01 MATH 140 Course Map.md",
+   "kw": [
+    "stops",
+    "steps",
+    "5",
+    "five",
+    "map",
+    "garden"
+   ],
+   "tag": "",
+   "id": "q5"
+  },
+  {
+   "cat": "seed",
+   "q": "Why a garden?",
+   "steps": [
+    "Each stop is a garden stage: seed, sprout, water, bloom, fruit.",
+    "The AI hint is the water.",
+    "A little water helps a plant grow.",
+    "Too much water drowns it. A hint that gives the answer is too much."
+   ],
+   "note": "00 Start Here.md",
+   "kw": [
+    "garden",
+    "water",
+    "plant",
+    "fruit",
+    "why"
+   ],
+   "tag": "",
+   "id": "q6"
+  },
+  {
+   "cat": "water",
+   "q": "Where is the AI?",
+   "steps": [
+    "Only at Stop 3, the hint helper.",
+    "There is no AI when you draw, explain, or take the quiz."
+   ],
+   "note": "01 MATH 140 Course Map.md",
+   "kw": [
+    "where",
+    "ai",
+    "allowed",
+    "only"
+   ],
+   "tag": "",
+   "id": "q7"
+  },
+  {
+   "cat": "water",
+   "q": "What does the hint helper do?",
+   "steps": [
+    "You paste a proof that you wrote.",
+    "It points at the first weak step.",
+    "It names the kind of rule to look up.",
+    "It asks you 1 question."
+   ],
+   "note": "03 Proof Check Tool & Build Log.md",
+   "kw": [
+    "hint",
+    "helper",
+    "does",
+    "do",
+    "tutor",
+    "proof check"
+   ],
+   "tag": "",
+   "id": "q8"
+  },
+  {
+   "cat": "water",
+   "q": "What can the hint helper NOT do?",
+   "steps": [
+    "It cannot write a step.",
+    "It cannot give the answer.",
+    "It cannot say that a proof is correct.",
+    "It cannot give grades.",
+    "It cannot see drawings."
+   ],
+   "note": "03 Proof Check Tool & Build Log.md",
+   "kw": [
+    "cannot",
+    "not",
+    "can't",
+    "limits",
+    "never"
+   ],
+   "tag": "",
+   "id": "q9"
+  },
+  {
+   "cat": "water",
+   "q": "Why must I write 2 steps first?",
+   "steps": [
+    "The ideas must be yours.",
+    "The helper only checks work that exists.",
+    "So it cannot start the proof for you."
+   ],
+   "note": "02 Stakeholders, Risk & Evidence.md",
+   "kw": [
+    "2 steps",
+    "two steps",
+    "first",
+    "start"
+   ],
+   "tag": "",
+   "id": "q10"
+  },
+  {
+   "cat": "water",
+   "q": "What if a hint is wrong?",
+   "steps": [
+    "Pick Not sure or I disagree.",
+    "The hint goes to the teacher's list.",
+    "The teacher checks it in 2 days. This is before you present.",
+    "If it was wrong, the teacher tells you."
+   ],
+   "note": "01 MATH 140 Course Map.md",
+   "kw": [
+    "wrong",
+    "mistake",
+    "bad hint",
+    "not sure",
+    "disagree"
+   ],
+   "tag": "",
+   "id": "q11"
+  },
+  {
+   "cat": "water",
+   "q": "Who is responsible for a wrong hint?",
+   "steps": [
+    "The teacher.",
+    "The teacher picks the tool.",
+    "The teacher checks every unsure hint."
+   ],
+   "note": "Stakeholder Snapshot.md",
+   "kw": [
+    "responsible",
+    "blame",
+    "fault",
+    "who"
+   ],
+   "tag": "",
+   "id": "q12"
+  },
+  {
+   "cat": "water",
+   "q": "Is my data saved?",
+   "steps": [
+    "The practice helper saves nothing.",
+    "Start over clears everything.",
+    "The live helper sends only your proof text.",
+    "Do not paste your name or ID."
+   ],
+   "note": "05 Build (M3)/02 ARD - How the Pieces Fit.md",
+   "kw": [
+    "data",
+    "saved",
+    "privacy",
+    "private",
+    "stored",
+    "sent"
+   ],
+   "tag": "",
+   "id": "q13"
+  },
+  {
+   "cat": "water",
+   "q": "Which AI does it use?",
+   "steps": [
+    "Free models from OpenCode Zen.",
+    "First: Space Bunny. It keeps no data.",
+    "Backups: Big Pickle, then MiMo. They can keep data.",
+    "We plan to turn the backups off."
+   ],
+   "note": "03 Tool & Architecture/Tool Architecture Index.md",
+   "kw": [
+    "model",
+    "which ai",
+    "opencode",
+    "space bunny",
+    "backup"
+   ],
+   "tag": "",
+   "id": "q14"
+  },
+  {
+   "cat": "water",
+   "q": "What does \"Simulated hint\" mean?",
+   "steps": [
+    "Our team wrote the hint first.",
+    "No real AI made it.",
+    "We test the rules first. This is safe."
+   ],
+   "note": "05 Build (M3)/00 How the Build Works.md",
+   "kw": [
+    "simulated",
+    "pretend",
+    "fake",
+    "practice"
+   ],
+   "tag": "",
+   "id": "q15"
+  },
+  {
+   "cat": "people",
+   "q": "Who decides at each stop?",
+   "steps": [
+    "🌱 Draw: the teacher.",
+    "🌿 Write: the student.",
+    "💧 Hint: the teacher, for unsure hints.",
+    "🌸 Explain: the teacher.",
+    "🍓 Quiz: the teacher gives all grades."
+   ],
+   "note": "01 MATH 140 Course Map.md",
+   "kw": [
+    "decide",
+    "boss",
+    "in charge",
+    "power",
+    "grade",
+    "grades",
+    "grading",
+    "who grades"
+   ],
+   "tag": "",
+   "id": "q16"
+  },
+  {
+   "cat": "people",
+   "q": "What does the partner do?",
+   "steps": [
+    "The partner is a classmate. 🐝",
+    "They ask \"why?\" when you explain at the board.",
+    "They do not grade."
+   ],
+   "note": "01 MATH 140 Course Map.md",
+   "kw": [
+    "partner",
+    "classmate",
+    "bee",
+    "peer"
+   ],
+   "tag": "",
+   "id": "q17"
+  },
+  {
+   "cat": "people",
+   "q": "What if I have no computer?",
+   "steps": [
+    "Use the paper rule list. 📗",
+    "Go to the teacher's office hours.",
+    "It counts the same as the AI way.",
+    "Help is slower. That is a real gap."
+   ],
+   "note": "Stakeholder Snapshot.md",
+   "kw": [
+    "no computer",
+    "device",
+    "paper",
+    "without",
+    "checklist"
+   ],
+   "tag": "",
+   "id": "q18"
+  },
+  {
+   "cat": "people",
+   "q": "Who can be left out?",
+   "steps": [
+    "Kids with no computer at home.",
+    "Kids who use a screen reader. The helper cannot see drawings.",
+    "The paper rule list keeps it fair."
+   ],
+   "note": "Stakeholder Snapshot.md",
+   "kw": [
+    "left out",
+    "excluded",
+    "screen reader",
+    "fair"
+   ],
+   "tag": "",
+   "id": "q19"
+  },
+  {
+   "cat": "people",
+   "q": "Who are the stakeholders?",
+   "steps": [
+    "1. Students: they use it.",
+    "2. The teacher: the boss.",
+    "3. Partners and tutors: people nearby.",
+    "4. People who can be left out.",
+    "5. People who get hurt if it goes wrong."
+   ],
+   "note": "Stakeholder Snapshot.md",
+   "kw": [
+    "stakeholder",
+    "people",
+    "groups",
+    "who"
+   ],
+   "tag": "",
+   "id": "q20"
+  },
+  {
+   "cat": "science",
+   "q": "What did the Bastani study find?",
+   "steps": [
+    "About 1,000 high school students used AI for math.",
+    "Open ChatGPT: 17% worse on the real test later.",
+    "Hints-only AI: no drop.",
+    "So our helper gives hints only."
+   ],
+   "note": "02 Stakeholders, Risk & Evidence.md",
+   "kw": [
+    "bastani",
+    "pnas",
+    "17",
+    "study",
+    "hints only"
+   ],
+   "tag": "evidence",
+   "id": "q21"
+  },
+  {
+   "cat": "science",
+   "q": "What did the Kestin study find?",
+   "steps": [
+    "College physics students used a teacher-built AI tutor.",
+    "They learned more than in a normal class.",
+    "Physics is not geometry. We must still test it."
+   ],
+   "note": "02 Stakeholders, Risk & Evidence.md",
+   "kw": [
+    "kestin",
+    "physics",
+    "tutor",
+    "study"
+   ],
+   "tag": "evidence",
+   "id": "q22"
+  },
+  {
+   "cat": "science",
+   "q": "What did the Petrov study find?",
+   "steps": [
+    "Experts graded AI proofs on hard contest problems.",
+    "Most AIs got less than 5% right.",
+    "But the AIs sounded sure.",
+    "So the AI never grades."
+   ],
+   "note": "02 Stakeholders, Risk & Evidence.md",
+   "kw": [
+    "petrov",
+    "bluff",
+    "5%",
+    "olympiad",
+    "study"
+   ],
+   "tag": "evidence",
+   "id": "q23"
+  },
+  {
+   "cat": "fruit",
+   "q": "When is each milestone due?",
+   "steps": [
+    "M1 (map and people): Oct 1, 11:00 AM ET.",
+    "M2 (safe-use plan): not posted yet.",
+    "M3 (build and test): started Oct 6.",
+    "M4 (final pitch): later."
+   ],
+   "note": "01 Milestones/Milestones Index.md",
+   "kw": [
+    "due",
+    "date",
+    "milestone",
+    "when",
+    "deadline"
+   ],
+   "tag": "",
+   "id": "q24"
+  },
+  {
+   "cat": "fruit",
+   "q": "What do we turn in for M1?",
+   "steps": [
+    "The live map link.",
+    "A PDF with the live link on page 1.",
+    "Rename it: [TeamName]_M1_CourseMap.pdf."
+   ],
+   "note": "04 Deliverables & Submissions/Deliverables Index.md",
+   "kw": [
+    "turn in",
+    "submit",
+    "pdf",
+    "m1",
+    "deliverable"
+   ],
+   "tag": "",
+   "id": "q25"
+  },
+  {
+   "cat": "fruit",
+   "q": "What is the M2 plan?",
+   "steps": [
+    "It says why we need the helper.",
+    "It says who does what.",
+    "It lists 5 safety rules, each with a person and a test.",
+    "It has a box that students read first."
+   ],
+   "note": "01 Milestones/M2 Responsible AI Use Proposal.md",
+   "kw": [
+    "m2",
+    "plan",
+    "proposal",
+    "safe"
+   ],
+   "tag": "",
+   "id": "q26"
+  },
+  {
+   "cat": "fruit",
+   "q": "What is the M3 build?",
+   "steps": [
+    "A practice hint helper. 🧪",
+    "Pretend proofs. Pretend hints.",
+    "It tests our rules before any real AI.",
+    "Open it: prototype/index.html."
+   ],
+   "note": "05 Build (M3)/00 How the Build Works.md",
+   "kw": [
+    "m3",
+    "build",
+    "prototype",
+    "practice"
+   ],
+   "tag": "",
+   "id": "q27"
+  },
+  {
+   "cat": "fruit",
+   "q": "What did the build tests find?",
+   "steps": [
+    "16 checks ran. 16 passed.",
+    "1 hole: Start over brings back a stopped helper.",
+    "An AI ran the checks. People must test it too."
+   ],
+   "note": "05 Build (M3)/05 Tests and Decisions.md",
+   "kw": [
+    "test",
+    "results",
+    "checks",
+    "pass",
+    "hole"
+   ],
+   "tag": "evidence",
+   "id": "q28"
+  },
+  {
+   "cat": "fruit",
+   "q": "What is the Start over hole?",
+   "steps": [
+    "You can stop the helper if a hint gives away a step.",
+    "But Start over clears everything, the stop too.",
+    "So the helper comes back. We must fix this."
+   ],
+   "note": "05 Build (M3)/05 Tests and Decisions.md",
+   "kw": [
+    "start over",
+    "reset",
+    "hole",
+    "bug",
+    "stop"
+   ],
+   "tag": "",
+   "id": "q29"
+  },
+  {
+   "cat": "fruit",
+   "q": "Is the quiz open book or no computers?",
+   "steps": [
+    "The syllabus says each exam is open book.",
+    "Our map says Stop 5 has no computers.",
+    "Ask the teacher which rule is true."
+   ],
+   "note": "MATH 140 Course Map - Unified.md",
+   "kw": [
+    "open book",
+    "exam",
+    "quiz",
+    "computers"
+   ],
+   "tag": "guess",
+   "id": "q30"
+  },
+  {
+   "cat": "fruit",
+   "q": "What are the 5 explainer videos?",
+   "steps": [
+    "Part 1 🌱: draw a line that cuts a segment in half.",
+    "Part 2 🌿: write a proof with reasons.",
+    "Part 3 💧: the AI points at 1 weak step.",
+    "Part 4 🌸: flip a triangle to explain.",
+    "Part 5 🍓: build the golden ratio."
+   ],
+   "note": "00 Start Here.md",
+   "kw": [
+    "video",
+    "videos",
+    "explainer",
+    "watch"
+   ],
+   "tag": "",
+   "id": "q31"
+  },
+  {
+   "cat": "wonder",
+   "q": "How many hints are too many?",
+   "steps": [
+    "We do not know yet.",
+    "Test: count hints per student. Compare with quiz scores."
+   ],
+   "note": "Stakeholder Snapshot.md",
+   "kw": [
+    "too many",
+    "how many",
+    "hints"
+   ],
+   "tag": "test",
+   "id": "q32"
+  },
+  {
+   "cat": "wonder",
+   "q": "Will kids say \"Not sure\" honestly?",
+   "steps": [
+    "We do not know yet.",
+    "Test: the teacher checks 20 hints. Compare with the kids' answers."
+   ],
+   "note": "Stakeholder Snapshot.md",
+   "kw": [
+    "honest",
+    "honestly",
+    "not sure",
+    "click"
+   ],
+   "tag": "test",
+   "id": "q33"
+  },
+  {
+   "cat": "wonder",
+   "q": "Is there time for the teacher to check every unsure hint?",
+   "steps": [
+    "We do not know yet.",
+    "Test: count unsure hints for 1 unit."
+   ],
+   "note": "Stakeholder Snapshot.md",
+   "kw": [
+    "time",
+    "teacher",
+    "busy",
+    "check"
+   ],
+   "tag": "test",
+   "id": "q34"
+  },
+  {
+   "cat": "wonder",
+   "q": "Do kids with the helper do as well as kids with paper?",
+   "steps": [
+    "We do not know yet.",
+    "Test: split 1 class in 2. Compare the quiz scores."
+   ],
+   "note": "02 Stakeholders, Risk & Evidence.md",
+   "kw": [
+    "as well",
+    "compare",
+    "paper",
+    "scores"
+   ],
+   "tag": "test",
+   "id": "q35"
+  },
+  {
+   "cat": "check",
+   "q": "Can I defend this?",
+   "steps": [
+    "Mostly.",
+    "The Start over hole is not fixed yet."
+   ],
+   "note": "05 Build (M3)/03 Prep Checklist.md",
+   "kw": [
+    "defend"
+   ],
+   "tag": "",
+   "id": "q36"
+  },
+  {
+   "cat": "check",
+   "q": "Is this mine?",
+   "steps": [
+    "Not yet fully.",
+    "An AI wrote the code.",
+    "Each teammate must read it and explain 1 part."
+   ],
+   "note": "05 Build (M3)/03 Prep Checklist.md",
+   "kw": [
+    "mine",
+    "own",
+    "authorship"
+   ],
+   "tag": "",
+   "id": "q37"
+  },
+  {
+   "cat": "check",
+   "q": "Did we check it?",
+   "steps": [
+    "An AI ran 16 checks.",
+    "A teammate must run them again.",
+    "Another team must test it."
+   ],
+   "note": "05 Build (M3)/03 Prep Checklist.md",
+   "kw": [
+    "verify",
+    "checked",
+    "check"
+   ],
+   "tag": "",
+   "id": "q38"
+  },
+  {
+   "cat": "check",
+   "q": "Is the disclosure honest?",
+   "steps": [
+    "Yes.",
+    "It says the AI wrote the code and ran the tests.",
+    "It says 1 problem is not fixed."
+   ],
+   "note": "05 Build (M3)/05 Tests and Decisions.md",
+   "kw": [
+    "disclosure",
+    "honest",
+    "ai wrote"
+   ],
+   "tag": "",
+   "id": "q39"
+  },
+  {
+   "cat": "check",
+   "q": "Do we pass the Five-question check?",
+   "steps": [
+    "✅ Purpose is clear.",
+    "✅ Real people are named.",
+    "✅ Learning stays visible.",
+    "✅ All people know how it works.",
+    "⬜ Each safety rule is tested: not yet."
+   ],
+   "note": "01 Milestones/M2 Responsible AI Use Proposal.md",
+   "kw": [
+    "five-question",
+    "five question",
+    "5 question",
+    "ethical"
+   ],
+   "tag": "",
+   "id": "q40"
+  }
+ ]
+}
