@@ -4,6 +4,7 @@ DIGI 230 Milestone 1 (due Oct 1, 2026, 11:00 AM ET): an interactive map of SCAD 
 
 - **Live site:** https://math140-course-map.vercel.app (Vercel project `math140-course-map`)
 - **Repo:** https://github.com/cornishlikeadam/math140-course-map (public)
+- **Slim copy:** https://github.com/cornishlikeadam/math140-course-map-lite (same site + tool in 14 files; the 8 disclosure pages merged into 2). When you change `index.html`, `api/`, `assets/`, `guide/` or `prototype/`, copy the file there too.
 
 ## 📁 Files
 - `index.html`: the whole page as one file, with no build step. The course data lives in the `R` (steps), `P` (people) and `CARDS` (evidence) arrays in the script at the bottom, and the SVG map is drawn from those. Each step is a different geometric figure (circle, triangle, hexagon, square, golden rectangle).

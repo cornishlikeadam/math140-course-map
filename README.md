@@ -12,6 +12,7 @@
 | **2** | 🧪 **The practice helper** | https://math140-course-map.vercel.app/prototype/ |
 | **3** | 📗 **The Garden Guide** (all the answers) | https://math140-course-map.vercel.app/guide/ |
 | **4** | 💧 **The hint tool** (live AI, hints only) | https://math140-course-map.vercel.app/#tool |
+| **5** | 🪶 **The slim repo** (same site + tool, 14 files, 2 disclosure files) | https://github.com/cornishlikeadam/math140-course-map-lite |
 
 ## 🎬 Watch the 5 parts
 Each video is about **20 seconds**. 🎥 The MP4 files are in [`explainers/media/`](explainers/media/).
