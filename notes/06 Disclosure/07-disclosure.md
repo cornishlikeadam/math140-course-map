@@ -9,7 +9,7 @@ cssclasses: [garden]
 📜 **Disclosure pages:** [0 Start](00-start-here%20%28disclosure%29.md) · [1 Intent](01-intent.md) · [2 Research](02-research-brief.md) · [3 Sources](03-source-verification-log.md) · [4 AI use + prompts](04-ai-use-log.md) · [5 Outputs](05-outputs.md) · [6 Decisions](06-decision-note.md) · [7 Disclosure](07-disclosure.md)
 
 > [!IMPORTANT]
-> 🤖 **AI (Claude, by Anthropic) helped** plan this project. It wrote the code, the notes, and the 8 explainer videos. It checked sources and ran the tests. **Meta Llama 3.1 8B (open-weight)**, reached through Vercel AI Gateway, answers inside the live hint tutor. Each request opts out of prompt training.
+> 🤖 **AI (Claude, by Anthropic) helped** plan this project. It wrote the code, the notes, and the 8 explainer videos. It checked sources and ran the tests. **Meta Llama 3.3 70B (open-weight)**, reached through Vercel AI Gateway, answers inside the live hint tutor. Each request opts out of prompt training.
 >
 > 🧑‍🎓 **We** picked the client course and the people. We set every rule. We removed content that we did not want. We added the real syllabus. We approved each step.
 >

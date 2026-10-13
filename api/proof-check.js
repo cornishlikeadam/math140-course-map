@@ -1,6 +1,6 @@
 // Vercel AI Gateway authenticates deployed functions with a short-lived OIDC
 // token, so this project does not need a long-lived model-provider key.
-const MODELS = ["meta/llama-3.1-8b"];
+const MODELS = ["meta/llama-3.3-70b"];
 const API_URL = "https://ai-gateway.vercel.sh/v1/chat/completions";
 
 const SYSTEM = `You are the Proof Check hint tutor for SCAD MATH 140 "The Geometry of Physical Space", Step 3 of the Constructions & Proof unit. This is the only step in the unit where AI is allowed.

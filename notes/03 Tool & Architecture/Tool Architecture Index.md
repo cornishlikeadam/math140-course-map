@@ -29,7 +29,7 @@ The main page is [03 Proof Check Tool & Build Log](../03%20Proof%20Check%20Tool%
 6. It always says: *"Check this hint against your theorem list; your instructor decides what is correct."*
 
 ## 🤖 Which AI it uses
-1. **Meta Llama 3.1 8B (open-weight)** answers the hint.
+1. **Meta Llama 3.3 70B (open-weight)** answers the hint.
 2. **Vercel AI Gateway** connects the site to the model.
 3. Vercel uses a short-lived **OIDC token**. No long-lived provider key is stored in the project.
 4. Each request opts out of **prompt training**.

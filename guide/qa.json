@@ -264,7 +264,7 @@
    "cat": "water",
    "q": "Which AI does it use?",
    "steps": [
-    "Meta Llama 3.1 8B. It is an open-weight model.",
+    "Meta Llama 3.3 70B. It is an open-weight model.",
     "Vercel AI Gateway connects to it.",
     "The request opts out of prompt training.",
     "Paste only proof text. Do not paste your name or ID."
@@ -787,7 +787,7 @@
     "We picked the class and set every rule.",
     "The AI wrote the code, notes, and videos.",
     "The AI ran the tests.",
-    "Meta Llama 3.1 8B answers inside the tutor through Vercel AI Gateway."
+    "Meta Llama 3.3 70B answers inside the tutor through Vercel AI Gateway."
    ],
    "note": "06 Disclosure/07-disclosure.md",
    "kw": [

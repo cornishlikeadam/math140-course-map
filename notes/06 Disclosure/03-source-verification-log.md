@@ -38,7 +38,7 @@ cssclasses: [garden]
 | **3** | MATH 140 syllabus (Weeks 1–10) | Week numbers | From our note [MATH 140 Course Map - Unified](../MATH%20140%20Course%20Map%20-%20Unified.md) |
 | **4** | OpenCode Zen docs and model list | Free AI models | Read Oct 1 |
 | **5** | OpenRouter docs | Tried, then **dropped** | Read Sept 24 |
-| **6** | Vercel AI Gateway authentication, pricing, and Meta Llama 3.1 8B model page | OIDC connection, included monthly credit, model choice, and no-training control | Read Oct 13 |
+| **6** | Vercel AI Gateway authentication, pricing, and Meta Llama 3.3 70B model page | OIDC connection, included monthly credit, model choice, and no-training control | Read Oct 13 |
 
 ## 🗑️ Sources we removed
 | Source | Why it was used | Why it was removed |
