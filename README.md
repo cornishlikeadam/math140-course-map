@@ -58,7 +58,7 @@ Each video is about **20 seconds**. 🎥 The MP4 files are in [`explainers/media
 | # | Folder or file | What it is |
 |---|---|---|
 | **1** | `index.html` | 🗺️ The map. **Simple words** and **Full detail** modes. |
-| **2** | `api/proof-check.js` | 💧 The live hint helper. It uses **Gemini 2.5 Flash Lite** through Vercel AI Gateway. |
+| **2** | `api/proof-check.js` | 💧 The live hint helper. It uses **Meta Llama 3.1 8B (open-weight)** through Vercel AI Gateway. |
 | **3** | `prototype/` | 🧪 The M3 practice helper. Pretend hints. Nothing you type is sent. |
 | **4** | `guide/` | 📗 The Garden Guide. An Ask box and **48 answers** in closed tabs. No AI. |
 | **5** | `explainers/` | 🎬 The **8** videos (5 parts + 3 extras). Each frame is drawn in code. |

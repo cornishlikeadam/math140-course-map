@@ -46,7 +46,7 @@ Each rule has a **person** and a **test**.
 | **2** | The AI gives a wrong hint. | Every Not sure hint goes to the teacher in 2 days. | Teacher | The teacher checks **20 hints**. Count the wrong ones. |
 | **3** | Kids stop learning. | Hints only. A no-computer quiz. | Teacher | Compare quiz scores: AI group vs paper group. |
 | **4** | Kids without computers fall behind. | A paper rule list and office hours. They count the same. | Teacher | Check that both groups get close scores. |
-| **5** | Private info leaks. | No student login. Send only proof text through Vercel AI Gateway to Gemini 2.5 Flash Lite. Opt out of prompt training. | Team | Check Vercel and Google privacy rules each term. |
+| **5** | Private info leaks. | No student login. Send only proof text through Vercel AI Gateway to Meta Llama 3.1 8B (open-weight). Opt out of prompt training. | Team | Check Vercel and Meta/provider privacy rules each term. |
 
 > [!TIP]
 > 🧪 **First test, Oct 1:** we tried 3 times. The helper said no when we pushed. But 1 normal hint was **too exact**. Details: [03 Proof Check Tool & Build Log](../03%20Proof%20Check%20Tool%20%26%20Build%20Log.md).

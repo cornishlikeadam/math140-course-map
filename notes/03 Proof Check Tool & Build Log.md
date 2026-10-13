@@ -46,7 +46,7 @@ We tried to trick it **3 ways**.
 
 ## 🛠️ How it works (for the team)
 - 💻 **Code:** `~/Documents/math140-course-map`. The page is `index.html`. The helper is `api/proof-check.js`.
-- 🤖 **AI model:** **Gemini 2.5 Flash Lite** through **Vercel AI Gateway**.
+- 🤖 **AI model:** **Meta Llama 3.1 8B (open-weight)** through **Vercel AI Gateway**.
 - 🔒 **Privacy control:** each request opts out of prompt training. Students must still paste only proof text and no name or ID.
 - ⏱️ **Speed:** about **1–2 seconds** in the Oct 13 repair test.
 - 🔑 **Connection:** Vercel sends a short-lived OIDC token with each function request. No long-lived provider key is stored in the project.
