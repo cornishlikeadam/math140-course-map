@@ -34,9 +34,11 @@ cssclasses: [garden]
 | **9** | Practice helper v1 | Start over clears a stop | **Still open.** Fix next. |
 | **10** | Redesign | Generic look | White, pink, blue, cyan. Garden theme. Videos. Guide. |
 | **11** | Long pages | Too much on the screen. The tool was hard to find. | **Closed tabs** on the map and the Guide. Notes reader removed. **💧 Hint tool** link in the menu. |
+| **12** | Live API | The old OpenCode credential failed. | Switched to Vercel AI Gateway with automatic OIDC authentication and a prompt-training opt-out. |
 
 ## 🧪 Test totals
 - **3** live hint tests (Oct 1): 2 pass, 1 close call.
 - **16** practice checks (Oct 6): 16 pass.
 - **15** re-run checks (Oct 6, new look): 15 pass.
+- **3** API repair boundary tests (Oct 13): 3 pass.
 - **1** known hole: open.

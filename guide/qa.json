@@ -264,18 +264,18 @@
    "cat": "water",
    "q": "Which AI does it use?",
    "steps": [
-    "Free models from OpenCode Zen.",
-    "First: Space Bunny. It keeps no data.",
-    "Backups: Big Pickle, then MiMo. They can keep data.",
-    "We plan to turn the backups off."
+    "Google Gemini 2.5 Flash Lite.",
+    "Vercel AI Gateway connects to it.",
+    "The request opts out of prompt training.",
+    "Paste only proof text. Do not paste your name or ID."
    ],
    "note": "03 Tool & Architecture/Tool Architecture Index.md",
    "kw": [
     "model",
     "which ai",
-    "opencode",
-    "space bunny",
-    "backup"
+    "vercel ai gateway",
+    "gemini",
+    "oidc"
    ],
    "tag": "",
    "id": "q14"
@@ -787,7 +787,7 @@
     "We picked the class and set every rule.",
     "The AI wrote the code, notes, and videos.",
     "The AI ran the tests.",
-    "Free OpenCode Zen models answer inside the tutor."
+    "Gemini 2.5 Flash Lite answers inside the tutor through Vercel AI Gateway."
    ],
    "note": "06 Disclosure/07-disclosure.md",
    "kw": [

@@ -21,6 +21,7 @@ This log is **append-only**. We add corrections as new lines.
 | **5** | Oct 1 | Hints | OpenCode Zen (Space Bunny, Big Pickle, MiMo) | Answers inside the Proof check tutor | **Product feature** |
 | **6** | Oct 6 | M3 build | Claude | Wrote all prototype code. Ran 16 + 15 checks. | **Substantial** |
 | **7** | Oct 6 | Redesign + videos + guide | Claude | Wrote code, notes, 8 videos, and this folder | **Substantial** |
+| **8** | Oct 13 | API repair | Claudian / Gemini 2.5 Flash Lite | Replaced the broken OpenCode connection with Vercel AI Gateway, updated disclosures, and tested the live hint boundary. Gemini now answers inside the tutor. | **Substantial + product feature** |
 
 > [!NOTE]
 > 🧑‍🎓 **What we did ourselves:** picked the course. Named the people. Set the rules. Removed content. Picked the providers. Asked for each change. Added the real syllabus. Approved each step.
@@ -53,6 +54,7 @@ This log is **append-only**. We add corrections as new lines.
 | **P23** | Oct 6 | New look: white, pink, blue, cyan. Calligraphy. Fruits. Emojis. Obsidian tool on the site. ASD-STE100. | Redesigned all pages. Built the Garden Guide and sync script. |
 | **P24** | Oct 6 | Add 3Blue1Brown-style explainer videos as a pop-up and in the README. | Made 5 code-drawn videos. Added the pop-up and GIFs. |
 | **P25** | Oct 6 | Make a disclosure (AI 101 order), an interview kit, a white paper, metrics, a quick syllabus, and SCADpro pitch ideas. | Made this folder, the interview kit, the white paper, and 3 more videos. |
+| **P26** | Oct 13 | Fix the API. | Diagnosed the expired/empty OpenCode credential, moved the function to Vercel AI Gateway with OIDC, added a prompt-training opt-out, updated the records, and tested the endpoint. |
 
 > [!TIP]
-> 📝 **25 rows cover about 30 messages.** Some short follow-ups are grouped in 1 row. The full prompts are in the chat history. These short versions keep the **meaning**. They do not keep every word.
+> 📝 **26 rows cover about 31 messages.** Some short follow-ups are grouped in 1 row. The full prompts are in the chat history. These short versions keep the **meaning**. They do not keep every word.

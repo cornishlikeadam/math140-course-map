@@ -46,11 +46,10 @@ We tried to trick it **3 ways**.
 
 ## 🛠️ How it works (for the team)
 - 💻 **Code:** `~/Documents/math140-course-map`. The page is `index.html`. The helper is `api/proof-check.js`.
-- 🤖 **AI models:** free models from **OpenCode Zen**.
-  1. It tries **Space Bunny** first. Space Bunny keeps **no data**.
-  2. Busy? It tries **Big Pickle**. Then **MiMo**. These **can keep data**. We want to turn them off.
-- ⏱️ **Speed:** about **9 seconds** for each reply.
-- 🔑 **Key:** `OPENCODE_API_KEY`. It is in Vercel, at **Environments → Production**. ✅ Added Oct 1.
+- 🤖 **AI model:** **Gemini 2.5 Flash Lite** through **Vercel AI Gateway**.
+- 🔒 **Privacy control:** each request opts out of prompt training. Students must still paste only proof text and no name or ID.
+- ⏱️ **Speed:** about **1–2 seconds** in the Oct 13 repair test.
+- 🔑 **Connection:** Vercel injects a short-lived `VERCEL_OIDC_TOKEN`. No long-lived provider key is stored in the project.
 - 🚀 **Update the site:** `cd ~/Documents/math140-course-map && vercel deploy --prod`
 
 ## 📅 What happened so far
@@ -58,3 +57,4 @@ We tried to trick it **3 ways**.
 2. **Sept 29:** we changed to **MATH 140**. We built this map.
 3. **Oct 1:** unsure hints go to the teacher. The key was added. The helper went live. We ran 3 tests. The site got **Simple words**.
 4. **Oct 6:** we built the **practice helper** (M3). New look: white, pink, blue, cyan. **5 explainer videos.** New **Garden Guide**.
+5. **Oct 13:** the old OpenCode credential stopped working. We moved the live helper to **Vercel AI Gateway** with automatic OIDC authentication, added the no-training request control, and passed endpoint and hint-boundary tests.

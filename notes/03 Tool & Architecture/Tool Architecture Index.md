@@ -29,12 +29,13 @@ The main page is [03 Proof Check Tool & Build Log](../03%20Proof%20Check%20Tool%
 6. It always says: *"Check this hint against your theorem list; your instructor decides what is correct."*
 
 ## 🤖 Which AI it uses
-1. **Space Bunny** first. It is free. It keeps **no data**.
-2. **Big Pickle.** This is a backup.
-3. **MiMo.** This is a second backup.
+1. **Gemini 2.5 Flash Lite** answers the hint.
+2. **Vercel AI Gateway** connects the site to the model.
+3. Vercel uses a short-lived **OIDC token**. No long-lived provider key is stored in the project.
+4. Each request opts out of **prompt training**.
 
 > [!WARNING]
-> ⚠️ Backups **2** and **3** **can keep data**. We plan to turn them off.
+> ⚠️ Only paste proof text. Do **not** paste your name, ID, grade, or other private information.
 
 ## 📋 The hint list
 For each hint, the list saves:
