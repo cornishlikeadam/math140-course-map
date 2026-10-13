@@ -49,7 +49,7 @@ We tried to trick it **3 ways**.
 - 🤖 **AI model:** **Gemini 2.5 Flash Lite** through **Vercel AI Gateway**.
 - 🔒 **Privacy control:** each request opts out of prompt training. Students must still paste only proof text and no name or ID.
 - ⏱️ **Speed:** about **1–2 seconds** in the Oct 13 repair test.
-- 🔑 **Connection:** Vercel injects a short-lived `VERCEL_OIDC_TOKEN`. No long-lived provider key is stored in the project.
+- 🔑 **Connection:** Vercel sends a short-lived OIDC token with each function request. No long-lived provider key is stored in the project.
 - 🚀 **Update the site:** `cd ~/Documents/math140-course-map && vercel deploy --prod`
 
 ## 📅 What happened so far

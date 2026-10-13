@@ -8,7 +8,7 @@ DIGI 230 Milestone 1 (due Oct 1, 2026, 11:00 AM ET): an interactive map of SCAD 
 
 ## 📁 Files
 - `index.html`: the whole page as one file, with no build step. The course data lives in the `R` (steps), `P` (people) and `CARDS` (evidence) arrays in the script at the bottom, and the SVG map is drawn from those. Each step is a different geometric figure (circle, triangle, hexagon, square, golden rectangle).
-- `api/proof-check.js`: a Vercel function behind the Proof check hint tutor. It calls Google Gemini 2.5 Flash Lite through Vercel AI Gateway, opts out of prompt training, and authenticates with Vercel’s short-lived `VERCEL_OIDC_TOKEN` (or `AI_GATEWAY_API_KEY` outside Vercel).
+- `api/proof-check.js`: a Vercel function behind the Proof check hint tutor. It calls Google Gemini 2.5 Flash Lite through Vercel AI Gateway, opts out of prompt training, and authenticates with Vercel’s short-lived OIDC request token (or `AI_GATEWAY_API_KEY` outside Vercel).
 - `PROMPT.md`: the prompt for rebuilding or extending the map.
 - `prototype/`: the M3 practice helper. It uses simulated hints and makes no AI calls. Open it with a double-click.
 - `guide/`: the Garden Guide. It renders `notes/` and answers questions from `guide/qa.json` by keyword matching (no AI).

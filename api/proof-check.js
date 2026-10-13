@@ -20,15 +20,15 @@ const MAX_CHARS = 4000;
 const MAX_TOTAL_CHARS = 12000;
 const DISCLAIMER = "Check this hint against your theorem list; your instructor decides what is correct.";
 
-// OIDC is injected automatically on Vercel. The API key fallback makes local
-// testing and a future non-Vercel deployment possible.
-const apiKey = () => (process.env.AI_GATEWAY_API_KEY || process.env.VERCEL_OIDC_TOKEN || "").trim().replace(/^["']|["']$/g, "");
+// Vercel Functions receive OIDC at runtime in a request header. Build/local
+// environments expose it as VERCEL_OIDC_TOKEN instead.
+const apiKey = (req) => (process.env.AI_GATEWAY_API_KEY || process.env.VERCEL_OIDC_TOKEN || req?.headers?.["x-vercel-oidc-token"] || "").trim().replace(/^["']|["']$/g, "");
 
-async function ask(model, messages) {
+async function ask(model, messages, token) {
   const t0 = Date.now();
   const r = await fetch(API_URL, {
     method: "POST",
-    headers: { Authorization: `Bearer ${apiKey()}`, "Content-Type": "application/json" },
+    headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
     signal: AbortSignal.timeout(15000),
     body: JSON.stringify({
       model,
@@ -54,7 +54,8 @@ export default async function handler(req, res) {
     res.setHeader("Allow", "POST");
     return res.status(405).json({ error: "Use POST." });
   }
-  if (!apiKey()) {
+  const token = apiKey(req);
+  if (!token) {
     return res.status(503).json({ error: "The chat isn't set up yet: the site owner needs to connect the AI gateway." });
   }
 
@@ -77,7 +78,7 @@ export default async function handler(req, res) {
   try {
     let last, authFailures = 0;
     for (const model of MODELS) {
-      last = await ask(model, messages);
+      last = await ask(model, messages, token);
       const reply = (last.data.choices?.[0]?.message?.content || "").trim();
       if (last.ok && reply) return res.status(200).json({ reply: formatReply(reply), model });
       if (last.status === 401 || last.status === 403) authFailures++;
