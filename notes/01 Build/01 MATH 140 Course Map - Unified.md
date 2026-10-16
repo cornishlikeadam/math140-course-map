@@ -6,10 +6,10 @@ due: 2026-10-01 11:00 AM ET
 tags: [digi230, milestone-1, course-map, stakeholder-snapshot, risk-evidence, build-log, proof-check]
 cssclasses: [garden]
 ---
-
+a 
 # 📅 MATH 140 Course Map: 10-Week Quarter (Unified)
 
-🧭 [🌸 Start](00%20Start%20Here.md) · [🗺️ Map](01%20MATH%20140%20Course%20Map.md) · [👥 People](Stakeholder%20Snapshot.md) · [⚠️ Risks](02%20Stakeholders%2C%20Risk%20%26%20Evidence.md) · [💧 Hint Helper](03%20Proof%20Check%20Tool%20%26%20Build%20Log.md) · [📝 M2 Plan](01%20Milestones/M2%20Responsible%20AI%20Use%20Proposal.md) · [🧪 Build](05%20Build%20%28M3%29/00%20How%20the%20Build%20Works.md) · [📗 Guide](00%20Garden%20Guide%20%28live%29.md)
+🧭 🌸 Start · 🗺️ Map · [👥 People](05%20Stakeholder%20Snapshot.md) · ⚠️ Risks · 💧 Hint Helper · 📝 M2 Plan · 🧪 Build · 📗 Guide
 
 🗺️ **Live map:** https://math140-course-map.vercel.app  
 💻 **Repo:** https://github.com/cornishlikeadam/math140-course-map  
@@ -42,19 +42,19 @@ cssclasses: [garden]
 | 🌿 **2. Write** | 3–4 | First proofs: Euclidean theorems, triangle congruence, polygonal geometry proofs, triangulation proofs | ❌ No | Student |
 | 💧 **3. Hint** | 3–8 | **Only AI touchpoint**: Student pastes draft proof → AI flags **one** weak step (names theorem *kind*, not exact reason) | ✅ **Yes, only here** | Teacher (for "Not sure/Disagree" hints) |
 | 🌸 **4. Explain** | 5–9 | Board presentations: polygonal geometry, transformational geometry, non-Euclidean, fractals, graph theory | ❌ No | Teacher |
-| 🍓 **5. Quiz** | 10 | Final exams/projects: Modern Geometry Exam, Applied Geometry Project, Fractal Activity | ❌ No | Teacher (gives all grades) |
+| 🍓 **5. Quiz** | 10 | Final exams/projects: Modern Geometry Exam, Applied Geometry Project, Fractal Activity | ❌ No AI (open book, computers allowed per syllabus; teacher designs AI-resistant questions) | Teacher (gives all grades) |
 
 > [!NOTE]
 > 🚫 **Why AI stays out of the other stops**
 > - **Draw:** Hand construction is the skill; AI can't see drawings  
-> - **Write:** Must try first so ideas are yours  
-> - **Explain:** Talking it through shows real learning  
-> - **Quiz/Exam/Project:** Shows what you can do alone; only a person grades
+> - **Write:** Must try first so ideas are yours (professor: AI can show examples/technique)  
+> - **Explain:** Talking it through shows real learning (professor: AI explanations as examples only)  
+> - **Quiz/Exam/Project:** Shows what you can do alone; only a person grades (professor: open book, computers allowed, but questions designed so AI can't directly answer)
 
 ---
 
 > [!WARNING]
-> 📖 **Open book vs no computers:** the syllabus says each exam is **open book**. Our map says Stop 5 has **no computers**. **Ask the teacher** which rule is true.
+> 📖 **Open book vs no computers:** the syllabus says each exam is **open book** and the professor confirmed **students can use computers during exams**. Our map says Stop 5 has **no computers**. This is a **conflict** — the professor designs questions AI can't directly answer, but doesn't ban devices. **Decide: keep "no AI" rule but allow computers, or enforce no-device?**
 
 ## 💧 How a hint gets checked (Stop 3)
 
@@ -62,7 +62,7 @@ cssclasses: [garden]
 2. Student picks: **Makes sense** / **Not sure** / **I disagree**
 3. Every **Not sure** or **I disagree** → Teacher reviews **within 48 hrs, before Explain (Stop 4)**
 4. If hint was wrong, Teacher tells student
-5. **Teacher is responsible** if a hint is wrong
+5. **Responsibility for wrong hints (per professor):** Shared — student should recognize errors (vocabulary/interpretation), but teacher also responsible if they don't catch it; "operator error" analogy (you're the operator, you check the machine's output)
 
 ---
 
@@ -75,6 +75,22 @@ cssclasses: [garden]
 | **IN** | Teacher | Lectures, checks hints, grades all exams/projects | Too many students to give timely hint feedback on every proof |
 | **TU** | Tutor | Helps outside class (office hours) | Not always available; not integrated into class flow |
 | **NA** | No-AI students | Use paper theorem checklist + teacher help instead of AI hint tool | Slower feedback loop, but same learning path |
+
+---
+
+## 🎓 Instructor's stated AI policy (from interview)
+
+> **"You can use it as a powerful tool."** (On syllabus)
+
+- Math has used tools (calculators) for years — AI is the next tool
+- Students should use all available tools, then **interpret the answer**
+- Professor structures questions so AI helps but doesn't give the answer they're looking for
+- **Main worry:** students taking AI output without understanding/interpreting
+- **Success metric for trial:** opinion-based — helps with vocabulary/interpretation curve?
+- **Deployment preference:** optional for students; could do a special AI assignment as trial
+- **Stop condition:** if not approved by administration
+- **Willing to trial:** ✅ "happy to do it on a trial basis"
+- **Other contact:** **Patrick Bahls** (associate chair, Liberal Arts, Arnold Hall) — primary MATH 140 professor
 
 ---
 
@@ -114,6 +130,46 @@ cssclasses: [garden]
 
 ---
 
+## 🎤 Instructor interview (MATH 140 professor)
+
+**Date:** October 2026  
+**Context:** Interview about AI boundaries for the 5-stop course map.
+
+### Key takeaways
+
+| Topic | Professor's view |
+|-------|------------------|
+| **AI in grading** | ❌ No — teacher should grade all work |
+| **AI writing proofs** | ❌ No — students must write their own; AI can show examples/technique |
+| **AI giving hints (Stop 3)** | ✅ Okay *if* it truly only hints; concern: fine line between hint and fixing the proof |
+| **AI in Explain (Stop 4)** | ❌ No — student must explain live; AI explanations as examples only |
+| **AI on quiz (Stop 5)** | ❌ No — open book but no AI; teacher creates questions AI can't directly answer |
+| **Teacher responsibility for wrong AI hints** | Shared — student should recognize errors (vocabulary/interpretation), but teacher also responsible if they don't catch it; "operator error" analogy |
+| **Student access to computers** | Yes — computer labs available for all |
+| **Current AI policy** | "Use it as a powerful tool" (on syllabus); math has used tools (calculators) for years |
+| **Main worry** | Students taking AI output without understanding/interpreting |
+| **Success metric for trial** | Opinion-based — does it help students with vocabulary/interpretation curve? |
+| **Stop condition** | If not approved by administration |
+| **Deployment preference** | Optional for students; could do a special AI assignment as trial |
+| **Other contact** | **Patrick Bahls** (associate chair, Liberal Arts, Arnold Hall) — primary MATH 140 professor |
+| **Willing to trial?** | ✅ Yes — "happy to do it on a trial basis" |
+
+### Direct quotes
+
+> "I think you can use AI as a tool to help you. But on the actual quiz, I don't think you should be able to use AI."
+
+> "The professor generates the assessment, so they should be the one grading the assessment. And I think you should structure questions in such a way where you could use AI to help you solve it, but AI isn't going to give the answer that the professor's looking for."
+
+> "I think the difficulty is distinguishing between a hint and actually just fixing it... If somebody says it needs more sugar or needs more salt, that's pretty clearly a hint."
+
+> "You should be able to recognize that. If you're trying to start your car and it won't start because it's not in park, do you call AAA, or do you make sure it's in park and then start it?"
+
+> "Where I said the vocabulary and the communication and the interpretation... they still have access to your office hours, too."
+
+> "If it enhances the student experience, maybe it helps them along what I call the vocabulary or interpretation curve. If it can minimize that and help the student get more out of the class, that would be good."
+
+---
+
 ## 📁 Files and places
 
 | What | Where |
@@ -138,6 +194,16 @@ cssclasses: [garden]
 - [ ] **Confirm unit steps against this syllabus** (Weeks 1–10 above)
 - [ ] Run **peer trace test** with another team, record revision on live page
 - [x] Tutor live (Oct 1)
+
+---
+
+## 🔄 Post-Milestone 1 follow-ups (from instructor interview)
+
+- [ ] **Contact Patrick Bahls** (associate chair, Arnold Hall) — primary MATH 140 professor
+- [ ] **Resolve Stop 5 conflict:** Professor allows computers on open-book exams; our map says no computers. Decide: keep "no AI" but allow devices, or enforce no-device?
+- [ ] **Schedule trial run** — professor ✅ "happy to do it on a trial basis"; optional for students; could do special AI assignment
+- [ ] **Align with professor's AI policy:** "Use it as a powerful tool" — more permissive than our strict boundaries
+- [ ] **Define success metric** — professor: opinion-based (vocabulary/interpretation curve)
 
 ---
 

@@ -6,14 +6,14 @@ cssclasses: [garden]
 ---
 # 📜 Start Here: How We Made the Proof Garden
 
-🧭 [🌸 Start](../00%20Start%20Here.md) · [🗺️ Map](../01%20MATH%20140%20Course%20Map.md) · [🧪 Build](../05%20Build%20%28M3%29/00%20How%20the%20Build%20Works.md) · [📜 Disclosure](00-start-here%20%28disclosure%29.md) · [🎥 Interview](../Professor%20Interview%20Kit.md) · [🗓️ Plan](../White%20Paper%20-%20Plan%2C%20Trial%20and%20Metrics.md) · [📗 Guide](../00%20Garden%20Guide%20%28live%29.md)
+🧭 🌸 Start · 🗺️ Map · 🧪 Build · 📜 Disclosure · [🎥 Interview](../01%20Build/04%20Professor%20Interview%20Kit.md) · [🗓️ Plan](../01%20Build/06%20White%20Paper%20-%20Plan%2C%20Trial%20and%20Metrics.md) · 📗 Guide
 
-📜 **Disclosure pages:** [0 Start](00-start-here%20%28disclosure%29.md) · [1 Intent](01-intent.md) · [2 Research](02-research-brief.md) · [3 Sources](03-source-verification-log.md) · [4 AI use + prompts](04-ai-use-log.md) · [5 Outputs](05-outputs.md) · [6 Decisions](06-decision-note.md) · [7 Disclosure](07-disclosure.md)
+📜 **Disclosure pages:** 0 Start · 1 Intent · 2 Research · 3 Sources · 4 AI use + prompts · 5 Outputs · 6 Decisions · 7 Disclosure
 
 ## 🎬 Watch first (20 seconds)
 <iframe src="https://math140-course-map.vercel.app/explainers/6.html" width="100%" height="420" title="How we made it"></iframe>
 
-🎥 [Watch the video (MP4)](../../explainers/media/extra6.mp4)
+> 📼 *This video stays in Obsidian only. It is not on GitHub or the site.*
 
 > [!IMPORTANT]
 > 📜 **This folder is our full disclosure.** It shows **what we did**, **what the AI did**, **every prompt** (short version), and **every source**. We give it in with our final deliverable.
@@ -24,13 +24,13 @@ Read the files **in order**. The order follows the **AI 101 brief**.
 | # | File | What it shows |
 |---|---|---|
 | **0** | 📜 this file | The summary and the video |
-| **1** | [01-intent](01-intent.md) | Our problem, **before** any AI |
-| **2** | [02-research-brief](02-research-brief.md) | Our research question and the claims we checked |
-| **3** | [03-source-verification-log](03-source-verification-log.md) | Each source and how we checked it |
-| **4** | [04-ai-use-log](04-ai-use-log.md) | Each AI session and **every prompt** |
-| **5** | [05-outputs](05-outputs.md) | What we built, run by run |
-| **6** | [06-decision-note](06-decision-note.md) | What we kept, what we cut, and why |
-| **7** | [07-disclosure](07-disclosure.md) | The short disclosure statement |
+| **1** | DIGI 230 1/06 Disclosure/01-intent | Our problem, **before** any AI |
+| **2** | DIGI 230 1/06 Disclosure/02-research-brief | Our research question and the claims we checked |
+| **3** | DIGI 230 1/06 Disclosure/03-source-verification-log | Each source and how we checked it |
+| **4** | DIGI 230/03 Disclosure/04-ai-use-log | Each AI session and **every prompt** |
+| **5** | DIGI 230/03 Disclosure/05-outputs | What we built, run by run |
+| **6** | DIGI 230/03 Disclosure/06-decision-note | What we kept, what we cut, and why |
+| **7** | DIGI 230/02 Disclosure/07-disclosure | The short disclosure statement |
 | 🗺️ | process-map | The process as a picture |
 
 ## 🌸 The project in 5 lines

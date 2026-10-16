@@ -5,7 +5,7 @@ cssclasses: [garden]
 ---
 # 📗 Garden Guide (live)
 
-🧭 [🌸 Start](00%20Start%20Here.md) · [🗺️ Map](01%20MATH%20140%20Course%20Map.md) · [👥 People](Stakeholder%20Snapshot.md) · [⚠️ Risks](02%20Stakeholders%2C%20Risk%20%26%20Evidence.md) · [💧 Hint Helper](03%20Proof%20Check%20Tool%20%26%20Build%20Log.md) · [📝 M2 Plan](01%20Milestones/M2%20Responsible%20AI%20Use%20Proposal.md) · [🧪 Build](05%20Build%20%28M3%29/00%20How%20the%20Build%20Works.md) · [📗 Guide](00%20Garden%20Guide%20%28live%29.md)
+🧭 🌸 Start · 🗺️ Map · [👥 People](05%20Stakeholder%20Snapshot.md) · ⚠️ Risks · 💧 Hint Helper · 📝 M2 Plan · 🧪 Build · 📗 Guide
 
 > [!TIP]
 > This is the **Garden Guide** from our website. You can use it **here in Obsidian**. You can also use it **on the site**. It is the same tool.

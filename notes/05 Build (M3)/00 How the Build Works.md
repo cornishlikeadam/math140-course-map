@@ -7,7 +7,7 @@ cssclasses: [garden]
 ---
 # 🧪 How the Build Works
 
-🧭 [🌸 Start](../00%20Start%20Here.md) · [🗺️ Map](../01%20MATH%20140%20Course%20Map.md) · [👥 People](../Stakeholder%20Snapshot.md) · [⚠️ Risks](../02%20Stakeholders%2C%20Risk%20%26%20Evidence.md) · [💧 Hint Helper](../03%20Proof%20Check%20Tool%20%26%20Build%20Log.md) · [📝 M2 Plan](../01%20Milestones/M2%20Responsible%20AI%20Use%20Proposal.md) · [🧪 Build](00%20How%20the%20Build%20Works.md) · [📗 Guide](../00%20Garden%20Guide%20%28live%29.md)
+🧭 [🌸 Start](../00%20Start%20Here.md) · [🗺️ Map](../01%20MATH%20140%20Course%20Map.md) · [👥 People](../01%20Build/05%20Stakeholder%20Snapshot.md) · [⚠️ Risks](../01%20Build/02%20Stakeholders%2C%20Risk%20%26%20Evidence.md) · [💧 Hint Helper](../01%20Build/03%20Proof%20Check%20Tool%20%26%20Build%20Log.md) · [📝 M2 Plan](../01%20Milestones/M2%20Responsible%20AI%20Use%20Proposal.md) · [🧪 Build](00%20How%20the%20Build%20Works.md) · [📗 Guide](../01%20Build/00%20Garden%20Guide%20%28live%29.md)
 
 🧪 **Build pages:** [0 How it works](00%20How%20the%20Build%20Works.md) · [1 PRD](01%20PRD%20-%20What%20We%27re%20Making.md) · [2 ARD](02%20ARD%20-%20How%20the%20Pieces%20Fit.md) · [3 Checklist](03%20Prep%20Checklist.md) · [4 Handoff](04%20Build%20Handoff.md) · [5 Tests](05%20Tests%20and%20Decisions.md) · [6 Two ways](06%20Two%20Ways%20to%20Build%20It.md)
 

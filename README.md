@@ -13,7 +13,7 @@
 | **3** | 📗 **The Garden Guide** (all the answers) | https://math140-course-map.vercel.app/guide/ |
 | **4** | 💧 **The hint tool** (live AI, hints only) | https://math140-course-map.vercel.app/#tool |
 | **5** | 🪶 **The slim repo** (same site + tool, 14 files, 2 disclosure files) | https://github.com/cornishlikeadam/math140-course-map-lite |
-| **6** | ⚡ **The Slim Study Tool & CLI** (Goody2-style SLM + Calendar) | [`math140-study-tool`](file:///Users/kjcornish/.gemini/antigravity/scratch/math140-study-tool) |
+| **6** | ⚡ **The Slim Study Tool & CLI** (Goody2-style SLM + Calendar) | https://math140-study-tool.vercel.app |
 
 ## 🎬 Watch the 5 parts
 Each video is about **20 seconds**. 🎥 The MP4 files are in [`explainers/media/`](explainers/media/).
@@ -32,9 +32,9 @@ Each video is about **20 seconds**. 🎥 The MP4 files are in [`explainers/media
 ## 📜 Disclosure, interview, and plan
 | # | Page | Video |
 |---|---|---|
-| **A** | 📜 **How we made it.** Our full disclosure, in the AI 101 order. Every prompt and source. → [`notes/06 Disclosure/`](notes/06%20Disclosure/) | ![How we made it](explainers/media/extra6.gif) |
-| **B** | 🎥 **Professor interview kit.** Consent script, 20 questions, a place for the video. → [`notes/Professor Interview Kit.md`](notes/Professor%20Interview%20Kit.md) | ![Interview](explainers/media/extra7.gif) |
-| **C** | 🗓️ **White paper.** The 6-week plan, the trial class, what we measure, and the quick syllabus. → [`notes/White Paper - Plan, Trial and Metrics.md`](notes/White%20Paper%20-%20Plan,%20Trial%20and%20Metrics.md) | ![Plan](explainers/media/extra8.gif) |
+| **A** | 📜 **How we made it.** Our full disclosure, in the AI 101 order. Every prompt and source. → [`notes/03 Disclosure/`](notes/03%20Disclosure/) | ![How we made it](explainers/media/extra6.gif) |
+| **B** | 🎥 **Professor interview kit.** Consent script, 20 questions, a place for the video. → [`notes/01 Build/04 Professor Interview Kit.md`](notes/01%20Build/04%20Professor%20Interview%20Kit.md) | ![Interview](explainers/media/extra7.gif) |
+| **C** | 🗓️ **White paper.** The 6-week plan, the trial class, what we measure, and the quick syllabus. → [`notes/01 Build/06 White Paper - Plan, Trial and Metrics.md`](notes/01%20Build/06%20White%20Paper%20-%20Plan,%20Trial%20and%20Metrics.md) | ![Plan](explainers/media/extra8.gif) |
 
 ## 🌱 The 5 stops
 | # | Stop | What happens | AI? | Boss |
@@ -67,7 +67,7 @@ Each video is about **20 seconds**. 🎥 The MP4 files are in [`explainers/media
 | **7** | `assets/` | 🎨 The shared look: colors, fonts, and the video pop-up. |
 | **8** | `scripts/sync-notes.sh` | 🔄 Copies the Obsidian notes here. Then updates the site. |
 | **9** | `AGENTS.md` · `PROMPT.md` | 🤖 Instructions for AI coding tools. |
-| **10** | `notes/Shareholder & Stakeholder Governance Evaluation.md` | 🏛️ Comprehensive stakeholder & shareholder governance evaluation. |
+| **10** | `notes/01 Build/02 Shareholder & Stakeholder Governance Evaluation.md` | 🏛️ Comprehensive stakeholder & shareholder governance evaluation. |
 
 ## 🔄 Update the notes
 1. **Edit** a note in Obsidian (`Obsidian Vault/DIGI 230`).

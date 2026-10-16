@@ -10,7 +10,7 @@ cssclasses: [garden]
 
 ✅ = done and checked · ⬜ = still to do
 
-1. - [x] 🗺️ The map and people pages are next to the plan. ([01 MATH 140 Course Map](../01%20MATH%20140%20Course%20Map.md), [Stakeholder Snapshot](../Stakeholder%20Snapshot.md))
+1. - [x] 🗺️ The map and people pages are next to the plan. ([01 MATH 140 Course Map](../01%20MATH%20140%20Course%20Map.md), [05 Stakeholder Snapshot](../01%20Build/05%20Stakeholder%20Snapshot.md))
 2. - [x] 📝 The M2 safety rules are copied. They are **not weaker**. ([01 PRD - What We're Making](01%20PRD%20-%20What%20We%27re%20Making.md))
 3. - [x] ⚖️ We compared 2 designs. ([06 Two Ways to Build It](06%20Two%20Ways%20to%20Build%20It.md)) *We wrote it on the build day.*
 4. - [x] 🎯 The plan has **1** thing to do. The ARD shows how it fails and how you exit.

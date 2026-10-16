@@ -1,0 +1,17 @@
+{
+	"nodes":[
+		{"id":"a","type":"text","text":"## 🎯 1 Intent\nOur problem, before AI","x":0,"y":0,"width":260,"height":100,"color":"6"},
+		{"id":"b","type":"text","text":"## 🔬 2 Research\n3 claims checked","x":320,"y":0,"width":260,"height":100,"color":"5"},
+		{"id":"c","type":"text","text":"## 🛠️ 3 Build\nMap · Tutor · Practice helper · Guide · Videos","x":640,"y":0,"width":300,"height":100,"color":"4"},
+		{"id":"d","type":"text","text":"## 🧪 4 Test\n34 checks · 1 hole open","x":640,"y":180,"width":300,"height":100,"color":"6"},
+		{"id":"e","type":"text","text":"## 🧑‍🌾 5 Human check\nTeacher checks unsure hints in 2 days","x":320,"y":180,"width":260,"height":100,"color":"5"},
+		{"id":"f","type":"text","text":"## 📢 6 Disclose\nEvery prompt and source","x":0,"y":180,"width":260,"height":100,"color":"4"}
+	],
+	"edges":[
+		{"id":"1","fromNode":"a","fromSide":"right","toNode":"b","toSide":"left"},
+		{"id":"2","fromNode":"b","fromSide":"right","toNode":"c","toSide":"left"},
+		{"id":"3","fromNode":"c","fromSide":"bottom","toNode":"d","toSide":"top"},
+		{"id":"4","fromNode":"d","fromSide":"left","toNode":"e","toSide":"right"},
+		{"id":"5","fromNode":"e","fromSide":"left","toNode":"f","toSide":"right"}
+	]
+}

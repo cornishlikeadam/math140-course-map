@@ -6,7 +6,7 @@ cssclasses: [garden]
 ---
 # 📢 07 · Disclosure
 
-📜 **Disclosure pages:** [0 Start](00-start-here%20%28disclosure%29.md) · [1 Intent](01-intent.md) · [2 Research](02-research-brief.md) · [3 Sources](03-source-verification-log.md) · [4 AI use + prompts](04-ai-use-log.md) · [5 Outputs](05-outputs.md) · [6 Decisions](06-decision-note.md) · [7 Disclosure](07-disclosure.md)
+📜 **Disclosure pages:** 0 Start · 1 Intent · 2 Research · 3 Sources · 4 AI use + prompts · 5 Outputs · 6 Decisions · 7 Disclosure
 
 > [!IMPORTANT]
 > 🤖 **AI (Claude, by Anthropic) helped** plan this project. It wrote the code, the notes, and the 8 explainer videos. It checked sources and ran the tests. **Meta Llama 3.3 70B (open-weight)**, reached through Vercel AI Gateway, answers inside the live hint tutor. Each request opts out of prompt training.
@@ -15,7 +15,8 @@ cssclasses: [garden]
 >
 > 🍓 **All proofs and hints in tests are made up.** No real student work or data was used.
 >
-> ⚠️ **Open problems:** the Start over hole. No person and no other team has tested the practice helper yet.
+> ⚠️ **Open problem:** No person and no other team has tested the practice helper yet.
+
 
 ## 🧾 Who did what
 | Part | 🧑‍🎓 Us | 🤖 AI |

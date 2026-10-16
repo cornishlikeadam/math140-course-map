@@ -35,10 +35,9 @@ cssclasses: [garden]
 |---|---|---|---|
 | **1** | DIGI 230 site: course map brief, how-to guide, M1 page, schedule | Rules and due dates | Read on the site, Sept 24 – Oct 6 |
 | **2** | DIGI 230 build pack (PRD, ARD, checklist, handoff, tests) | The M3 build plan | Read the zip, Oct 6 |
-| **3** | MATH 140 syllabus (Weeks 1–10) | Week numbers | From our note [MATH 140 Course Map - Unified](../MATH%20140%20Course%20Map%20-%20Unified.md) |
+| **3** | MATH 140 syllabus (Weeks 1–10) | Week numbers | From our note MATH 140 Course Map - Unified |
 | **4** | OpenCode Zen docs and model list | Free AI models | Read Oct 1 |
 | **5** | OpenRouter docs | Tried, then **dropped** | Read Sept 24 |
-| **6** | Vercel AI Gateway authentication, pricing, and Meta Llama 3.3 70B model page | OIDC connection, included monthly credit, model choice, and no-training control | Read Oct 13 |
 
 ## 🗑️ Sources we removed
 | Source | Why it was used | Why it was removed |
@@ -54,4 +53,4 @@ cssclasses: [garden]
 | Open AI helps learning | Lower test scores (−17%) | ❌ Contradicted | **Hints only** |
 | AI tutors help | Larger gains (physics) | ⚠️ Supported, limited | **1 question back**, test in geometry |
 | AI can check proofs | Under 5% on full proofs | ❌ Contradicted | **No AI grading** |
-| Exams have no computers | Syllabus says **open book** | ⚠️ Unclear | **Ask the professor** ([Professor Interview Kit](../Professor%20Interview%20Kit.md)) |
+| Exams have no computers | Syllabus says **open book** | ⚠️ Unclear | **Ask the professor** (Professor Interview Kit) |

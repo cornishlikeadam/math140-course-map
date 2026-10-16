@@ -7,11 +7,9 @@ cssclasses: [garden]
 ---
 # ⚠️ Risks and What Scientists Found
 
-🧭 [🌸 Start](00%20Start%20Here.md) · [🗺️ Map](01%20MATH%20140%20Course%20Map.md) · [👥 People](Stakeholder%20Snapshot.md) · [⚠️ Risks](02%20Stakeholders%2C%20Risk%20%26%20Evidence.md) · [💧 Hint Helper](03%20Proof%20Check%20Tool%20%26%20Build%20Log.md) · [📝 M2 Plan](01%20Milestones/M2%20Responsible%20AI%20Use%20Proposal.md) · [🧪 Build](05%20Build%20%28M3%29/00%20How%20the%20Build%20Works.md) · [📗 Guide](00%20Garden%20Guide%20%28live%29.md)
+🧭 🌸 Start · 🗺️ Map · [👥 People](05%20Stakeholder%20Snapshot.md) · ⚠️ Risks · 💧 Hint Helper · 📝 M2 Plan · 🧪 Build · 📗 Guide
 
-👥 The people list is on its own page: [Stakeholder Snapshot](Stakeholder%20Snapshot.md).
-
-## 🏷️ Our 4 labels
+👥 The people list is on its own page: DIGI 23[[05 Stakeholder Snapshot Our 4 labels
 | Label | Meaning |
 |---|---|
 | 🔬 **Evidence** | A study found it. |
@@ -67,3 +65,26 @@ cssclasses: [garden]
 - 🗺️ **On our map:** the AI **never grades**. It **never says a proof is correct**. People do.
 - 📄 **Source:** Petrov et al., arXiv, 2025. https://arxiv.org/abs/2503.21934
 - ❓ **We still wonder:** how often is our helper wrong? 🧪 **Test:** the teacher checks **20 hints**.
+
+---
+
+## 🎓 Professor's AI policy (from interview)
+
+> **"You can use it as a powerful tool."** (On syllabus)
+
+- Math has used tools (calculators) for years — AI is the next tool
+- Students should use all available tools, then **interpret the answer**
+- Professor structures questions so AI helps but doesn't give the answer they're looking for
+- **Main worry:** students taking AI output without understanding/interpreting
+- **Success metric for trial:** opinion-based — helps with vocabulary/interpretation curve?
+- **Deployment preference:** optional for students; could do a special AI assignment as trial
+- **Stop condition:** if not approved by administration
+- **Willing to trial:** ✅ "happy to do it on a trial basis"
+- **Other contact:** **Patrick Bahls** (associate chair, Liberal Arts, Arnold Hall) — primary MATH 140 professor
+
+> **Professor confirmed our boundaries:**
+> - ✅ No AI grading
+> - ✅ No AI writing proofs (examples OK)
+> - ✅ AI hints OK at Stop 3 *if* truly hint-only
+> - ✅ No AI at Explain/Quiz
+> - ⚠️ **Conflict:** Professor allows computers on open-book exams; our map says no computers

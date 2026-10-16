@@ -8,7 +8,7 @@ cssclasses: [garden]
 ---
 # 🗺️ The Class Map
 
-🧭 [🌸 Start](00%20Start%20Here.md) · [🗺️ Map](01%20MATH%20140%20Course%20Map.md) · [👥 People](Stakeholder%20Snapshot.md) · [⚠️ Risks](02%20Stakeholders%2C%20Risk%20%26%20Evidence.md) · [💧 Hint Helper](03%20Proof%20Check%20Tool%20%26%20Build%20Log.md) · [📝 M2 Plan](01%20Milestones/M2%20Responsible%20AI%20Use%20Proposal.md) · [🧪 Build](05%20Build%20%28M3%29/00%20How%20the%20Build%20Works.md) · [📗 Guide](00%20Garden%20Guide%20%28live%29.md)
+🧭 [🌸 Start](00%20Start%20Here.md) · [🗺️ Map](01%20MATH%20140%20Course%20Map.md) · [👥 People](01%20Build/05%20Stakeholder%20Snapshot.md) · [⚠️ Risks](01%20Build/02%20Stakeholders%2C%20Risk%20%26%20Evidence.md) · [💧 Hint Helper](01%20Build/03%20Proof%20Check%20Tool%20%26%20Build%20Log.md) · [📝 M2 Plan](01%20Milestones/M2%20Responsible%20AI%20Use%20Proposal.md) · [🧪 Build](05%20Build%20%28M3%29/00%20How%20the%20Build%20Works.md) · [📗 Guide](01%20Build/00%20Garden%20Guide%20%28live%29.md)
 
 This page shows the **5 stops**. It shows **where AI is allowed**.
 🗺️ **Live map:** https://math140-course-map.vercel.app
@@ -31,13 +31,13 @@ Anyone must answer these 2 questions in 5 minutes.
 | **5** | 🍓 **Quiz** | 10 | Show what you know. | ❌ No | 🧑‍🌾 Teacher (all grades) |
 
 > [!WARNING]
-> 📅 The **week numbers** come from the real syllabus in [MATH 140 Course Map - Unified](MATH%20140%20Course%20Map%20-%20Unified.md). The syllabus says the exams are **open book**. Our map says the quiz has **no computers**. **Ask the teacher** which rule is true.
+> 📅 The **week numbers** come from the real syllabus in [01 MATH 140 Course Map - Unified](01%20Build/01%20MATH%20140%20Course%20Map%20-%20Unified.md). The syllabus says the exams are **open book** and the **professor confirmed students can use computers during exams**. Our map says the quiz has **no computers**. **Conflict** — professor designs AI-resistant questions but allows devices. Decide: keep "no AI" but allow computers, or enforce no-device?
 
 ## 🚫 Why AI stays out of the other stops
 - 🌱 **Draw:** Drawing by hand is the skill. The AI cannot see drawings.
-- 🌿 **Write:** You try first. Then the ideas are yours.
-- 🌸 **Explain:** Talking shows that you learned it.
-- 🍓 **Quiz:** It shows what you can do alone. Only a person grades.
+- 🌿 **Write:** You try first. Then the ideas are yours. *(Professor: AI can show examples/technique)*
+- 🌸 **Explain:** Talking shows that you learned it. *(Professor: AI explanations as examples only)*
+- 🍓 **Quiz:** It shows what you can do alone. Only a person grades. *(Professor: open book, computers allowed, but questions designed so AI can't directly answer)*
 
 ## 💧 How a hint gets checked (Stop 3)
 1. The AI gets **your own proof**.
@@ -48,7 +48,7 @@ Anyone must answer these 2 questions in 5 minutes.
 6. Is the hint wrong? The teacher **tells you**.
 
 > [!IMPORTANT]
-> 🧑‍🌾 **The teacher is responsible** if a hint is wrong.
+> 🧑‍🌾 **Responsibility for wrong hints (per professor):** **Shared** — student should recognize errors (vocabulary/interpretation), but teacher also responsible if they don't catch it. "Operator error" analogy: you're the operator, you check the machine's output.
 
 ## 👥 Who is who
 | Code | Person | What they do |
@@ -78,6 +78,15 @@ Anyone must answer these 2 questions in 5 minutes.
 
 > [!WARNING]
 > 🤔 **Best guess:** We made the stops from the course description and the syllabus. **Check them** with the MATH 140 teacher.
+> 
+> **Professor confirmed (Oct 2026 interview):**
+> - ✅ No AI grading
+> - ✅ No AI writing proofs (examples OK)
+> - ✅ AI hints OK at Stop 3 *if* truly hint-only
+> - ✅ No AI at Explain/Quiz
+> - ⚠️ **Conflict:** Professor allows computers on open-book exams; our map says no computers
+> - ✅ Willing to trial: "happy to do it on a trial basis"
+> - 📞 **Contact:** Patrick Bahls (associate chair, Arnold Hall) — primary MATH 140 professor
 
 ## 📝 Changes
 | Date | What changed | Why |

@@ -6,19 +6,19 @@ cssclasses: [garden]
 ---
 # 🧪 05 · Outputs: Runs and Revisions
 
-📜 **Disclosure pages:** [0 Start](00-start-here%20%28disclosure%29.md) · [1 Intent](01-intent.md) · [2 Research](02-research-brief.md) · [3 Sources](03-source-verification-log.md) · [4 AI use + prompts](04-ai-use-log.md) · [5 Outputs](05-outputs.md) · [6 Decisions](06-decision-note.md) · [7 Disclosure](07-disclosure.md)
+📜 **Disclosure pages:** 0 Start · 1 Intent · 2 Research · 3 Sources · 4 AI use + prompts · 5 Outputs · 6 Decisions · 7 Disclosure
 
 ## 📦 What we made
-| # | Output | Link |
-|---|---|---|
-| **1** | 🗺️ MATH 140 map (Simple words + Full detail) | https://math140-course-map.vercel.app |
-| **2** | 💧 Proof check tutor (live AI, hints only) | https://math140-course-map.vercel.app (bottom of the map) |
-| **3** | 🧪 Practice helper (pretend hints) | https://math140-course-map.vercel.app/prototype/ |
-| **4** | 📗 Garden Guide (Ask box + 48 answers in tabs) | https://math140-course-map.vercel.app/guide/ |
-| **5** | 🎬 8 explainer videos | https://math140-course-map.vercel.app (pop-up) |
-| **6** | 📄 M1 PDF | `~/Downloads/TeamName_M1_CourseMap.pdf` |
-| **7** | 💻 Code | https://github.com/cornishlikeadam/math140-course-map |
-| **8** | 🗄️ Old SUST 720 map | https://sust720-course-map.vercel.app |
+| #     | Output                                         | Link                                                      |
+| ----- | ---------------------------------------------- | --------------------------------------------------------- |
+| **1** | 🗺️ MATH 140 map (Simple words + Full detail)  | https://math140-course-map.vercel.app                     |
+| **2** | 💧 Proof check tutor (live AI, hints only)     | https://math140-course-map.vercel.app (bottom of the map) |
+| **3** | 🧪 Practice helper (pretend hints)             | https://math140-course-map.vercel.app/prototype/          |
+| **4** | 📗 Garden Guide (Ask box + 48 answers in tabs) | https://math140-course-map.vercel.app/guide/              |
+| **5** | 🎬 8 explainer videos                          | https://math140-course-map.vercel.app (pop-up)            |
+| **6** | 📄 M1 PDF                                      | `~/Downloads/TeamName_M1_CourseMap.pdf`                   |
+| **7** | 💻 Code                                        | https://github.com/cornishlikeadam/math140-course-map     |
+| **8** | 🗄️ Old SUST 720 map                           | https://sust720-course-map.vercel.app                     |
 
 ## 🔁 Runs and revisions
 | # | Run | What went wrong | What we changed |

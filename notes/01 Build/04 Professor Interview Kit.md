@@ -6,12 +6,12 @@ cssclasses: [garden]
 ---
 # 🎥 Professor Interview Kit
 
-🧭 [🌸 Start](00%20Start%20Here.md) · [🗺️ Map](01%20MATH%20140%20Course%20Map.md) · [🧪 Build](05%20Build%20%28M3%29/00%20How%20the%20Build%20Works.md) · [📜 Disclosure](06%20Disclosure/00-start-here%20%28disclosure%29.md) · [🎥 Interview](Professor%20Interview%20Kit.md) · [🗓️ Plan](White%20Paper%20-%20Plan%2C%20Trial%20and%20Metrics.md) · [📗 Guide](00%20Garden%20Guide%20%28live%29.md)
+🧭 🌸 Start · 🗺️ Map · 🧪 Build · 📜 Disclosure · [🎥 Interview](04%20Professor%20Interview%20Kit.md) · [🗓️ Plan](06%20White%20Paper%20-%20Plan%2C%20Trial%20and%20Metrics.md) · 📗 Guide
 
 ## 🎬 Watch first (18 seconds)
 <iframe src="https://math140-course-map.vercel.app/explainers/7.html" width="100%" height="420" title="The professor interview"></iframe>
 
-🎥 [Watch the video (MP4)](../explainers/media/extra7.mp4)
+> 📼 *This video stays in Obsidian only. It is not on GitHub or the site.*
 
 > [!IMPORTANT]
 > 🎯 **Goal:** check our map with a **real MATH 140 professor**. Get answers to our **open questions**. Get a **yes or no** for a trial class.
@@ -56,12 +56,16 @@ cssclasses: [garden]
 
 ### 🍓 A · The class (5 min)
 1. ⭐ **Do our 5 stops match your class?** Draw, Write, Hint, Explain, Quiz. *(Show the map.)*
-2. ⭐ **Your syllabus says the exams are open book. Can students use computers in exams?** *(Our map says no.)*
-3. **Where do students get stuck most?** Which week?
-4. **How do students get help now?** Office hours, tutors, classmates?
+2. ⭐ **Your syllabus says the exams are open book. Can students use computers in exams?**
+   Yes.
+3. **Where do students get stuck most?**
+	Using correct vocabulary.
+4. **How do students get help now?**
+	Office hours, teacher help.
 
 ### 💧 B · AI now (4 min)
 5. ⭐ **What is your AI policy for this class?**
+	AI can be a powerful learning tool in the college math classroom when used to reinforce concepts through guided practice and interactive problem solving. It supports independent learning by explaining steps and offering hints without simply giving away answers. When used ethically, AI helps students build confidence and deepen their understanding rather than relying on it to complete assignments. Permitted uses of AI may include: concept review, checking work, generating practice problems, graphing, visualization, and symbolic manipulation. Prohibited used of AI may include: Completing graded homework without showing their own reasoning; Submitting AI-generated solutions, proofs or steps as their own work; Using AI during quizzes, tests, or closed book assignments; Bypassing required steps. Uploading assignments prompts to AI tools when the assignment explicitly forbids it.
 6. **Have you seen students use AI on proofs?** What happened?
 7. **What worries you most about AI in math?**
 
@@ -72,22 +76,28 @@ cssclasses: [garden]
 11. ⭐ **Can you check unsure hints in 2 days?** How many per week is too many?
 
 ### ⚖️ D · Fairness (3 min)
-12. ⭐ **Do all your students have a computer at home?** About how many do not?
+12. ⭐ **Do all your students have a computer at home?** 
+	Yes, all have access.
 13. **Is the paper rule list a fair no-AI way?** What would make it better?
 14. **What do students who use screen readers need?**
 
 ### 🧑‍🌾 E · Grades and honesty (3 min)
 15. ⭐ **Should the hint list go in with the proof?** Would it change your grading?
-16. **If a hint is wrong, who should be responsible?** *(We say: the teacher.)*
+16. **If a hint is wrong, who should be responsible?**
+	The student.
 
 ### 🧪 F · The trial (4 min)
 17. ⭐ **Can we run a trial in 1 class session?** What do you need from us?
+	Yes.
 18. ⭐ **What result would make you say "this works"?**
+	Overall observable student benefit.
 19. **What would make you stop the trial?**
+	It is hindering student success and learning.
 20. **Who else should we talk to?**
+	Patrick Bahls
 
 > [!TIP]
-> 🔗 Each question comes from our **open questions**. See [Stakeholder Snapshot](Stakeholder%20Snapshot.md), [02 Stakeholders, Risk & Evidence](02%20Stakeholders%2C%20Risk%20%26%20Evidence.md), and [White Paper - Plan, Trial and Metrics](White%20Paper%20-%20Plan%2C%20Trial%20and%20Metrics.md).
+> 🔗 Each question comes from our **open questions**. See [05 Stakeholder Snapshot](05%20Stakeholder%20Snapshot.md), DIGI 230/01 Build/02 Stakeholders, Risk & Evidence, and [06 White Paper - Plan, Trial and Metrics](06%20White%20Paper%20-%20Plan%2C%20Trial%20and%20Metrics.md).
 
 ---
 
@@ -123,9 +133,9 @@ cssclasses: [garden]
 | What result means "this works"? | `[____]` | `[____]` |
 
 ### 🔁 Next steps
-1. - [ ] 📝 **Update** [01 MATH 140 Course Map](01%20MATH%20140%20Course%20Map.md) with the real answers.
-2. - [ ] 📊 **Update** the metrics in [White Paper - Plan, Trial and Metrics](White%20Paper%20-%20Plan%2C%20Trial%20and%20Metrics.md).
-3. - [ ] 📜 **Add** a line to [04-ai-use-log](06%20Disclosure/04-ai-use-log.md) if AI helped with notes.
+1. - [ ] 📝 **Update** DIGI 230/01 MATH 140 Course Map with the real answers.
+2. - [ ] 📊 **Update** the metrics in [06 White Paper - Plan, Trial and Metrics](06%20White%20Paper%20-%20Plan%2C%20Trial%20and%20Metrics.md).
+3. - [ ] 📜 **Add** a line to DIGI 230/03 Disclosure/04-ai-use-log if AI helped with notes.
 4. - [ ] 💌 **Send** a thank-you note (below) in **24 hours**.
 
 ### 💌 Thank-you note

@@ -5,9 +5,9 @@ cssclasses: [garden]
 ---
 # 🛠️ How the Hint Helper Is Built
 
-🧭 [🌸 Start](../00%20Start%20Here.md) · [🗺️ Map](../01%20MATH%20140%20Course%20Map.md) · [👥 People](../Stakeholder%20Snapshot.md) · [⚠️ Risks](../02%20Stakeholders%2C%20Risk%20%26%20Evidence.md) · [💧 Hint Helper](../03%20Proof%20Check%20Tool%20%26%20Build%20Log.md) · [📝 M2 Plan](../01%20Milestones/M2%20Responsible%20AI%20Use%20Proposal.md) · [🧪 Build](../05%20Build%20%28M3%29/00%20How%20the%20Build%20Works.md) · [📗 Guide](../00%20Garden%20Guide%20%28live%29.md)
+🧭 🌸 Start · 🗺️ Map · [👥 People](../01%20Build/05%20Stakeholder%20Snapshot.md) · ⚠️ Risks · 💧 Hint Helper · 📝 M2 Plan · 🧪 Build · 📗 Guide
 
-The main page is [03 Proof Check Tool & Build Log](../03%20Proof%20Check%20Tool%20%26%20Build%20Log.md).
+The main page is DIGI 230/01 Build/03 Proof Check Tool & Build Log.
 
 ## 🧩 The parts
 | # | Part | File | Job |
@@ -29,13 +29,12 @@ The main page is [03 Proof Check Tool & Build Log](../03%20Proof%20Check%20Tool%
 6. It always says: *"Check this hint against your theorem list; your instructor decides what is correct."*
 
 ## 🤖 Which AI it uses
-1. **Meta Llama 3.3 70B (open-weight)** answers the hint.
-2. **Vercel AI Gateway** connects the site to the model.
-3. Vercel uses a short-lived **OIDC token**. No long-lived provider key is stored in the project.
-4. Each request opts out of **prompt training**.
+1. **Space Bunny** first. It is free. It keeps **no data**.
+2. **Big Pickle.** This is a backup.
+3. **MiMo.** This is a second backup.
 
 > [!WARNING]
-> ⚠️ Only paste proof text. Do **not** paste your name, ID, grade, or other private information.
+> ⚠️ Backups **2** and **3** **can keep data**. We plan to turn them off.
 
 ## 📋 The hint list
 For each hint, the list saves:

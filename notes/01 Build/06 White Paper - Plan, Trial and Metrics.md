@@ -6,12 +6,12 @@ cssclasses: [garden]
 ---
 # 🗓️ White Paper: Plan, Trial and Metrics
 
-🧭 [🌸 Start](00%20Start%20Here.md) · [🗺️ Map](01%20MATH%20140%20Course%20Map.md) · [🧪 Build](05%20Build%20%28M3%29/00%20How%20the%20Build%20Works.md) · [📜 Disclosure](06%20Disclosure/00-start-here%20%28disclosure%29.md) · [🎥 Interview](Professor%20Interview%20Kit.md) · [🗓️ Plan](White%20Paper%20-%20Plan%2C%20Trial%20and%20Metrics.md) · [📗 Guide](00%20Garden%20Guide%20%28live%29.md)
+🧭 🌸 Start · 🗺️ Map · 🧪 Build · 📜 Disclosure · [🎥 Interview](04%20Professor%20Interview%20Kit.md) · [🗓️ Plan](06%20White%20Paper%20-%20Plan%2C%20Trial%20and%20Metrics.md) · 📗 Guide
 
 ## 🎬 Watch first (20 seconds)
 <iframe src="https://math140-course-map.vercel.app/explainers/8.html" width="100%" height="420" title="Our plan"></iframe>
 
-🎥 [Watch the video (MP4)](../explainers/media/extra8.mp4)
+> 📼 *This video stays in Obsidian only. It is not on GitHub or the site.*
 
 > [!IMPORTANT]
 > 🌸 **In 3 sentences:**
@@ -27,8 +27,8 @@ Dates come from the DIGI 230 schedule. 👤 = put a teammate's name.
 | # | Date | Session | We do | 👤 Who | Done? |
 |---|---|---|---|---|---|
 | **1** | Tue Oct 6 | 7 · Plan the build | ✅ Build plan + practice helper | `[__]` | ✅ |
-| **2** | **Thu Oct 8** | 8 · **M2 due** | 📝 Hand in [M2 Responsible AI Use Proposal](01%20Milestones/M2%20Responsible%20AI%20Use%20Proposal.md) | `[__]` | ⬜ |
-| **3** | Oct 8–12 | — | 🎥 **Professor interview** ([Professor Interview Kit](Professor%20Interview%20Kit.md)) | `[__]` | ⬜ |
+| **2** | **Thu Oct 8** | 8 · **M2 due** | 📝 Hand in DIGI 230 1/01 Milestones/M2 Responsible AI Use Proposal | `[__]` | ⬜ |
+| **3** | Oct 8–12 | — | 🎥 **Professor interview** ([04 Professor Interview Kit](04%20Professor%20Interview%20Kit.md)) | `[__]` | ⬜ |
 | **4** | Tue Oct 13 | 9 · Build I | 🛠️ **Fix the Start over hole** | `[__]` | ⬜ |
 | **5** | Thu Oct 15 | 10 · Privacy and care | 🔒 Turn off backup AIs that keep data | `[__]` | ⬜ |
 | **6** | Tue Oct 20 | 11 · Build III | 🧪 Run the **20-try trick test** | `[__]` | ⬜ |
@@ -48,7 +48,7 @@ Dates come from the DIGI 230 schedule. 👤 = put a teammate's name.
 
 ### 🔢 How it works
 1. 🧑‍🌾 **Get a yes** from the professor first.
-2. 📢 **Read** the disclosure box to students (from [M2 Responsible AI Use Proposal](01%20Milestones/M2%20Responsible%20AI%20Use%20Proposal.md)).
+2. 📢 **Read** the disclosure box to students (from DIGI 230 1/01 Milestones/M2 Responsible AI Use Proposal).
 3. ✋ **Students choose:** hint helper **or** paper rule list. Both count the same.
 4. 🍓 **Use made-up proofs only.** No grades. No names.
 5. ✏️ **Students fix** the proof. Then they **explain** 1 step to a partner.

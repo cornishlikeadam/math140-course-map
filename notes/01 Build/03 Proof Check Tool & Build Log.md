@@ -7,7 +7,7 @@ cssclasses: [garden]
 ---
 # 💧 The Hint Helper
 
-🧭 [🌸 Start](00%20Start%20Here.md) · [🗺️ Map](01%20MATH%20140%20Course%20Map.md) · [👥 People](Stakeholder%20Snapshot.md) · [⚠️ Risks](02%20Stakeholders%2C%20Risk%20%26%20Evidence.md) · [💧 Hint Helper](03%20Proof%20Check%20Tool%20%26%20Build%20Log.md) · [📝 M2 Plan](01%20Milestones/M2%20Responsible%20AI%20Use%20Proposal.md) · [🧪 Build](05%20Build%20%28M3%29/00%20How%20the%20Build%20Works.md) · [📗 Guide](00%20Garden%20Guide%20%28live%29.md)
+🧭 🌸 Start · 🗺️ Map · [👥 People](05%20Stakeholder%20Snapshot.md) · ⚠️ Risks · 💧 Hint Helper · 📝 M2 Plan · 🧪 Build · 📗 Guide
 
 ## 🌱 What it is
 - It is a **chat box** on the live map: https://math140-course-map.vercel.app
@@ -29,6 +29,13 @@ cssclasses: [garden]
 | Ask you 1 question | Remember things (only your hint list, on your computer) | **Teacher:** check every Not sure hint in 2 days |
 | Give different answers each time | Promise that it never slips | **Teacher:** give all grades and the paper rule list |
 
+> [!NOTE]
+> 🎓 **Professor's take (Oct 2026 interview):**
+> - AI hints OK *if* truly hint-only — "fine line between hint and fixing it"
+> - "If somebody says it needs more sugar or needs more salt, that's pretty clearly a hint"
+> - Responsibility shared: "operator error" — you're the operator, you check the machine
+> - No AI at Explain/Quiz; questions designed so AI can't directly answer
+
 ## 🧪 Test results: Oct 1, 2026
 We tried to trick it **3 ways**.
 
@@ -43,6 +50,22 @@ We tried to trick it **3 ways**.
 > 1. It said no **every time** that we pushed.
 > 2. One hint was **too exact**. That is too much water. We must fix it.
 > 3. 3 tests are not enough. We must run **20 tests**.
+
+---
+
+## 🎓 Professor confirmed (Oct 2026 interview)
+
+| Boundary | Professor says |
+|---|---|
+| **No AI grading** | ✅ "The professor generates the assessment, so they should be the one grading" |
+| **No AI writing proofs** | ✅ "Students must write their own; AI can show examples/technique" |
+| **AI hints at Stop 3** | ✅ "Okay if truly hint-only" — fine line between hint and fixing |
+| **No AI at Explain** | ✅ "Student must explain live; AI explanations as examples only" |
+| **No AI at Quiz** | ✅ "Open book but no AI; questions AI can't directly answer" |
+| **Wrong hint responsibility** | Shared — "operator error" analogy |
+| **Computers on exams** | ✅ Allowed — **conflicts with our "no computers" rule** |
+| **Willing to trial** | ✅ "Happy to do it on a trial basis" |
+| **Contact** | Patrick Bahls (associate chair, Arnold Hall) |
 
 ## 🛠️ How it works (for the team)
 - 💻 **Code:** `~/Documents/math140-course-map`. The page is `index.html`. The helper is `api/proof-check.js`.

@@ -6,7 +6,7 @@ cssclasses: [garden]
 ---
 # ⚖️ 06 · Decision Note: What We Kept, What We Cut, and Why
 
-📜 **Disclosure pages:** [0 Start](00-start-here%20%28disclosure%29.md) · [1 Intent](01-intent.md) · [2 Research](02-research-brief.md) · [3 Sources](03-source-verification-log.md) · [4 AI use + prompts](04-ai-use-log.md) · [5 Outputs](05-outputs.md) · [6 Decisions](06-decision-note.md) · [7 Disclosure](07-disclosure.md)
+📜 **Disclosure pages:** 0 Start · 1 Intent · 2 Research · 3 Sources · 4 AI use + prompts · 5 Outputs · 6 Decisions · 7 Disclosure
 
 ## ✅ What we kept
 We kept the **48-hour teacher check** on unsure hints.
