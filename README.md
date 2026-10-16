@@ -1,94 +1,93 @@
-# 🌸 Proof Garden: MATH 140 + AI
+# 📐 SCAD MATH 140: Study Tool & Ethical Course Map
 
-![Class](https://img.shields.io/badge/DIGI_230-Ethics_of_Emerging_Tech-FF5FA2?style=for-the-badge) ![Client](https://img.shields.io/badge/Client-MATH_140_Geometry-2F5BFF?style=for-the-badge) ![AI](https://img.shields.io/badge/AI-Stop_3_only-22D3EE?style=for-the-badge)
+[![Live Front-Facing Study Tool](https://img.shields.io/badge/🚀_Primary_App-Math140_Study_Tool-FF5FA2?style=for-the-badge&logo=vercel)](https://math140-study-tool.vercel.app)
+[![Course Map & Governance Tab](https://img.shields.io/badge/🌸_Embedded_Tab-Course_Map_%26_Governance-2F5BFF?style=for-the-badge)](https://math140-study-tool.vercel.app/#coursemap)
+[![Standalone Course Map](https://img.shields.io/badge/🗺️_Direct_Portal-Course_Map-22D3EE?style=for-the-badge)](https://math140-course-map.vercel.app)
 
-> [!IMPORTANT]
-> **Our project in 1 sentence:** we found the **1 safe place** for an AI helper in a geometry class. We also found where AI must **stay out**.
+---
 
-## 🔗 Open it
-| # | Page | Link |
+### 🌟 Executive Overview for Professors & Stakeholders
+
+> **The Math 140 Study Tool is the primary front-facing web application.**  
+> It equips SCAD geometry students with an ethically constrained Socratic tutor (SLM), a dynamic 10-week syllabus calendar planner, and an interactive **Course Map & Governance tab** for deep evaluation.
+
+| Resource | Purpose | Access Link |
 |---|---|---|
-| **1** | 🗺️ **The map** | https://math140-course-map.vercel.app |
-| **2** | 🧪 **The practice helper** | https://math140-course-map.vercel.app/prototype/ |
-| **3** | 📗 **The Garden Guide** (all the answers) | https://math140-course-map.vercel.app/guide/ |
-| **4** | 💧 **The hint tool** (live AI, hints only) | https://math140-course-map.vercel.app/#tool |
-| **5** | 🪶 **The slim repo** (same site + tool, 14 files, 2 disclosure files) | https://github.com/cornishlikeadam/math140-course-map-lite |
-| **6** | ⚡ **The Slim Study Tool & CLI** (Goody2-style SLM + Calendar) | https://math140-study-tool.vercel.app |
+| ⚡ **Main Study Tool & Calendar** | **Primary front-facing web app.** Socratic hint tutor, weekly milestones, .ics export, and 8 student account keys. | **[math140-study-tool.vercel.app ↗](https://math140-study-tool.vercel.app)** |
+| 🌸 **Course Map & Governance Tab** | **Embedded tab within the study tool.** Interactive 5-stop pedagogical arc, stakeholder ledger, and audit files. | **[Open as Tab in Study Tool ↗](https://math140-study-tool.vercel.app/#coursemap)** |
+| 🗺️ **Standalone Course Map Portal** | Full-screen direct view of the SVG Proof Garden, 8 explainer videos, and interactive tutor testing sandbox. | **[math140-course-map.vercel.app ↗](https://math140-course-map.vercel.app)** |
+| 🪶 **Lite Reference Repo** | Minimal 14-file reference implementation. | **[github.com/cornishlikeadam/math140-course-map-lite ↗](https://github.com/cornishlikeadam/math140-course-map-lite)** |
 
-## 🎬 Watch the 5 parts
-Each video is about **20 seconds**. 🎥 The MP4 files are in [`explainers/media/`](explainers/media/).
+---
 
-| # | Part | Video |
-|---|---|---|
-| **1** | 🌱 **Seed: Draw by hand.** Draw a line that cuts a segment in half. **No AI.** | ![Part 1](explainers/media/part1.gif) |
-| **2** | 🌿 **Sprout: Write your proof.** Each step needs a reason. **No AI.** | ![Part 2](explainers/media/part2.gif) |
-| **3** | 💧 **Water: Get 1 hint.** The AI points at 1 weak step. **The only AI part.** | ![Part 3](explainers/media/part3.gif) |
-| **4** | 🌸 **Bloom: Explain out loud.** Flip the triangle. Your partner asks why. **No AI.** | ![Part 4](explainers/media/part4.gif) |
-| **5** | 🍓 **Fruit: Show what you know.** The golden ratio. **Only the teacher grades.** | ![Part 5](explainers/media/part5.gif) |
+## ⚡ The Front-Facing Experience: Math 140 Study Tool
 
-> [!TIP]
-> 💧 **A little water helps a plant grow. Too much water drowns it.** A small hint helps. A hint that gives the answer is too much.
+Students, faculty, and stakeholders interact with the unified tool at **[math140-study-tool.vercel.app](https://math140-study-tool.vercel.app)**:
 
-## 📜 Disclosure, interview, and plan
-| # | Page | Video |
-|---|---|---|
-| **A** | 📜 **How we made it.** Our full disclosure, in the AI 101 order. Every prompt and source. → [`notes/03 Disclosure/`](notes/03%20Disclosure/) | ![How we made it](explainers/media/extra6.gif) |
-| **B** | 🎥 **Professor interview kit.** Consent script, 20 questions, a place for the video. → [`notes/01 Build/04 Professor Interview Kit.md`](notes/01%20Build/04%20Professor%20Interview%20Kit.md) | ![Interview](explainers/media/extra7.gif) |
-| **C** | 🗓️ **White paper.** The 6-week plan, the trial class, what we measure, and the quick syllabus. → [`notes/01 Build/06 White Paper - Plan, Trial and Metrics.md`](notes/01%20Build/06%20White%20Paper%20-%20Plan,%20Trial%20and%20Metrics.md) | ![Plan](explainers/media/extra8.gif) |
+1. **⚡ Socratic Tutor (SLM)**: Operates strictly at **Stop 3 (Water / Hint)**. It never solves problems, never completes steps, and never grades. It identifies the first weak reasoning step and asks a guiding question.
+2. **📅 10-Week Dynamic Calendar Planner**: Interactive milestone planner mapping exams (40%), activities (15%), discussions (25%), and final project (20%) with one-click `.ics` calendar sync for Apple/Google calendars.
+3. **🗺️ Course Syllabus**: Week-by-week topic index (Euclidean constructions, non-Euclidean spaces, projective geometry, fractals, golden ratio) connected to creative majors.
+4. **🌸 Course Map & Governance (Integrated Tab)**: Deep-dive view of the complete pedagogical territory, risk evidence, stakeholder matrix, and Obsidian disclosures embedded right inside the application.
+5. **🔑 8 Essential Keys for Student Accounts**: Institutional principles ensuring board defense authenticity, 48-hour instructor escalation loops, and zero prompt training.
+6. **📦 CLI & Embed**: Terminal interface (`npx math140-cli`) and LMS embed mode for seamless Canvas integration.
 
-## 🌱 The 5 stops
-| # | Stop | What happens | AI? | Boss |
-|---|---|---|---|---|
-| **1** | 🌱 Draw | Draw shapes with a compass. | ❌ | 🧑‍🌾 Teacher |
-| **2** | 🌿 Write | Write a proof alone. | ❌ | 🧑‍🎓 Student |
-| **3** | 💧 Hint | The AI points at 1 weak step. You fix it. | ✅ **Only here** | 🧑‍🌾 Teacher (unsure hints) |
-| **4** | 🌸 Explain | Explain your proof at the board. | ❌ | 🧑‍🌾 Teacher |
-| **5** | 🍓 Quiz | Show what you know. | ❌ | 🧑‍🌾 Teacher (all grades) |
+---
 
-## 💧 How a hint gets checked
-1. You write **2 steps or more**.
-2. The AI gives **1 hint**. It **never** gives the answer.
-3. You pick **Makes sense**, **Not sure**, or **I disagree**.
-4. **Not sure** or **I disagree** goes to the teacher.
-5. The teacher checks it **in 2 days**, before you present.
+## 🌸 The 5-Stop Pedagogical Arc
 
-> [!CAUTION]
-> 🚫 **The AI never** writes a step. **It never** says a proof is correct. **It never** grades.
+To protect genuine student learning, AI is quarantined into a single bounded touchpoint:
 
-## 📁 What is in this repo
-| # | Folder or file | What it is |
-|---|---|---|
-| **1** | `index.html` | 🗺️ The map. **Simple words** and **Full detail** modes. |
-| **2** | `api/proof-check.js` | 💧 The live hint helper. It uses **Meta Llama 3.3 70B (open-weight)** through Vercel AI Gateway. |
-| **3** | `prototype/` | 🧪 The M3 practice helper. Pretend hints. Nothing you type is sent. |
-| **4** | `guide/` | 📗 The Garden Guide. An Ask box and **48 answers** in closed tabs. No AI. |
-| **5** | `explainers/` | 🎬 The **8** videos (5 parts + 3 extras). Each frame is drawn in code. |
-| **6** | `notes/` | 📒 A copy of our **Obsidian** notes (the DIGI 230 folder). |
-| **7** | `assets/` | 🎨 The shared look: colors, fonts, and the video pop-up. |
-| **8** | `scripts/sync-notes.sh` | 🔄 Copies the Obsidian notes here. Then updates the site. |
-| **9** | `AGENTS.md` · `PROMPT.md` | 🤖 Instructions for AI coding tools. |
-| **10** | `notes/01 Build/02 Shareholder & Stakeholder Governance Evaluation.md` | 🏛️ Comprehensive stakeholder & shareholder governance evaluation. |
-
-## 🔄 Update the notes
-1. **Edit** a note in Obsidian (`Obsidian Vault/DIGI 230`).
-2. **Run** this command:
-```bash
-cd ~/Documents/math140-course-map && ./scripts/sync-notes.sh
 ```
-3. **Wait** about 1 minute. GitHub and the live site now show your change.
+[🌱 1. Draw]   --> Compass & straightedge by hand (No AI)
+     │
+[🌿 2. Write]  --> Student draft proof ≥ 2 steps (No AI)
+     │
+[💧 3. Hint]   --> Socratic SLM flags 1 weak link + theorem class (ONLY AI)
+     │
+[🌸 4. Explain]--> Blackboard oral defense to peer partner (No AI)
+     │
+[🍓 5. Quiz]   --> Human-graded proctored assessment (No AI)
+```
 
-## 🎨 The look
-- 🤍 **White** background
-- 🍓 **Pink** `#FF5FA2` = people and "no AI here"
-- 🫐 **Blue** `#2F5BFF` = a person decides
-- 💧 **Cyan** `#22D3EE` = the AI (water)
-- ✍️ **Fondamento** for titles. 📖 **Lexend** for reading. Lexend is made for easy reading.
-- 📏 **Words:** short sentences. 1 idea in each sentence. (Simplified Technical English, ASD-STE100.)
+- **Bastani et al. (*PNAS* 2025)**: Unrestricted ChatGPT access caused students to score **17% worse** on subsequent unassisted exams. A hint-only tutor boosted practice scores without hurting retention.
+- **Kestin et al. (*Scientific Reports* 2025)**: Socratic, question-driven AI tutoring achieves superior conceptual mastery over passive answers.
+- **Single Touchpoint Rule**: If a draft has fewer than 2 steps, the AI refuses assistance and prompts the student to write their own draft first.
 
-## 🔬 Our 3 sources
-1. 📄 Bastani et al. (2025). *Generative AI without guardrails can harm learning.* PNAS. https://doi.org/10.1073/pnas.2422633122
-2. 📄 Kestin et al. (2025). *AI tutoring outperforms in-class active learning.* Scientific Reports. https://doi.org/10.1038/s41598-025-97652-6
-3. 📄 Petrov et al. (2025). *Proof or Bluff?* arXiv. https://arxiv.org/abs/2503.21934
+---
 
-> [!NOTE]
-> 🤖 **Disclosure:** AI (Claude) helped plan this project. It wrote the code and the videos. It ran the tests. Our team chose the rules. All proofs and hints are **made up**. No real student work is used.
+## 🏛️ Governance, Stakeholders & Disclosures
+
+- **Shareholder & Stakeholder Evaluation**: Evaluates Students, Faculty (Prof. Patrick Bahls), Peer Tutors, No-AI/Assistive Cohort, Integrity Board, and Systems Architects. &rarr; [`notes/01 Build/02 Shareholder & Stakeholder Governance Evaluation.md`](notes/01%20Build/02%20Shareholder%20&%20Stakeholder%20Governance%20Evaluation.md)
+- **Professor Interview Kit**: Consent script, 20 structured interview questions, and video recording log. &rarr; [`notes/01 Build/04 Professor Interview Kit.md`](notes/01%20Build/04%20Professor%20Interview%20Kit.md)
+- **White Paper (Implementation & Metrics)**: 6-week rollout plan, trial metrics, and syllabus schedule. &rarr; [`notes/01 Build/06 White Paper - Plan, Trial and Metrics.md`](notes/01%20Build/06%20White%20Paper%20-%20Plan,%20Trial%20and%20Metrics.md)
+- **Full Transparency & AI Use Log**: Every prompt, verification test, and model configuration logged in the AI 101 format. &rarr; [`notes/03 Disclosure/`](notes/03%20Disclosure/)
+
+---
+
+## 📁 Repository Structure
+
+```
+math140-course-map/
+├── index.html               # Standalone interactive Course Map portal (SVG visual garden)
+├── api/
+│   └── proof-check.js       # Vercel Serverless Function (Meta Llama 3.3 70B via AI Gateway)
+├── notes/                   # Synced Obsidian Vault (DIGI 230 Course Materials)
+│   ├── 01 Build/            # Course Map, Governance Evaluation, White Paper, Interview Kit
+│   ├── 02 Tool & Architecture/ # Technical specifications and build handoff
+│   └── 03 Disclosure/       # Intent, AI use log, source verification, decision notes
+├── guide/                   # Garden Guide Q&A knowledge base (48 verified answers)
+├── prototype/               # M3 interactive testing sandbox
+├── explainers/              # 8 code-drawn explainer videos (MP4 / GIF)
+└── scripts/
+    └── sync-notes.sh        # Obsidian Vault ↔ GitHub synchronization script
+```
+
+---
+
+## 🔄 Notes Synchronization
+
+To synchronize notes from the private Obsidian Vault (`Obsidian Vault/DIGI 230`) into this repository:
+```bash
+./scripts/sync-notes.sh
+```
+This updates `notes/`, regenerates `manifest.json`, commits, pushes to GitHub (`main` & `develop`), and redeploys to Vercel.
