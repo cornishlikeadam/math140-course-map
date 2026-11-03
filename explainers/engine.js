@@ -1,7 +1,7 @@
 // Explainer engine: every frame is drawn in code. draw(frame) is a pure function of the frame number.
 // Style: dark canvas, smooth constructions, pink / blue / cyan accents (a 3Blue1Brown-style look).
 const W = 1280, H = 720, FPS = 30;
-const C = { bg:"#0E1430", ink:"#F4F6FF", dim:"#8C96C4", pink:"#FF5FA2", blue:"#4F7BFF", cyan:"#22D3EE", grid:"rgba(79,123,255,0.07)" };
+const C = { bg:"#0A0A0A", ink:"#FAFAFA", dim:"#A1A1A1", pink:"#F5F5F5", blue:"#3B82F6", cyan:"#60A5FA", grid:"rgba(255,255,255,0.05)" };
 const SERIF = 'italic 600 30px "Times New Roman", Times, serif';
 const SANS = '"Avenir Next", "Helvetica Neue", Arial, sans-serif';
 

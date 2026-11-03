@@ -1,0 +1,466 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Your Reward Movie</title>
+<style>
+html,body{margin:0;height:100%;background:#03040F;display:grid;place-items:center;overflow:hidden}
+canvas{display:block;width:100%;height:auto;max-height:100vh;aspect-ratio:16/9;cursor:pointer}
+#snd{position:fixed;top:3.5%;right:1.6%;font:700 clamp(11px,1.8vw,16px)/1 "Avenir Next","Helvetica Neue",Arial,sans-serif;color:#fff;background:rgba(255,95,162,.92);border:0;border-radius:999px;padding:.55em .9em;cursor:pointer;box-shadow:0 4px 18px rgba(0,0,0,.35)}
+#snd.on{background:rgba(255,255,255,.16)}
+</style>
+</head><body><canvas aria-label="Your reward movie: your own reasons solve the problem in a short story from your favorite world"></canvas>
+<button id="snd" type="button" hidden>🔊 Tap for sound</button>
+<script>
+// 🎬 Reward movie generator (Weeks 1–2 algebra). Settings come from the URL hash:
+//   #p=1..4 (path) &t=world &s=<seed> &r1=<reason 1> &r2=<reason 2> &g=<first wrong guess>
+// A 3-act story, Spielberg style:
+//   ACT I   setup: the problem shows up in the student's world. The answer stays hidden ("don't show the shark").
+//   ACT II  struggle: the plot twist replays the student's own first wrong guess, and shows why it fails.
+//   ACT III triumph: the student's own reasons are the magic words that solve it. Then the glowing reveal.
+// The seed picks the camera move, title, hero name, sound words, colors, music motif, and the sequel question.
+// Everything is drawn and played in code on this page. Nothing is sent anywhere. The student's name is never used.
+const Q = Object.fromEntries(new URLSearchParams(location.hash.slice(1) || window.DEFAULT_HASH || ""));
+const PATH = Math.min(4, Math.max(1, +Q.p || 1));
+const SEED = (+Q.s || 1) >>> 0;
+const R1 = (Q.r1 || "").trim().slice(0, 70), R2 = (Q.r2 || "").trim().slice(0, 70);
+function mulberry(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+const rnd = mulberry(SEED), pick = arr => arr[Math.floor(rnd() * arr.length)], between = (a, b) => a + (b - a) * rnd(), int = (a, b) => Math.floor(between(a, b + 1));
+
+const WORLDS = {
+  animals:{e:"🐾",name:"Animals",hero:"🦭",names:["Sealy","Pip","Moxie"],item:["🐟","fish"],walker:"🐢",grower:["🦒","feet","year"],flyer:"🐬",
+    sky:["#060A26","#123A6B","#22D3EE"],sfx:["SPLASH!","SQUEAK!","WHEE!","HOP!"],music:{root:60,bpm:100,scale:[0,2,4,7,9],lead:"sine",pluck:true,perc:false}},
+  sports:{e:"⚽",name:"Sports",hero:"🐯",names:["Tess","Coach Roo","Dash"],item:["⚽","balls"],walker:"🏃",grower:["🏆","points","game"],flyer:"🏀",
+    sky:["#060A26","#1B2C7A","#2F5BFF"],sfx:["SWISH!","WHAM!","GOAL!","ZOOM!"],music:{root:62,bpm:120,scale:[0,2,4,5,7,9,11],lead:"square",pluck:false,perc:true}},
+  space:{e:"🚀",name:"Space",hero:"👽",names:["Zib","Nova","Captain Zee"],item:["⭐","stars"],walker:"🚀",grower:["🛰️","km","minute"],flyer:"☄️",
+    sky:["#02030C","#0B1033","#4F7BFF"],sfx:["WHOOSH!","BEEP!","ZAP!","BLAST!"],music:{root:57,bpm:84,scale:[0,2,4,6,7,9,11],lead:"triangle",pluck:false,perc:false}},
+  music:{e:"🎵",name:"Music",hero:"🦜",names:["Polly Pop","Beats","Melody"],item:["🥁","drums"],walker:"🎵",grower:["🎶","notes","bar"],flyer:"🎵",
+    sky:["#08061F","#3A1450","#FF5FA2"],sfx:["BOOM!","TING!","TAP-TAP!","LA-LA!"],music:{root:60,bpm:108,scale:[0,2,4,5,7,9,11],lead:"triangle",pluck:true,perc:true}},
+  food:{e:"🍕",name:"Food",hero:"🐻",names:["Chef Bruno","Honey","Muffin"],item:["🍎","apples"],walker:"🍓",grower:["🍪","cookies","day"],flyer:"🍕",
+    sky:["#0A0620","#4A1638","#FF8FBF"],sfx:["CRUNCH!","SIZZLE!","YUM!","POP!"],music:{root:65,bpm:104,scale:[0,2,4,7,9],lead:"sawtooth",pluck:true,perc:false}},
+  games:{e:"🎮",name:"Games",hero:"🤖",names:["Bit","Pixel","Robo-Rex"],item:["🪙","coins"],walker:"👾",grower:["💎","gems","level"],flyer:"🍄",
+    sky:["#040820","#0F2A4A","#22D3EE"],sfx:["LEVEL UP!","PEW!","COMBO!","CLANG!"],music:{root:64,bpm:132,scale:[0,2,4,7,9],lead:"square",pluck:false,perc:true}},
+};
+const WK = WORLDS[Q.t] ? Q.t : "animals", Wd = WORLDS[WK];
+const HERO = Wd.hero, NAME = pick(Wd.names), ITEM = Wd.item[0];
+const GUESSES = { 1: ["10", "3"], 2: ["7", "1"], 3: ["12", "9"], 4: ["line", "square"] };
+const GUESS = GUESSES[PATH].includes(Q.g) ? Q.g : "";
+const Cap = s => s[0].toUpperCase() + s.slice(1);
+const TITLES = { 1: ["The Mystery Box", "The Heavy Secret", "Balance of Power"], 2: ["The Secret Shortcut", "Lost in the Fog", "The Long Way Home"],
+                 3: ["The Fourth " + Cap(Wd.grower[2]), "Behind the Curtain", "Taller and Taller"], 4: ["Where Will It Land?", "The Great Arch", "Up, Up, and Down"] };
+const FILM = pick(TITLES[PATH]);
+const CAM = pick(["dolly", "crane", "pan"]);
+const SFX = [pick(Wd.sfx), pick(Wd.sfx)];
+const ACC = pick([["#FF5FA2","#22D3EE","#4F7BFF"],["#22D3EE","#FF5FA2","#4F7BFF"],["#4F7BFF","#22D3EE","#FF5FA2"]]);
+const ENDLINE = pick(["Your reasons solved it. 🌸", "Your words cracked the case. 🌸", "You did the thinking. 🌸"]);
+const SEQ = (() => {
+  if (PATH === 1) { const a = int(2, 6); return `x + ${a} = ${a + int(3, 8)}`; }
+  if (PATH === 2) { const [x, y] = pick([[6, 8], [5, 12], [8, 6]]); return `Walk ${x} right and ${y} up. Shortcut?`; }
+  if (PATH === 3) return `Start at ${int(1, 5)}, grow ${int(2, 5)} each ${Wd.grower[2]}. After 5?`;
+  return "height = 16 − x × x. Where does it land?";
+})();
+
+// ---------- Story captions (short sentences, one at a time) ----------
+const STORY = {
+  1: { setup: [`${HERO} ${NAME} finds a mystery box!`, `Box + 3 ${ITEM} weighs the same as 7 ${ITEM}.`],
+       twist: { "10": ["You first guessed 10. Let's try it!", "CLUNK! 10 is too heavy. It tips!"], "3": ["You first guessed 3. Let's try it!", "WHOOSH! 3 is too light. It tips!"],
+                "": ["What is inside? Nobody knows… 😬", "It wobbles. It almost tips!"] },
+       reveal: "The box opens. It held 4! ✨" },
+  2: { setup: [`${Wd.walker} walks 3 steps right, then 4 steps up.`, "The shortcut home is lost in the fog!"],
+       twist: { "7": ["You first guessed 7. Let's try it!", "Too long! 7 goes past home."], "1": ["You first guessed 1. Let's try it!", "Too short! 1 does not reach home."],
+                "": ["Which way is home? 😬", "The fog gets thicker…"] },
+       reveal: "The fog clears. The shortcut is 5! ✨" },
+  3: { setup: [`The ${Wd.grower[0]} starts at 2 ${Wd.grower[1]}. It grows 3 each ${Wd.grower[2]}.`, `${Cap(Wd.grower[2])} 4 is hidden behind the curtain!`],
+       twist: { "12": ["You first guessed 12. Let's try it!", "Too short! The line goes higher."], "9": ["You first guessed 9. Let's try it!", "Too short! The line goes higher."],
+                "": ["Will it keep growing? 😬", "A storm rolls in…"] },
+       reveal: "The curtain opens: 14! ✨" },
+  4: { setup: [`${HERO} ${NAME} throws the ${Wd.flyer} up high!`, "Freeze! Where will it land?"],
+       twist: { "line": ["You first guessed a straight line. Let's try it!", "WHOOSH! A straight line flies away."], "square": ["You first guessed a square. Let's try it!", "BONK! Things do not fly in corners."],
+                "": ["Up… and then what? 😬", "It hangs in the air…"] },
+       reveal: "An arch! The same on both sides. ✨" },
+}[PATH];
+const MOVIE_DUR = 28;
+const CAPS = [
+  [2.8, 5.4, STORY.setup[0]], [5.4, 8.0, STORY.setup[1]],
+  [8.2, 10.8, STORY.twist[GUESS][0]], [10.8, 14.7, STORY.twist[GUESS][1]],
+  [15.0, 17.6, R1 ? "✨ Your magic words, step 2…" : "✨ Your magic words…"], [17.6, 20.0, R2 ? "✨ …and step 3!" : "✨ Watch them work!"],
+  [20.0, 22.8, STORY.reveal], [22.9, 25.3, ENDLINE], [25.3, 28, "Your teacher still checks it."],
+];
+
+// ---------- Drawing helpers ----------
+const EMO = '"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif';
+const DISPLAY = '"Instrument Serif", Georgia, "Times New Roman", serif';
+function emoji(ch, x, y, size, a = 1, flip = false, rot = 0){
+  if (a <= 0) return;
+  g.save(); g.globalAlpha = clamp(a); g.translate(x, y); g.rotate(rot); if (flip) g.scale(-1, 1);
+  g.font = `${size}px ${EMO}`; g.textAlign = "center"; g.textBaseline = "middle"; g.fillText(ch, 0, 0); g.restore();
+}
+const bump = (t, a, b, c, d) => prog(t, a, b) * (1 - prog(t, c, d));
+function burst(word, x, y, t, t0, col){
+  const k = prog(t, t0, t0 + 0.3), out = 1 - prog(t, t0 + 1.3, t0 + 1.8);
+  if (k <= 0 || out <= 0) return;
+  g.save(); g.translate(x, y); g.rotate(-0.12); g.scale(0.6 + 0.5 * k, 0.6 + 0.5 * k); g.globalAlpha = out;
+  for (let i = 0; i < 12; i++) { const a = i / 12 * 6.283; line(Math.cos(a) * 80, Math.sin(a) * 48, Math.cos(a) * 112, Math.sin(a) * 66, 1, col, 5); }
+  g.font = `900 50px ${SANS}`; g.textAlign = "center"; g.textBaseline = "middle"; g.lineWidth = 10; g.strokeStyle = "#060A26"; g.strokeText(word, 0, 0);
+  g.fillStyle = col; g.fillText(word, 0, 0); g.restore();
+}
+// E.T. light: a soft glow with slow turning rays.
+function rays(x, y, k, t, col = "#FFFFFF", r = 300){
+  if (k <= 0) return;
+  g.save(); g.globalCompositeOperation = "lighter"; g.globalAlpha = clamp(k);
+  const gr = g.createRadialGradient(x, y, 0, x, y, r * k);
+  gr.addColorStop(0, col + "70"); gr.addColorStop(0.35, col + "26"); gr.addColorStop(1, col + "00");
+  g.fillStyle = gr; g.beginPath(); g.arc(x, y, r * k, 0, 6.283); g.fill();
+  g.translate(x, y); g.rotate(t * 0.25);
+  for (let i = 0; i < 14; i++) { g.rotate(6.283 / 14); g.fillStyle = col + "12"; g.beginPath(); g.moveTo(0, 0); g.lineTo(r * 1.6 * k, -14); g.lineTo(r * 1.6 * k, 14); g.closePath(); g.fill(); }
+  g.restore();
+}
+function wrap(s, max){ const out = []; let cur = ""; for (const w of s.split(/\s+/)) { if ((cur + " " + w).trim().length > max && cur) { out.push(cur); cur = w; } else cur = (cur + " " + w).trim(); } if (cur) out.push(cur); return out.slice(0, 3); }
+// The student's own reason, typed in glowing letters, then pulled into the scene as sparks.
+function magic(text, x, y, t, t0, tx, ty, maxCh = 26){
+  if (!text) return;
+  const k = prog(t, t0, t0 + 1.0), out = 1 - prog(t, t0 + 1.9, t0 + 2.4);
+  if (k > 0 && out > 0) {
+    const lines = wrap(`“${text}”`, maxCh), total = lines.join("").length; let shown = Math.round(total * k);
+    g.save(); g.globalAlpha = out;
+    label("✨ YOUR MAGIC WORDS", x, y - 30 - lines.length * 22, 1, "#BFD3FF", `800 18px ${SANS}`);
+    lines.forEach((ln, i) => {
+      const part = ln.slice(0, Math.max(0, shown)); shown -= ln.length;
+      g.font = `800 40px ${SANS}`; g.textAlign = "center"; g.textBaseline = "middle";
+      g.shadowColor = ACC[0]; g.shadowBlur = 26 + 8 * Math.sin(t * 6);
+      const gr = g.createLinearGradient(x - 300, 0, x + 300, 0); gr.addColorStop(0, "#FFFFFF"); gr.addColorStop(0.5, "#FFD6EA"); gr.addColorStop(1, "#C9F7FF");
+      g.fillStyle = gr; g.fillText(part, x, y - (lines.length - 1) * 23 + i * 46);
+    });
+    g.restore();
+  }
+  const f = prog(t, t0 + 1.8, t0 + 2.6);
+  if (f > 0 && f < 1) for (let i = 0; i < 16; i++) {
+    const d = clamp(f * 1.3 - i * 0.02), sx = x + (i - 8) * 30, sy = y;
+    const px = lerp(sx, tx, ease(d)), py = lerp(sy, ty, ease(d)) - Math.sin(d * 3.14) * 60;
+    dot(px, py, 1 - d * 0.6, i % 2 ? "#FFFFFF" : ACC[1], 5);
+  }
+}
+const CONF = Array.from({length:90},()=>({x:between(0,1280),v:between(150,330),w:between(7,13),r:between(0,6.28),sp:between(-4,4),c:pick(["#FF5FA2","#22D3EE","#4F7BFF","#FFFFFF"]),d:between(0,1.2)}));
+function confetti(t, t0){
+  if (t < t0) return;
+  CONF.forEach(c => { const tt = t - t0 - c.d; if (tt < 0) return; const y = -20 + c.v * tt; if (y > 720) return;
+    g.save(); g.translate(c.x + Math.sin(tt * 3 + c.r) * 20, y); g.rotate(c.r + c.sp * tt); g.fillStyle = c.c; g.fillRect(-c.w / 2, -c.w / 4, c.w, c.w / 2); g.restore(); });
+}
+const STARS = Array.from({length:70},()=>({x:between(0,1280),y:between(40,400),r:between(0.6,2),ph:between(0,6.28)}));
+
+// ---------- Camera ----------
+const HZ = 430;  // horizon at the hero's eye level
+// Dolly zoom ("vertigo"): at the reveal the background stretches while the hero stays the same size.
+const vert = t => 1 + 0.9 * prog(t, 19.8, 21.8);
+function sky(t){
+  const [c0, c1, c2] = Wd.sky, D = vert(t);
+  const gr = g.createLinearGradient(0, 0, 0, HZ); gr.addColorStop(0, c0); gr.addColorStop(0.75, c1); gr.addColorStop(1, c2 + "AA");
+  g.fillStyle = gr; g.fillRect(0, 0, 1280, HZ + 1);
+  STARS.forEach(s => dot(640 + (s.x - 640) / D, HZ + (s.y - HZ) / D, 0.35 + 0.35 * Math.sin(t * 2 + s.ph), "#FFFFFF", s.r));
+  // Hills on the horizon shrink away during the dolly zoom.
+  g.fillStyle = c1; g.beginPath(); g.moveTo(0, HZ);
+  for (let x = 0; x <= 1280; x += 40) g.lineTo(x, HZ - (28 + 22 * Math.sin(x / 140 + 1.3) + 14 * Math.sin(x / 61)) / D);
+  g.lineTo(1280, HZ); g.closePath(); g.fill();
+  const fl = g.createLinearGradient(0, HZ, 0, 720); fl.addColorStop(0, "#0A1140"); fl.addColorStop(1, c0);
+  g.fillStyle = fl; g.fillRect(0, HZ, 1280, 720 - HZ);
+  g.save(); g.strokeStyle = c2 + "38"; g.lineWidth = 1.5;
+  for (let i = -14; i <= 14; i++) { g.beginPath(); g.moveTo(640, HZ); g.lineTo(640 + i * 120 * D, 720 + 400 * (D - 1)); g.stroke(); }
+  for (let k = 1; k < 12; k++) { const y = HZ + Math.pow(k / 11, 2.2) * 290 * D; if (y > 720) break; g.beginPath(); g.moveTo(0, y); g.lineTo(1280, y); g.stroke(); }
+  g.restore();
+}
+function shake(t, events){ let a = 0; for (const e of events) a += 9 * Math.max(0, 1 - Math.abs(t - e) / 0.5) * (t >= e ? 1 : 0); return [Math.sin(t * 93) * a, Math.cos(t * 71) * a]; }
+// Act I move (seeded), Act II push-in on the mystery, Act III settle (or pull back wide), finale slow push.
+function camera(t, focus, wide = 1){
+  let z = 1, ox = 0, oy = 0;
+  const a = 1 - prog(t, 2.2, 7.5);
+  if (CAM === "dolly") z += 0.2 * a; else if (CAM === "crane") { oy = -110 * a; z += 0.06 * a; } else ox = 170 * a;
+  const push = bump(t, 8, 10.5, 14.6, 15.8);
+  z += 0.12 * push;
+  const fx = lerp(640, focus[0], push), fy = lerp(360, focus[1], push);
+  const w = prog(t, 15, 16.4);
+  z = lerp(z, wide, w) + 0.05 * prog(t, 22, 28);
+  return { z, fx: lerp(fx, wide === 1 ? 640 : focus[2], w), fy: lerp(fy, wide === 1 ? 360 : focus[3], w), ox, oy };
+}
+function withCam(c, sh, fn){ g.save(); g.translate(640 + c.ox + sh[0], 360 + c.oy + sh[1]); g.scale(c.z, c.z); g.translate(-c.fx, -c.fy); fn(); g.restore(); }
+function hero(t, x, y, size, fail){
+  const walk = prog(t, 2.6, 4.4), hx = lerp(-140, x, walk), bob = walk < 1 ? -Math.abs(Math.sin(t * 9)) * 14 : 0;
+  const jump = t > 22.6 ? -Math.abs(Math.sin((t - 22.6) * 5)) * 46 * (1 - prog(t, 25.5, 26.5)) : 0;
+  const wob = fail ? Math.sin(t * 22) * 0.25 * bump(t, fail, fail + 0.15, fail + 1.4, fail + 2) : 0;
+  // A little shadow keeps the hero on the ground.
+  g.save(); g.globalAlpha = 0.25; g.fillStyle = "#000"; g.beginPath(); g.ellipse(hx, y + size * 0.48, size * 0.36, 9, 0, 0, 6.283); g.fill(); g.restore();
+  emoji(HERO, hx, y + bob + jump, size, 1, false, wob);
+}
+
+// ---------- The 4 stories ----------
+const SCENES = {
+  1(t){ // ⚖️ The Mystery Box: box + 3 = 7
+    const PV = [790, 455], L = 235;
+    const heavy = GUESS === "10", light = GUESS === "3";
+    let th = 0.035 * Math.sin(t * 2.2) * fade(t, 2.5, 4, 14.8, 15.2);
+    if (heavy) th += -0.3 * bump(t, 10.7, 11.05, 13.4, 14.4); else if (light) th += 0.26 * bump(t, 10.7, 11.05, 13.4, 14.4);
+    else th += 0.13 * Math.sin(t * 3.1) * prog(t, 8, 12.8) * (1 - prog(t, 13.8, 15));
+    th *= 1 - prog(t, 15, 15.6);
+    const c = camera(t, [PV[0], PV[1] + 40]), sh = shake(t, GUESS ? [11.05] : []);
+    withCam(c, sh, () => {
+      const f = prog(t, 0.6, 2.2);
+      poly([[PV[0], PV[1]], [PV[0] - 44, 600], [PV[0] + 44, 600]], f, "#C9D4FF", "rgba(201,212,255,.18)", 4);
+      const ex = Math.cos(th) * L, ey = Math.sin(th) * L, Lp = [PV[0] - ex, PV[1] - ey], Rp = [PV[0] + ex, PV[1] + ey];
+      line(Lp[0], Lp[1], Rp[0], Rp[1], f, "#F4F6FF", 8); dot(PV[0], PV[1], f, ACC[0], 10);
+      const pan = (p) => { const y = p[1] + 78; line(p[0], p[1], p[0] - 82, y, f, "#8C96C4", 2); line(p[0], p[1], p[0] + 82, y, f, "#8C96C4", 2); line(p[0] - 92, y, p[0] + 92, y, f, ACC[2], 7); return y; };
+      const ly = pan(Lp), ry = pan(Rp);
+      // Left pan: the mystery box and 3 items. The box rattles: what is inside?
+      const rat = [[5.6, 6.2], [7.1, 7.5], [9.0, 9.5]].some(([a, b]) => t > a && t < b) ? Math.sin(t * 60) * 4 : 0;
+      const open = prog(t, 20, 20.6), bx = Lp[0] - 40 + rat, by = ly - 42;
+      const glowBox = (heavy || light) ? bump(t, 10.2, 10.6, 13.4, 14) : 0;
+      if (open > 0) rays(bx, by - 10, open, t, "#FFF4C2", 280);
+      box(bx - 38, by - 38, 76, 76, 10, glowBox ? "rgba(255,95,162,.55)" : "#3B2A6B", glowBox ? "#FF5FA2" : "#FFD6EA", f, 3);
+      g.save(); g.translate(bx, by - 38 - 70 * open); g.rotate(-1.2 * open); box(-42, -8, 84, 14, 5, "#5A3E99", "#FFD6EA", f * (1 - prog(t, 21.2, 21.8)), 2); g.restore();
+      if (open <= 0) label(glowBox ? (heavy ? "10?" : "3?") : "?", bx, by + 2 - (glowBox ? 0 : Math.abs(Math.sin(t * 3)) * 4), f, "#FFFFFF", `900 ${glowBox ? 34 : 44}px ${SANS}`);
+      const lift = prog(t, 16.6, 17.6);
+      for (let i = 0; i < 3; i++) emoji(ITEM, Lp[0] + 50, ly - 20 - i * 30 - 230 * lift, 34, prog(t, 1.4 + i * .2, 1.9 + i * .2) * (1 - lift));
+      // The 4 hidden items pop out of the box at the reveal.
+      for (let i = 0; i < 4; i++) { const k = prog(t, 20.4 + i * 0.18, 20.9 + i * 0.18); if (k > 0) emoji(ITEM, lerp(bx, Lp[0] - 70 + i * 46, k), lerp(by, ly - 120, k) - Math.sin(k * 3.14) * 70, 34, k); }
+      // Right pan: 7 items. 3 lift away with the magic words.
+      for (let i = 0; i < 7; i++) { const gone = i < 3 ? lift : 0, row = i < 4 ? 0 : 1, col = i < 4 ? i : i - 4;
+        emoji(ITEM, Rp[0] - 66 + col * 44 + row * 22, ry - 20 - row * 36 - 230 * gone, 34, prog(t, 1.8 + i * .12, 2.3 + i * .12) * (1 - gone)); }
+      hero(t, 230, 588, 130, GUESS ? 11.05 : 0);
+      burst(heavy ? "CLUNK!" : light ? "WHOOSH!" : SFX[0], heavy ? bx : PV[0], heavy ? by - 120 : 300, t, GUESS ? 11.05 : 13.0, "#FF5FA2");
+      label("x = 4", bx, by - 150, prog(t, 20.3, 20.9) * (1 - prog(t, 24.5, 25)), "#FFFFFF", `italic 700 64px "Times New Roman", serif`);
+      label("4 = 4 ✓ level", PV[0], 392, fade(t, 21.4, 21.9, 24.6, 25), "#9FF3FF", `800 26px ${SANS}`);
+    });
+    magic(R1, 640, 170, t, 15.0, 520, 420);
+    magic(R2, 640, 170, t, 17.6, 560, 400);
+  },
+  2(t){ // 🗺️ The Secret Shortcut: 3 right, 4 up, shortcut 5
+    const u = 70, A = [420, 560], B = [A[0] + 3 * u, 560], C = [B[0], 560 - 4 * u];
+    const c = camera(t, [C[0], (A[1] + C[1]) / 2, 525, 420], 0.74), sh = shake(t, GUESS ? [11.2] : []);
+    withCam(c, sh, () => {
+      emoji("🏠", A[0] - 40, A[1] - 6, 56, prog(t, 1, 1.8));
+      for (let i = 0; i <= 3; i++) dot(A[0] + i * u, A[1], prog(t, 1.2, 2) * 0.5, "#BFD3FF", 4);
+      const w1 = prog(t, 3.0, 4.6), w2 = prog(t, 4.6, 6.4);
+      line(A[0], A[1], B[0], B[1], w1, ACC[0], 7); line(B[0], B[1], C[0], C[1], w2, ACC[1], 7);
+      label("3", (A[0] + B[0]) / 2, A[1] + 30, prog(t, 4.2, 4.8), ACC[0], `900 30px ${SANS}`);
+      label("4", B[0] + 30, (B[1] + C[1]) / 2, prog(t, 6, 6.6), ACC[1], `900 30px ${SANS}`);
+      // Squares on each side (the right-triangle idea), from the magic words.
+      const sq = (P, Q, dir, n, k, col, num) => {
+        if (k <= 0) return; const vx = (Q[0] - P[0]) / n, vy = (Q[1] - P[1]) / n, nx = -vy * dir, ny = vx * dir;
+        poly([P, Q, [Q[0] + nx * n, Q[1] + ny * n], [P[0] + nx * n, P[1] + ny * n]], k, col, col + "30", 3);
+        g.save(); g.globalAlpha = 0.35 * k; g.strokeStyle = col; g.lineWidth = 1.5;
+        for (let i = 1; i < n; i++) { g.beginPath(); g.moveTo(P[0] + vx * i, P[1] + vy * i); g.lineTo(P[0] + vx * i + nx * n, P[1] + vy * i + ny * n); g.stroke();
+          g.beginPath(); g.moveTo(P[0] + nx * i, P[1] + ny * i); g.lineTo(Q[0] + nx * i, Q[1] + ny * i); g.stroke(); }
+        g.restore(); label(num, (P[0] + Q[0]) / 2 + nx * n / 2, (P[1] + Q[1]) / 2 + ny * n / 2, k, "#FFFFFF", `900 40px ${SANS}`);
+      };
+      sq(A, B, 1, 3, prog(t, 16.4, 17.2), ACC[0], "9");
+      sq(B, C, 1, 4, prog(t, 16.9, 17.7), ACC[1], "16");
+      sq(C, A, 1, 5, prog(t, 18.6, 19.6), ACC[2], "25");
+      // The fog hides the shortcut until the reveal.
+      const fog = prog(t, 6.2, 7.2) * (1 - prog(t, 19.4, 20.2));
+      if (fog > 0) for (let i = 0; i < 9; i++) { const k = i / 8, x = lerp(C[0], A[0], k), y = lerp(C[1], A[1], k);
+        g.save(); g.globalAlpha = 0.5 * fog; const gr = g.createRadialGradient(x, y, 0, x, y, 90); gr.addColorStop(0, "#E8EEFF"); gr.addColorStop(1, "#E8EEFF00");
+        g.fillStyle = gr; g.beginPath(); g.arc(x + Math.sin(t + i) * 8, y, 90, 0, 6.283); g.fill(); g.restore(); }
+      if (fog > 0) label("?", (A[0] + C[0]) / 2, (A[1] + C[1]) / 2, fog, "#060A26", `900 ${54 + 6 * Math.sin(t * 3)}px ${SANS}`);
+      // The plot twist: a rope as long as the first guess.
+      if (GUESS) { const n = +GUESS, k = bump(t, 9.8, 11.2, 13.4, 14.2), dx = (A[0] - C[0]) / 5, dy = (A[1] - C[1]) / 5;
+        g.setLineDash([14, 10]); line(C[0], C[1], C[0] + dx * n, C[1] + dy * n, k, "#FF5FA2", 6); g.setLineDash([]);
+        dot(C[0] + dx * n * k, C[1] + dy * n * k, k, "#FF5FA2", 10); burst(n > 5 ? "TOO LONG!" : "TOO SHORT!", C[0] + dx * n, C[1] + dy * n - 70, t, 11.2, "#FF5FA2"); }
+      const rv = prog(t, 20, 20.6);
+      if (rv > 0) { rays((A[0] + C[0]) / 2, (A[1] + C[1]) / 2, rv, t, "#FFF4C2", 240); line(C[0], C[1], A[0], A[1], rv, "#FFFFFF", 9);
+        label("5!", (A[0] + C[0]) / 2 + 50, (A[1] + C[1]) / 2 + 40, rv, "#FFFFFF", `italic 800 60px "Times New Roman", serif`); }
+      // The walker: right, up, then home on the shortcut.
+      const home = prog(t, 20.8, 21.8);
+      let wx = w2 > 0 ? B[0] : lerp(A[0], B[0], w1), wy = w2 > 0 ? lerp(B[1], C[1], w2) : A[1];
+      if (home > 0) { wx = lerp(C[0], A[0], home); wy = lerp(C[1], A[1], home); }
+      const lost = GUESS ? 0 : bump(t, 8.2, 9, 14.4, 15) * Math.sin(t * 2.4) * 30;
+      const moving = w1 < 1 || (w2 > 0 && w2 < 1) || (home > 0 && home < 1);
+      emoji(Wd.walker, wx + lost, wy - 34 - (moving ? Math.abs(Math.sin(t * 10)) * 10 : 0), 62, prog(t, 2.6, 3.0));
+    });
+    if (t < 15.2 || t > 22) hero(t, 150, 590, 120, GUESS ? 11.2 : 0);
+    burst(SFX[0], 1040, 520, t, 21.7, ACC[1]);
+    magic(R1, 990, 150, t, 15.0, 760, 420, 20);
+    magic(R2, 990, 150, t, 17.6, 500, 260, 20);
+  },
+  3(t){ // 🌱 Behind the Curtain: start 2, +3 each, week 4 = 14
+    const G = 600, U = 24, X = k => 300 + k * 150, H = k => (2 + 3 * k) * U;
+    const c = camera(t, [X(4), 360]), sh = shake(t, GUESS ? [11.2] : []);
+    withCam(c, sh, () => {
+      for (let k = 0; k <= 4; k++) label(`${Wd.grower[2]} ${k}`, X(k), G + 24, prog(t, 1, 1.8), "#BFD3FF", `700 18px ${SANS}`);
+      for (let k = 0; k <= 3; k++) {
+        const a = prog(t, 2.8 + k * 0.9, 3.6 + k * 0.9), h = H(k) * a, sway = Math.sin(t * 2 + k) * 2 * bump(t, 8, 9, 14, 15);
+        box(X(k) - 34 + sway, G - h, 68, h, 10, ACC[1] + "55", ACC[1], a > 0 ? 1 : 0, 3);
+        emoji(Wd.grower[0], X(k) + sway, G - h - 28, 44, a);
+        label(String(2 + 3 * k), X(k) + 52, G - h + 14, a, "#FFFFFF", `800 22px ${SANS}`);
+        if (k > 0) label("+3", X(k) - 75, G - H(k) + 20, fade(t, 3.4 + k * 0.9, 3.8 + k * 0.9, 14.6, 15) + 0.9 * bump(t, 15.8, 16.1, 17.2, 17.6), ACC[0], `900 22px ${SANS}`);
+      }
+      // The straight line through the tops (from the magic words), and the twist guess.
+      const lk = prog(t, 16.4, 17.6), y0 = G - H(0) - 4, y4 = G - H(4) - 4;
+      g.setLineDash([12, 9]); line(X(0), y0, lerp(X(0), X(4), lk), lerp(y0, y4, lk), lk > 0 ? 1 : 0, "#9FF3FF", 4); g.setLineDash([]);
+      if (GUESS) { const gy = G - +GUESS * U, k = bump(t, 9.6, 10.6, 13.6, 14.4);
+        g.setLineDash([8, 8]); line(X(3), gy, X(4) + 70, gy, k, "#FF5FA2", 4); g.setLineDash([]); label(`${GUESS}?`, X(4) + 110, gy, k, "#FF5FA2", `900 30px ${SANS}`);
+        g.setLineDash([12, 9]); line(X(0), y0, X(4), y4, bump(t, 10.4, 11.2, 13.6, 14.4), "#9FF3FF", 3); g.setLineDash([]);
+        burst("TOO SHORT!", X(4) - 150, gy - 40, t, 11.2, "#FF5FA2"); }
+      else emoji("⛈️", X(4) - 60 + Math.sin(t) * 30, 170, 90, bump(t, 10.4, 11.2, 14.2, 15));
+      // Week 4 hides behind a curtain until the reveal.
+      const op = prog(t, 20, 20.9), bar = prog(t, 20.4, 21.4);
+      if (op > 0) rays(X(4), G - H(4) * bar - 40, op, t, "#FFF4C2", 260);
+      if (bar > 0) { box(X(4) - 34, G - H(4) * bar, 68, H(4) * bar, 10, ACC[0] + "66", ACC[0], 1, 3); emoji(Wd.grower[0], X(4), G - H(4) * bar - 28, 50, bar);
+        label("14!", X(4) + 62, G - H(4) * bar + 16, prog(t, 21.2, 21.6), "#FFFFFF", `900 34px ${SANS}`); }
+      const cv = prog(t, 6.2, 7.2);
+      if (cv > 0) for (const s of [-1, 1]) { const x0 = X(4) + s * (20 + 70 * op);
+        g.save(); g.globalAlpha = cv; g.fillStyle = "#C2185B"; g.beginPath(); g.moveTo(x0, 220); g.lineTo(x0 + s * 72, 220); g.quadraticCurveTo(x0 + s * 50, 420, x0 + s * 80, G); g.lineTo(x0, G); g.closePath(); g.fill();
+        g.strokeStyle = "#FF5FA2"; g.lineWidth = 2; for (let i = 1; i < 4; i++) { g.beginPath(); g.moveTo(x0 + s * i * 18, 222); g.lineTo(x0 + s * i * 20, G); g.stroke(); } g.restore(); }
+      if (cv > 0 && op <= 0) label("?", X(4), 410 + Math.sin(t * 3) * 5, cv, "#FFFFFF", `900 56px ${SANS}`);
+      label("3 × 4 + 2 = ?", 520, 200, fade(t, 18.4, 18.9, 20, 20.3), "#FFFFFF", `italic 700 46px "Times New Roman", serif`);
+      label("3 × 4 + 2 = 14", 520, 200, fade(t, 20.3, 20.8, 24.6, 25), "#FFFFFF", `italic 700 46px "Times New Roman", serif`);
+    });
+    hero(t, 140, 590, 110, GUESS ? 11.2 : 0);
+    magic(R1, 640, 130, t, 15.0, 600, 420);
+    magic(R2, 640, 130, t, 17.6, 900, 420);
+  },
+  4(t){ // 🌈 The Great Arch: height = 9 − x × x
+    const G = 600, P = x => [640 + x * 110, G - (9 - x * x) * 34];
+    const c = camera(t, [800, 360]), sh = shake(t, GUESS === "square" ? [11.2] : []);
+    withCam(c, sh, () => {
+      line(250, G, 1050, G, prog(t, 0.6, 1.4), "#8C96C4", 3);
+      // Act I: up to the top, then freeze. The landing spot stays hidden.
+      const up = prog(t, 4.2, 6.2), down = prog(t, 16.6, 17.8);
+      const xe = up < 1 ? -3 + 3 * up : down > 0 ? 3 * down : 0;
+      g.strokeStyle = ACC[1]; g.lineWidth = 5; g.setLineDash([2, 12]); g.lineCap = "round"; g.beginPath();
+      for (let x = -3; x <= xe + 1e-6; x += 0.05) { const p = P(x); x === -3 ? g.moveTo(...p) : g.lineTo(...p); } g.stroke(); g.setLineDash([]);
+      const fog = prog(t, 6.0, 6.9) * (1 - prog(t, 17.2, 17.9));
+      if (fog > 0) { for (let i = 0; i < 5; i++) { const x = P(3)[0] - 60 + i * 34, y = G - 30 - (i % 2) * 26;
+        g.save(); g.globalAlpha = 0.6 * fog; const gr = g.createRadialGradient(x, y, 0, x, y, 70); gr.addColorStop(0, "#E8EEFF"); gr.addColorStop(1, "#E8EEFF00"); g.fillStyle = gr; g.beginPath(); g.arc(x, y, 70, 0, 6.283); g.fill(); g.restore(); }
+        label("?", P(3)[0], G - 50 + Math.sin(t * 3) * 5, fog, "#060A26", `900 52px ${SANS}`); }
+      // The twist: the first guess flies the wrong way.
+      if (GUESS) { const k = prog(t, 10.0, 11.2), out = 1 - prog(t, 13.4, 14);
+        const gp = GUESS === "line" ? [P(0)[0] + 700 * k, P(0)[1] - 260 * k] : k < 0.5 ? [P(0)[0] + 360 * k * 2, P(0)[1]] : [P(0)[0] + 360, P(0)[1] + 300 * (k - 0.5) * 2];
+        if (k > 0) { g.setLineDash([10, 10]); line(P(0)[0], P(0)[1], gp[0], gp[1], out, "#FF5FA2", 4); g.setLineDash([]); emoji(Wd.flyer, gp[0], gp[1], 52, 0.55 * out); }
+        burst(GUESS === "line" ? "WHOOSH!" : "BONK!", GUESS === "line" ? 1040 : P(0)[0] + 360, GUESS === "line" ? 170 : P(0)[1] + 300, t, 11.2, "#FF5FA2"); }
+      // Act III: the mirror line, and pairs of points with the same height.
+      const mk = prog(t, 18.4, 19.2);
+      g.setLineDash([10, 10]); line(640, G, 640, P(0)[1] - 50, mk, "#BFD3FF", 3); g.setLineDash([]);
+      [1, 2].forEach(x => { const a = P(-x), b = P(x), k = prog(t, 18.8 + x * 0.3, 19.3 + x * 0.3); dot(a[0], a[1], k, ACC[0], 10); dot(b[0], b[1], k, ACC[0], 10); g.setLineDash([6, 8]); line(a[0], a[1], b[0], b[1], k, "rgba(255,255,255,.45)", 2); g.setLineDash([]); });
+      const rv = prog(t, 20, 20.7);
+      if (rv > 0) { g.strokeStyle = "#FFFFFF"; g.lineWidth = 7 * rv; g.beginPath(); for (let x = -3; x <= 3.001; x += 0.05) { const p = P(x); x === -3 ? g.moveTo(...p) : g.lineTo(...p); } g.stroke();
+        rays(P(-3)[0], G, rv, t, "#FFF4C2", 180); rays(P(3)[0], G, rv, t, "#FFF4C2", 180);
+        label("x = −3 → 0", P(-3)[0], G + 34, rv, "#FFFFFF", `800 24px ${SANS}`); label("x = 3 → 0", P(3)[0], G + 34, rv, "#FFFFFF", `800 24px ${SANS}`); }
+      label("9 − 3 × 3 = 0", P(3)[0] - 20, 250, fade(t, 16.4, 16.9, 19.6, 20), "#FFFFFF", `italic 700 40px "Times New Roman", serif`);
+      const fp = P(xe), hang = up >= 1 && down <= 0 ? Math.sin(t * 2.6) * 6 : 0;
+      emoji(Wd.flyer, fp[0], fp[1] - 16 + hang, 60, prog(t, 3.9, 4.2), false, t * (up < 1 || down > 0 ? 6 : 0.4));
+      burst(SFX[0], P(3)[0], 420, t, 17.8, ACC[1]);
+    });
+    hero(t, 165, 588, 120, GUESS ? 11.2 : 0);
+    magic(R1, 640, 140, t, 15.0, 970, 560);
+    magic(R2, 640, 140, t, 17.6, 640, 330);
+  },
+};
+
+function draw2(t){
+  sky(t);
+  SCENES[PATH](t);
+  confetti(t, 22.6);
+  // Title card, then letterbox bars for the movie look.
+  const tc = 1 - prog(t, 2.0, 2.8);
+  if (tc > 0) { g.fillStyle = `rgba(2,3,12,${tc})`; g.fillRect(0, 0, 1280, 720);
+    const k = prog(t, 0.2, 1.0) * tc;
+    label(`A ${Wd.e} ${Wd.name} Story`, 640, 270, k, "#BFD3FF", `700 24px ${SANS}`);
+    g.save(); g.translate(640, 345); g.scale(0.94 + 0.06 * k, 0.94 + 0.06 * k); label(FILM, 0, 0, k, "#FFFFFF", `400 84px ${DISPLAY}`); g.restore();
+    label(`starring ${HERO} ${NAME}  ·  and YOUR reasons`, 640, 425, prog(t, 0.7, 1.3) * tc, "#FFD6EA", `600 24px ${SANS}`); }
+  const end = prog(t, 25.6, 26.4);
+  if (end > 0) { g.fillStyle = `rgba(2,3,12,${0.82 * end})`; g.fillRect(0, 0, 1280, 720);
+    label("THE END", 640, 250, end, "#FFFFFF", `400 76px ${DISPLAY}`);
+    label(`🎬 Sequel: ${SEQ}`, 640, 340, prog(t, 26.0, 26.6), "#9FF3FF", `700 28px ${SANS}`);
+    label("Try it in your notebook. Your teacher checks it.", 640, 390, prog(t, 26.3, 26.9), "#BFD3FF", `600 22px ${SANS}`); }
+  const bar = 44 * prog(t, 0, 0.8);
+  g.fillStyle = "#000"; g.fillRect(0, 0, 1280, bar); g.fillRect(0, 720 - bar, 1280, bar);
+  label(`Movie #${SEED % 10000}`, 1240, 24, 0.55 * prog(t, 0.5, 1), "#8C96C4", `600 14px ${SANS}`, "right");
+}
+
+// ---------- 🎵 Theme music, made in code (Web Audio). Each world has its own sound; the seed picks the tune. ----------
+const MUS = Wd.music;
+const MOTIF = (() => { let i = int(0, 3); return Array.from({ length: 6 }, (_, k) => k === 5 ? 0 : (i = Math.max(0, Math.min(7, i + pick([-2, -1, 1, 2, 3]))))); })();
+function score(ac, dest = ac.destination, T0 = 0){
+  const now = ac.currentTime, beat = 60 / MUS.bpm, R = MUS.root, sc = MUS.scale;
+  const deg = i => R + sc[((i % sc.length) + sc.length) % sc.length] + 12 * Math.floor(i / sc.length);
+  const mtof = m => 440 * Math.pow(2, (m - 69) / 12);
+  const comp = ac.createDynamicsCompressor(); comp.threshold.value = -18; comp.ratio.value = 4;
+  const master = ac.createGain(); comp.connect(master); master.connect(dest);
+  master.gain.setValueAtTime(0.0001, Math.max(now, T0)); master.gain.exponentialRampToValueAtTime(0.7, Math.max(now, T0) + 1.2);
+  master.gain.setValueAtTime(0.7, T0 + 26.2); master.gain.exponentialRampToValueAtTime(0.0001, T0 + 27.8);
+  const noiseBuf = ac.createBuffer(1, ac.sampleRate * 2, ac.sampleRate); const nd = noiseBuf.getChannelData(0); for (let i = 0; i < nd.length; i++) nd[i] = Math.random() * 2 - 1;
+  const ok = t => T0 + t >= now - 0.01;  // never start notes in the past (when sound turns on mid-movie)
+  function tone(t, m, d, o = {}){
+    if (!ok(t)) return; const s = T0 + t, a = o.a ?? 0.01, r = o.r ?? 0.25, gain = o.g ?? 0.12;
+    const osc = ac.createOscillator(); osc.type = o.type || "sine"; osc.frequency.value = mtof(m); osc.detune.value = o.det || 0;
+    const v = ac.createGain(); v.gain.setValueAtTime(0.0001, s); v.gain.exponentialRampToValueAtTime(gain, s + a); v.gain.setValueAtTime(gain, s + Math.max(a, d)); v.gain.exponentialRampToValueAtTime(0.0001, s + Math.max(a, d) + r);
+    let out = v;
+    if (o.cut) { const f = ac.createBiquadFilter(); f.type = "lowpass"; f.frequency.setValueAtTime(o.cut, s); if (o.cut2) f.frequency.exponentialRampToValueAtTime(o.cut2, s + (o.sweep || 1)); v.connect(f); out = f; }
+    osc.connect(v); out.connect(comp); osc.start(s); osc.stop(s + Math.max(a, d) + r + 0.05);
+  }
+  function noise(t, d, o = {}){
+    if (!ok(t)) return; const s = T0 + t, src = ac.createBufferSource(); src.buffer = noiseBuf;
+    const f = ac.createBiquadFilter(); f.type = o.type || "bandpass"; f.frequency.setValueAtTime(o.f || 1000, s); if (o.f2) f.frequency.exponentialRampToValueAtTime(o.f2, s + d); f.Q.value = o.q || 1;
+    const v = ac.createGain(); v.gain.setValueAtTime(0.0001, s); v.gain.exponentialRampToValueAtTime(o.g || 0.1, s + (o.a || 0.005)); v.gain.exponentialRampToValueAtTime(0.0001, s + d);
+    src.connect(f); f.connect(v); v.connect(comp); src.start(s); src.stop(s + d + 0.05);
+  }
+  function kick(t, g = 0.45){
+    if (!ok(t)) return; const s = T0 + t, o = ac.createOscillator(), v = ac.createGain();
+    o.frequency.setValueAtTime(140, s); o.frequency.exponentialRampToValueAtTime(42, s + 0.16);
+    v.gain.setValueAtTime(g, s); v.gain.exponentialRampToValueAtTime(0.0001, s + 0.32); o.connect(v); v.connect(comp); o.start(s); o.stop(s + 0.35);
+  }
+  const lead = (t, m, d, g = 0.09) => MUS.pluck ? tone(t, m, 0.04, { type: MUS.lead, g, r: 0.5, cut: 2600 }) : tone(t, m, d * 0.8, { type: MUS.lead, g: g * 0.8, a: 0.02, r: 0.15, cut: 2200 });
+  const pad = (t, notes, d, g = 0.035, cut = 1400) => notes.forEach((m, i) => { tone(t, m, d, { type: "sawtooth", g, a: 0.9, r: 1.2, cut, det: i % 2 ? 7 : -7 }); });
+  const motif = (t0, shift = 0, oct = 0, g) => MOTIF.forEach((i, k) => lead(t0 + k * beat / 2, deg(i + shift) + 12 * oct, beat / 2, g));
+  // Title card: a soft opening chord.
+  pad(0.1, [R - 12, R - 5, R + 4], 2.4, 0.03, 900);
+  // ACT I: the world's theme.
+  motif(2.6); motif(2.6 + 3 * beat, 2); pad(2.6, [R - 12, R - 5, R + 4], 5.2, 0.026);
+  for (let t = 2.6; t < 8; t += beat) { tone(t, R - 24, beat * 0.6, { type: "triangle", g: 0.12, r: 0.1 }); if (MUS.perc) { kick(t, 0.25); noise(t + beat / 2, 0.05, { type: "highpass", f: 7000, g: 0.03 }); } }
+  // ACT II: "don't show the shark". A minor chord, and 2 low notes that get faster and faster.
+  pad(8.1, [R - 15, R - 12, R - 8], 6.6, 0.03, 700);
+  for (let t = 8.3, gap = 0.6, i = 0; t < 14.7; t += gap, gap = Math.max(0.13, gap * 0.92), i++) tone(t, R - 25 + (i % 2), gap * 0.7, { type: "sawtooth", g: 0.13, r: 0.06, cut: 420 });
+  const hit = GUESS ? 11.05 : 13.0;
+  kick(hit, 0.4); noise(hit, 0.45, { f: 180, q: 0.8, g: 0.2 });
+  noise(13.4, 1.5, { f: 300, f2: 5000, q: 2, g: 0.07, a: 1.2 });
+  // ACT III: the magic words sparkle, then the big reveal.
+  [15.2, 17.8].forEach(t0 => { for (let k = 0; k < 8; k++) tone(t0 + k * 0.07, deg(k + 7) + 12, 0.05, { type: "triangle", g: 0.06, r: 0.6 }); });
+  pad(15.2, [R - 12, R - 5, R + 4], 4.6, 0.025);
+  motif(16.6, 0, 0, 0.06);
+  noise(19.0, 1.0, { type: "highpass", f: 2000, f2: 9000, g: 0.06, a: 0.95 });
+  kick(20.0, 0.5); noise(20.0, 1.8, { type: "highpass", f: 5000, g: 0.09 });
+  [R - 12, R, R + 4, R + 7, R + 12, R + 16].forEach((m, i) => tone(20.0, m, 2.2, { type: "sawtooth", g: 0.045, a: 0.05, r: 1.4, cut: 600, cut2: 3800, sweep: 1.2, det: i % 2 ? 6 : -6 }));
+  motif(20.5, 0, 1, 0.08); motif(20.5 + 3 * beat, 2, 1, 0.08);
+  // Finale: V → I, and a last sparkle.
+  pad(22.6, [R - 5, R + 2, R + 7], 0.9, 0.035, 1800);
+  pad(23.5, [R - 12, R - 5, R + 4, R + 12], 3.4, 0.035, 1800);
+  for (let k = 0; k < 6; k++) tone(23.5 + k * beat / 2, deg(k * 2) + 12, 0.05, { type: "triangle", g: 0.05, r: 0.8 });
+  if (MUS.perc) [20, 20 + beat, 20 + 2 * beat, 23.5].forEach(t => kick(t, 0.3));
+}
+window.SCORE = ac => score(ac);
+
+// ---------- Live sound control ----------
+let lastT = 0, ac = null, bus = null, soundOn = false, paused = false;
+const btn = document.getElementById("snd");
+function startMusic(fromT){
+  if (bus) { const old = bus; old.gain.setTargetAtTime(0, ac.currentTime, 0.05); setTimeout(() => old.disconnect(), 400); }
+  bus = ac.createGain(); bus.connect(ac.destination);
+  score(ac, bus, ac.currentTime - fromT);
+}
+function setSound(on){
+  soundOn = on; btn.hidden = false; btn.classList.toggle("on", on); btn.textContent = on ? "🔊" : "🔇 Sound off";
+  if (on) { postMessage("restart", "*"); lastT = 0; startMusic(0); }
+  else if (bus) { bus.gain.setTargetAtTime(0, ac.currentTime, 0.05); bus = null; }
+}
+if (!location.search.includes("render")) {
+  try { ac = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) {}
+  if (ac) {
+    btn.hidden = false;
+    ac.resume().catch(() => {});
+    setTimeout(() => { if (ac.state === "running") setSound(true); }, 250);
+    btn.addEventListener("click", async () => { await ac.resume().catch(() => {}); setSound(!soundOn); });
+    document.querySelector("canvas").addEventListener("click", () => { paused = !paused; if (soundOn) paused ? ac.suspend() : ac.resume(); });
+  }
+}
+
+window.SCENE = { n: PATH, emoji: "🎬", name: FILM, dur: MOVIE_DUR, captions: CAPS, title: false,
+  draw(t){ if (soundOn && t + 1 < lastT) startMusic(0); lastT = t; draw2(t); } };
+const s = document.createElement("script"); s.src = "engine.js"; document.body.appendChild(s);
+</script>
+</body></html>
