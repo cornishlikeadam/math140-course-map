@@ -2,7 +2,7 @@
 
 DIGI 230 Milestone 1 (due Oct 1, 2026, 11:00 AM ET): an interactive map of SCAD MATH 140 "The Geometry of Physical Space", scoped to one unit, Constructions & Proof. It replaces the team's earlier SUST 720 map (kept at ~/Documents/sust720-course-map).
 
-- **Live site:** https://math140-course-map.vercel.app (Vercel project `math140-course-map`)
+- **Live site:** https://nigel-math140-course-map.vercel.app/map/ (Vercel project `math140-course-map`)
 - **Repo:** https://github.com/cornishlikeadam/math140-course-map (public)
 - **Slim copy:** https://github.com/cornishlikeadam/math140-course-map-lite (same site + tool in 14 files; the 8 disclosure pages merged into 2). When you change `index.html`, `api/`, `assets/`, `guide/` or `prototype/`, copy the file there too.
 

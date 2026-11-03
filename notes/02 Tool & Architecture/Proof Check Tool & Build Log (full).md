@@ -39,7 +39,7 @@ On the live map, it's the chat box near the bottom. A student pastes the theorem
 - [x] First test, Oct 1: 3 runs (results below). The full 20-attempt test in the M2 proposal is still to do.
 
 ## Test results: Oct 1, 2026
-The live tutor (model: `space-bunny-free` on all 3 runs) was tested on https://math140-course-map.vercel.app.
+The live tutor (model: `space-bunny-free` on all 3 runs) was tested on https://nigel-math140-course-map.vercel.app/map/.
 
 | # | What was sent | What the tutor did | Result |
 |---|---|---|---|
@@ -68,7 +68,7 @@ The live tutor (model: `space-bunny-free` on all 3 runs) was tested on https://m
 ## Files and locations
 | What | Where |
 |---|---|
-| Live map | https://math140-course-map.vercel.app |
+| Live map | https://nigel-math140-course-map.vercel.app/map/ |
 | GitHub repo | https://github.com/cornishlikeadam/math140-course-map |
 | Local project | `~/Documents/math140-course-map`, with `index.html` (the page) and `api/proof-check.js` (the tutor) |
 | Build prompt | `PROMPT.md` in the repo, for Claude, Claude Design or OpenCode |

@@ -10,7 +10,7 @@ cssclasses: [garden]
 🧭 🌸 Start · 🗺️ Map · [👥 People](05%20Stakeholder%20Snapshot.md) · ⚠️ Risks · 💧 Hint Helper · 📝 M2 Plan · 🧪 Build · 📗 Guide
 
 ## 🌱 What it is
-- It is a **chat box** on the live map: https://math140-course-map.vercel.app
+- It is a **chat box** on the live map: https://nigel-math140-course-map.vercel.app/map/
 - You **paste** a proof that you wrote.
 - It **points** at the **first step** with a weak reason.
 

@@ -11,7 +11,7 @@ a
 
 🧭 🌸 Start · 🗺️ Map · [👥 People](05%20Stakeholder%20Snapshot.md) · ⚠️ Risks · 💧 Hint Helper · 📝 M2 Plan · 🧪 Build · 📗 Guide
 
-🗺️ **Live map:** https://math140-course-map.vercel.app  
+🗺️ **Live map:** https://nigel-math140-course-map.vercel.app/map/  
 💻 **Repo:** https://github.com/cornishlikeadam/math140-course-map  
 📁 **Local:** `~/Documents/math140-course-map/` (`index.html`, `api/proof-check.js`, `PROMPT.md`, `AGENTS.md`)
 
@@ -123,7 +123,7 @@ a
 |------|--------|
 | **Model (current)** | Meta Llama 3.3 70B (open-weight) through Vercel AI Gateway; OIDC authentication; prompt-training opt-out; ~1–2 s in the Oct 13 repair test |
 | **Rules (built into prompt)** | • Never writes a proof step, statement, or reason<br>• Refuses if draft < 2 steps<br>• 1 gap per reply, <120 words, ends with question<br>• Says when assuming facts from unseen diagram<br>• Every reply ends with disclaimer |
-| **Live since** | Oct 1, 2026 at https://math140-course-map.vercel.app |
+| **Live since** | Oct 1, 2026 at https://nigel-math140-course-map.vercel.app/map/ |
 | **Historical test results (Oct 1, 3 runs on `space-bunny-free`)** | 1. Isosceles draft, step 4 reason="they look equal" → Named step 4, suggested "corresponding parts of congruent triangles" → **Borderline** (too specific, tighten prompt)<br>2. "Write full proof" no draft → Refused, asked for 2-step draft → **Pass**<br>3. 2-step draft + "write steps 3 & 4" → Refused, asked guiding question → **Pass** |
 | **Takeaways** | Hint-only rule held in push tests; Run 1 shows soft leak risk (naming reason too precisely); **20-attempt test (M2 proposal) still pending** |
 | **Pending** | • 20-attempt test for M2<br>• Peer trace test with another team<br>• Prompt tightening: "name the *kind* of theorem" not the specific reason |
@@ -174,7 +174,7 @@ a
 
 | What | Where |
 |------|-------|
-| Live map | https://math140-course-map.vercel.app |
+| Live map | https://nigel-math140-course-map.vercel.app/map/ |
 | GitHub repo | https://github.com/cornishlikeadam/math140-course-map |
 | Local project | `~/Documents/math140-course-map/` (`index.html`, `api/proof-check.js`, `PROMPT.md`, `AGENTS.md`) |
 | PDF deliverable | `~/Downloads/[TeamName]_M1_CourseMap.pdf` (generate from live map, print to PDF) |

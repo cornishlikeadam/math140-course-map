@@ -11,7 +11,7 @@ cssclasses: [garden]
 🧭 [🌸 Start](00%20Start%20Here.md) · [🗺️ Map](01%20MATH%20140%20Course%20Map.md) · [👥 People](01%20Build/05%20Stakeholder%20Snapshot.md) · [⚠️ Risks](01%20Build/02%20Stakeholders%2C%20Risk%20%26%20Evidence.md) · [💧 Hint Helper](01%20Build/03%20Proof%20Check%20Tool%20%26%20Build%20Log.md) · [📝 M2 Plan](01%20Milestones/M2%20Responsible%20AI%20Use%20Proposal.md) · [🧪 Build](05%20Build%20%28M3%29/00%20How%20the%20Build%20Works.md) · [📗 Guide](01%20Build/00%20Garden%20Guide%20%28live%29.md)
 
 This page shows the **5 stops**. It shows **where AI is allowed**.
-🗺️ **Live map:** https://math140-course-map.vercel.app
+🗺️ **Live map:** https://nigel-math140-course-map.vercel.app/map/
 
 ## ❓ Our big question
 Can **geometry students** *(who)* **fixing proofs they wrote** *(doing what)* use **an AI that only points at the first weak step** *(with what)* **to find mistakes before the quiz** *(why)*, **while every step stays theirs and only the teacher grades** *(what stays safe)*?
