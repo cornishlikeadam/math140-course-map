@@ -9,7 +9,7 @@ cssclasses: [garden]
 🧭 🌸 Start · 🗺️ Map · 🧪 Build · 📜 Disclosure · [🎥 Interview](04%20Professor%20Interview%20Kit.md) · [🗓️ Plan](06%20White%20Paper%20-%20Plan%2C%20Trial%20and%20Metrics.md) · 📗 Guide
 
 ## 🎬 Watch first (18 seconds)
-<iframe src="https://nigel-math140-course-map.vercel.app/explainers/7.html" width="100%" height="420" title="The professor interview"></iframe>
+<iframe src="https://team-math140-study-tool.vercel.app/explainers/7.html" width="100%" height="420" title="The professor interview"></iframe>
 
 > 📼 *This video stays in Obsidian only. It is not on GitHub or the site.*
 
@@ -35,7 +35,7 @@ cssclasses: [garden]
 2. - [ ] 🔋 **Charge** the camera or phone. Use a **second recorder** as a backup.
 3. - [ ] 💡 **Sit** with the light **in front** of the professor. Not behind.
 4. - [ ] 🔇 **Turn off** phone sounds.
-5. - [ ] 🗺️ **Open** the live map and the practice helper: https://nigel-math140-course-map.vercel.app/map/ · https://nigel-math140-course-map.vercel.app/prototype/
+5. - [ ] 🗺️ **Open** the live map and the practice helper: https://team-math140-study-tool.vercel.app/map/ · https://team-math140-study-tool.vercel.app/prototype/
 6. - [ ] 📄 **Print** this page.
 
 ### 🗣️ Consent script (read it out loud)

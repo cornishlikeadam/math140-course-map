@@ -16,7 +16,7 @@ cssclasses: [garden]
 - It is like a **fire drill** 🚒. It works like the real helper. But nothing is real. So we find problems safely.
 - 📁 **Where:** `~/Documents/math140-course-map/prototype/index.html`
 - 🖱️ **How to open:** double-click the file. It works with no internet.
-- 🌐 **Online:** https://nigel-math140-course-map.vercel.app/prototype/
+- 🌐 **Online:** https://team-math140-study-tool.vercel.app/prototype/
 
 ## 🎭 Why it is pretend
 1. 🍓 **The proofs are pretend.** We made them up. No real student work.

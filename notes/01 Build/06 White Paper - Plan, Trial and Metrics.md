@@ -9,7 +9,7 @@ cssclasses: [garden]
 🧭 🌸 Start · 🗺️ Map · 🧪 Build · 📜 Disclosure · [🎥 Interview](04%20Professor%20Interview%20Kit.md) · [🗓️ Plan](06%20White%20Paper%20-%20Plan%2C%20Trial%20and%20Metrics.md) · 📗 Guide
 
 ## 🎬 Watch first (20 seconds)
-<iframe src="https://nigel-math140-course-map.vercel.app/explainers/8.html" width="100%" height="420" title="Our plan"></iframe>
+<iframe src="https://team-math140-study-tool.vercel.app/explainers/8.html" width="100%" height="420" title="Our plan"></iframe>
 
 > 📼 *This video stays in Obsidian only. It is not on GitHub or the site.*
 

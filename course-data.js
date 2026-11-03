@@ -9,7 +9,7 @@ export const COURSE_INFO = {
   quarterLengthWeeks: 10,
   description: "A study of Euclidean and non-Euclidean geometries, transformational geometry, symmetry, topology, and fractals, emphasizing structural applications to art, design, and physical space.",
   sourceRepo: "https://github.com/nigelgponder-byte/math140-course-map",
-  liveMapUrl: "https://nigel-math140-course-map.vercel.app/map/",
+  liveMapUrl: "https://team-math140-study-tool.vercel.app/map/",
   weights: [
     { category: "Exams (4 × 10%)", weight: 40, detail: "Functions, Polygonal, Transformational, Modern Geometry (33 Q each, open book)" },
     { category: "Activities (5 × 5%)", weight: 25, detail: "Polygonal, Vector, Tessellation, Graph Theory, Fractal Activities" },

@@ -11,11 +11,11 @@ cssclasses: [garden]
 ## 📦 What we made
 | #     | Output                                         | Link                                                      |
 | ----- | ---------------------------------------------- | --------------------------------------------------------- |
-| **1** | 🗺️ MATH 140 map (Simple words + Full detail)  | https://nigel-math140-course-map.vercel.app/map/                     |
-| **2** | 💧 Proof check tutor (live AI, hints only)     | https://nigel-math140-course-map.vercel.app/map/ (bottom of the map) |
-| **3** | 🧪 Practice helper (pretend hints)             | https://nigel-math140-course-map.vercel.app/prototype/          |
-| **4** | 📗 Garden Guide (Ask box + 48 answers in tabs) | https://nigel-math140-course-map.vercel.app/guide/              |
-| **5** | 🎬 8 explainer videos                          | https://nigel-math140-course-map.vercel.app/map/ (pop-up)            |
+| **1** | 🗺️ MATH 140 map (Simple words + Full detail)  | https://team-math140-study-tool.vercel.app/map/                     |
+| **2** | 💧 Proof check tutor (live AI, hints only)     | https://team-math140-study-tool.vercel.app/map/ (bottom of the map) |
+| **3** | 🧪 Practice helper (pretend hints)             | https://team-math140-study-tool.vercel.app/prototype/          |
+| **4** | 📗 Garden Guide (Ask box + 48 answers in tabs) | https://team-math140-study-tool.vercel.app/guide/              |
+| **5** | 🎬 8 explainer videos                          | https://team-math140-study-tool.vercel.app/map/ (pop-up)            |
 | **6** | 📄 M1 PDF                                      | `~/Downloads/TeamName_M1_CourseMap.pdf`                   |
 | **7** | 💻 Code                                        | https://github.com/cornishlikeadam/math140-course-map     |
 | **8** | 🗄️ Old SUST 720 map                           | https://sust720-course-map.vercel.app                     |

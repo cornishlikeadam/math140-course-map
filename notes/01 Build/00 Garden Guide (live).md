@@ -16,7 +16,7 @@ cssclasses: [garden]
 3. **Click** a question card to **see the answer**.
 4. **Open** a note link. It opens the note on GitHub.
 
-<iframe src="https://nigel-math140-course-map.vercel.app/guide/" width="100%" height="900" title="Garden Guide"></iframe>
+<iframe src="https://team-math140-study-tool.vercel.app/guide/" width="100%" height="900" title="Garden Guide"></iframe>
 
 > [!NOTE]
 > 🌐 The box needs the internet. No internet? Open the notes in this folder instead.

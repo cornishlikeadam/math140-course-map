@@ -1,8 +1,8 @@
 # 📐 SCAD MATH 140: Study Tool & Ethical Course Map
 
-[![Live Front-Facing Study Tool](https://img.shields.io/badge/🚀_Primary_App-Math140_Study_Tool-FF5FA2?style=for-the-badge&logo=vercel)](https://nigel-math140-course-map.vercel.app)
-[![Course Map & Governance Tab](https://img.shields.io/badge/🌸_Embedded_Tab-Course_Map_%26_Governance-2F5BFF?style=for-the-badge)](https://nigel-math140-course-map.vercel.app/#coursemap)
-[![Standalone Course Map](https://img.shields.io/badge/🗺️_Direct_Portal-Course_Map-22D3EE?style=for-the-badge)](https://nigel-math140-course-map.vercel.app/map/)
+[![Live Front-Facing Study Tool](https://img.shields.io/badge/🚀_Primary_App-Math140_Study_Tool-FF5FA2?style=for-the-badge&logo=vercel)](https://team-math140-study-tool.vercel.app)
+[![Course Map & Governance Tab](https://img.shields.io/badge/🌸_Embedded_Tab-Course_Map_%26_Governance-2F5BFF?style=for-the-badge)](https://team-math140-study-tool.vercel.app/#coursemap)
+[![Standalone Course Map](https://img.shields.io/badge/🗺️_Direct_Portal-Course_Map-22D3EE?style=for-the-badge)](https://team-math140-study-tool.vercel.app/map/)
 
 ---
 
@@ -13,16 +13,16 @@
 
 | Resource | Purpose | Access Link |
 |---|---|---|
-| ⚡ **Main Study Tool & Calendar** | **Primary front-facing web app.** Socratic hint tutor, weekly milestones, .ics export, and 8 student account keys. | **[nigel-math140-course-map.vercel.app ↗](https://nigel-math140-course-map.vercel.app)** |
-| 🌸 **Course Map & Governance Tab** | **Embedded tab within the study tool.** Interactive 5-stop pedagogical arc, stakeholder ledger, and audit files. | **[Open as Tab in Study Tool ↗](https://nigel-math140-course-map.vercel.app/#coursemap)** |
-| 🗺️ **Standalone Course Map Portal** | Full-screen direct view of the SVG Proof Garden, 8 explainer videos, and interactive tutor testing sandbox. | **[nigel-math140-course-map.vercel.app/map/ ↗](https://nigel-math140-course-map.vercel.app/map/)** |
+| ⚡ **Main Study Tool & Calendar** | **Primary front-facing web app.** Socratic hint tutor, weekly milestones, .ics export, and 8 student account keys. | **[team-math140-study-tool.vercel.app ↗](https://team-math140-study-tool.vercel.app)** |
+| 🌸 **Course Map & Governance Tab** | **Embedded tab within the study tool.** Interactive 5-stop pedagogical arc, stakeholder ledger, and audit files. | **[Open as Tab in Study Tool ↗](https://team-math140-study-tool.vercel.app/#coursemap)** |
+| 🗺️ **Standalone Course Map Portal** | Full-screen direct view of the SVG Proof Garden, 8 explainer videos, and interactive tutor testing sandbox. | **[team-math140-study-tool.vercel.app/map/ ↗](https://team-math140-study-tool.vercel.app/map/)** |
 | 🪶 **Lite Reference Repo** | Minimal 14-file reference implementation. | **[github.com/cornishlikeadam/math140-course-map-lite ↗](https://github.com/cornishlikeadam/math140-course-map-lite)** |
 
 ---
 
 ## ⚡ The Front-Facing Experience: Math 140 Study Tool
 
-Students, faculty, and stakeholders interact with the unified tool at **[nigel-math140-course-map.vercel.app](https://nigel-math140-course-map.vercel.app)**:
+Students, faculty, and stakeholders interact with the unified tool at **[team-math140-study-tool.vercel.app](https://team-math140-study-tool.vercel.app)**:
 
 1. **⚡ Socratic Tutor (SLM)**: Operates strictly at **Stop 3 (Water / Hint)**. It never solves problems, never completes steps, and never grades. It identifies the first weak reasoning step and asks a guiding question.
 2. **📅 10-Week Dynamic Calendar Planner**: Interactive milestone planner mapping exams (40%), activities (15%), discussions (25%), and final project (20%) with one-click `.ics` calendar sync for Apple/Google calendars.
