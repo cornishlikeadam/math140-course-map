@@ -8,7 +8,7 @@ cssclasses: [garden]
 🧭 [🌸 Start](../00%20Start%20Here.md) · [🗺️ Map](../01%20MATH%20140%20Course%20Map.md) · [👥 People](../01%20Build/05%20Stakeholder%20Snapshot.md) · [⚠️ Risks](../01%20Build/02%20Stakeholders%2C%20Risk%20%26%20Evidence.md) · [💧 Hint Helper](../01%20Build/03%20Proof%20Check%20Tool%20%26%20Build%20Log.md) · [📝 M2 Plan](../01%20Milestones/M2%20Responsible%20AI%20Use%20Proposal.md) · [🧪 Build](../05%20Build%20%28M3%29/00%20How%20the%20Build%20Works.md) · [📗 Guide](../01%20Build/00%20Garden%20Guide%20%28live%29.md)
 
 ## 1️⃣ Milestone 1 (due Oct 1, 11:00 AM ET)
-- 🗺️ **Live map:** https://math140-course-map.vercel.app
+- 🗺️ **Live map:** https://nigel-math140-course-map.vercel.app/map/
 - 💻 **Code:** https://github.com/cornishlikeadam/math140-course-map
 - 📄 **PDF:** `~/Downloads/TeamName_M1_CourseMap.pdf`. **Rename it** to `[YourTeamName]_M1_CourseMap.pdf`.
 

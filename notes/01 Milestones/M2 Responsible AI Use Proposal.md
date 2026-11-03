@@ -99,4 +99,4 @@ Each rule has a **person** and a **test**.
 - [ ] 🧪 **Each safety rule has a person and a test:** written down. **Not tested yet.**
 
 ---
-🗺️ *Live map: https://math140-course-map.vercel.app*
+🗺️ *Live map: https://nigel-math140-course-map.vercel.app/map/*

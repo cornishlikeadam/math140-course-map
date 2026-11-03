@@ -54,8 +54,8 @@ Each part of the class is a garden stage.
 | **13** | 🗓️ **Plan, trial and metrics** | White Paper - Plan, Trial and Metrics |
 
 ## 🔗 Links
-- 🗺️ **Live map:** https://math140-course-map.vercel.app
-- 📗 **Garden Guide:** https://math140-course-map.vercel.app/guide/
+- 🗺️ **Live map:** https://nigel-math140-course-map.vercel.app/map/
+- 📗 **Garden Guide:** https://nigel-math140-course-map.vercel.app/guide/
 - 💻 **Code:** https://github.com/cornishlikeadam/math140-course-map
 
 ## 📖 Words to know
