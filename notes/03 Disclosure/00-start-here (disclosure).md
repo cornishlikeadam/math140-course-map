@@ -11,7 +11,7 @@ cssclasses: [garden]
 📜 **Disclosure pages:** 0 Start · 1 Intent · 2 Research · 3 Sources · 4 AI use + prompts · 5 Outputs · 6 Decisions · 7 Disclosure
 
 ## 🎬 Watch first (20 seconds)
-<iframe src="https://nigel-math140-course-map.vercel.app/explainers/6.html" width="100%" height="420" title="How we made it"></iframe>
+<iframe src="https://team-math140-study-tool.vercel.app/explainers/6.html" width="100%" height="420" title="How we made it"></iframe>
 
 > 📼 *This video stays in Obsidian only. It is not on GitHub or the site.*
 

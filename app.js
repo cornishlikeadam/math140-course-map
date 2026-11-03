@@ -686,7 +686,7 @@ window.copyText = function (text) {
 };
 
 window.copyIframe = function () {
-  const snippet = `<iframe src="https://nigel-math140-course-map.vercel.app?embed=true" width="100%" height="720" style="border:1px solid #e5e5e5; border-radius:12px; box-shadow:0 8px 30px rgba(0,0,0,0.06);" allow="clipboard-write"></iframe>`;
+  const snippet = `<iframe src="https://team-math140-study-tool.vercel.app?embed=true" width="100%" height="720" style="border:1px solid #e5e5e5; border-radius:12px; box-shadow:0 8px 30px rgba(0,0,0,0.06);" allow="clipboard-write"></iframe>`;
   navigator.clipboard.writeText(snippet);
   alert("Embed code copied to clipboard!");
 };

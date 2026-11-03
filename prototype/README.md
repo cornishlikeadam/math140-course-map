@@ -7,7 +7,7 @@
 
 ## ▶️ Open it
 1. 🖱️ **Easy way:** double-click `prototype/index.html`.
-2. 🌐 **Online:** https://nigel-math140-course-map.vercel.app/prototype/
+2. 🌐 **Online:** https://team-math140-study-tool.vercel.app/prototype/
 3. 💻 **Local server:**
 ```bash
 cd ~/Documents/math140-course-map && python3 -m http.server 8765
