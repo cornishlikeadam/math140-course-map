@@ -1,51 +1,73 @@
-// Vercel AI Gateway authenticates deployed functions with a short-lived OIDC
-// token, so this project does not need a long-lived model-provider key.
-const MODELS = ["meta/llama-3.3-70b"];
+// Proof Check: the only place AI is allowed (Stop 3).
+// The model answers in fixed JSON (VERDICT_PROMPT). This code, not the model's wording,
+// decides the verdict and writes the reply the student sees.
+// Vercel AI Gateway authenticates deployed functions with a short-lived OIDC token,
+// so this project does not need a long-lived model-provider key.
+import { VERDICT_PROMPT, DISCLAIMER_TEXT } from "../course-data.js";
+import { parseSteps } from "../reason-check.js";
+import { KEY } from "./_class-data.js";
+
+const MODELS = ["openai/gpt-oss-120b", "meta/llama-3.3-70b"];
 const API_URL = "https://ai-gateway.vercel.sh/v1/chat/completions";
-
-const SYSTEM = `You are the Proof Check hint tutor for SCAD MATH 140 "The Geometry of Physical Space", Step 3 of the Constructions & Proof unit. This is the only step in the unit where AI is allowed.
-
-Your only job: read a proof the student has ALREADY drafted and point to the FIRST step whose reason is missing, wrong, or does not follow. Then name the kind of justification they need (for example "a triangle congruence postulate", "a property of parallel lines cut by a transversal", "a theorem about inscribed angles"), without naming the exact statement to write.
-
-Hard rules:
-- Never write a proof step, statement, or reason for the student. Never complete, rewrite, or fix their proof. Never give the final answer.
-- If the message has no attempted proof with at least 2 steps, do not help with the problem. Ask the student to write their own draft first (two-column or paragraph).
-- If the student asks for the answer or the next step, decline kindly and give only the hint described above.
-- You cannot see diagrams or constructions. If the proof depends on a figure, say which given fact you are assuming from the description.
-- Keep replies under 120 words. One gap per reply. Ask one question that makes the student justify their own step.
-- You can be wrong about proofs. The exact final sentence of every reply must be: "Check this hint against your theorem list; your instructor decides what is correct."`;
-
-const MAX_TURNS = 20;
 const MAX_CHARS = 4000;
-const MAX_TOTAL_CHARS = 12000;
-const DISCLAIMER = "Check this hint against your theorem list; your instructor decides what is correct.";
 
 // Vercel Functions receive OIDC at runtime in a request header. Build/local
 // environments expose it as VERCEL_OIDC_TOKEN instead.
 const apiKey = (req) => (process.env.AI_GATEWAY_API_KEY || process.env.VERCEL_OIDC_TOKEN || req?.headers?.["x-vercel-oidc-token"] || "").trim().replace(/^["']|["']$/g, "");
 
-async function ask(model, messages, token) {
+async function ask(model, content, token) {
   const t0 = Date.now();
   const r = await fetch(API_URL, {
     method: "POST",
     headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
-    signal: AbortSignal.timeout(15000),
+    signal: AbortSignal.timeout(20000),
     body: JSON.stringify({
       model,
-      max_tokens: 240,
-      messages: [{ role: "system", content: SYSTEM }, ...messages],
-      providerOptions: { gateway: { disallowPromptTraining: true, sort: "cost" } },
+      max_tokens: 700,
+      temperature: 0,
+      messages: [{ role: "system", content: VERDICT_PROMPT }, { role: "user", content }],
+      providerOptions: { gateway: { disallowPromptTraining: true } },
     }),
   });
   const data = await r.json().catch(() => ({}));
   console.log("timing", model, r.status, `${Date.now() - t0}ms`, JSON.stringify(data.usage || {}));
-  return { status: r.status, ok: r.ok && !data.error, data };
+  return { status: r.status, ok: r.ok && !data.error, text: (data.choices?.[0]?.message?.content || "").trim() };
 }
 
-function formatReply(reply) {
-  let text = reply.split(DISCLAIMER).join("").trim();
-  if (!text.includes("?")) text += "\n\nWhat rule can justify this step?";
-  return `${text}\n\n${DISCLAIMER}`;
+// The model sometimes wraps its JSON in prose or a code fence: take the first {...} block.
+function parseVerdict(text) {
+  const m = text.match(/\{[\s\S]*\}/);
+  if (!m) return null;
+  try { return JSON.parse(m[0]); } catch { return null; }
+}
+
+// A guided path tells the model which steps are done and which reasons the teacher accepts.
+function buildPrompt(text, path, locked) {
+  const parts = [`STUDENT PROOF:\n${text}`];
+  if (locked.length) parts.push(`ALREADY CHECKED: step ${locked.join(", step ")}. These are done.`);
+  const key = KEY[path];
+  if (key) {
+    const notes = key.steps.map((s, i) => (/^given$/i.test(s.r) ? null : `step ${i + 1}: ${s.r}${s.kid ? ` A student might say ${s.kid}` : ""}`)).filter(Boolean);
+    parts.push(`TEACHER NOTE (accepted reasons, never quote these):\n${notes.join("\n")}`);
+  }
+  return parts.join("\n\n");
+}
+
+const sentence = (s) => { const t = String(s || "").trim(); return t ? t[0].toUpperCase() + t.slice(1) + (/[.!?]$/.test(t) ? "" : ".") : ""; };
+
+function result(verdict, extra = {}) {
+  const { step = null, hint = "", question = "", model = null, mode = "ai" } = extra;
+  let reply;
+  if (verdict === "gap") {
+    reply = [`Look at step ${step}. ${sentence(hint)}`.trim(), question.trim() || "What rule can justify this step?"].join("\n\n");
+  } else if (verdict === "no_gap") {
+    reply = "I can't find a missing reason. That does not mean it is correct. Your teacher still checks it.";
+  } else if (verdict === "need_draft") {
+    reply = "I can only look at a proof you already wrote. Write at least 2 steps. Give each step a reason.\n\nWhat is your first step?";
+  } else {
+    reply = "The AI helper is busy right now, so it could not read your proof. Try again in a minute.";
+  }
+  return { verdict, step, hint, question, model, reply: `${reply}\n\n${DISCLAIMER_TEXT}`, mode };
 }
 
 export default async function handler(req, res) {
@@ -54,45 +76,37 @@ export default async function handler(req, res) {
     res.setHeader("Allow", "POST");
     return res.status(405).json({ error: "Use POST." });
   }
-  const token = apiKey(req);
-  if (!token) {
-    return res.status(503).json({ error: "The chat isn't set up yet: the site owner needs to connect the AI gateway." });
-  }
 
   const history = Array.isArray(req.body?.messages) ? req.body.messages : [];
-  const cleaned = history
-    .filter((m) => (m.role === "user" || m.role === "assistant") && typeof m.content === "string" && m.content.trim())
-    .slice(-MAX_TURNS)
-    .map((m) => ({ role: m.role, content: m.content.slice(0, MAX_CHARS) }));
-  const messages = [];
-  let remaining = MAX_TOTAL_CHARS;
-  for (let i = cleaned.length - 1; i >= 0 && remaining > 0; i--) {
-    const content = cleaned[i].content.slice(0, remaining);
-    messages.unshift({ role: cleaned[i].role, content });
-    remaining -= content.length;
-  }
-  if (!messages.length || messages[messages.length - 1].role !== "user") {
-    return res.status(400).json({ error: "Send a message to start." });
+  const lastUser = [...history].reverse().find((m) => m?.role === "user" && typeof m.content === "string" && m.content.trim());
+  if (!lastUser) return res.status(400).json({ error: "Send a message to start." });
+  const text = lastUser.content.slice(0, MAX_CHARS);
+  const path = Number(req.body?.path) || null;
+  const locked = (Array.isArray(req.body?.locked) ? req.body.locked : []).map(Number).filter((n) => Number.isInteger(n) && n > 0);
+
+  const token = apiKey(req);
+  if (!token) {
+    return res.status(200).json({ ...result("busy", { mode: "busy" }), error: "The chat isn't set up yet: the site owner needs to connect the AI gateway." });
   }
 
+  const steps = parseSteps(text);
+  const prompt = buildPrompt(text, path, locked);
   try {
-    let last, authFailures = 0;
     for (const model of MODELS) {
-      last = await ask(model, messages, token);
-      const reply = (last.data.choices?.[0]?.message?.content || "").trim();
-      if (last.ok && reply) return res.status(200).json({ reply: formatReply(reply), model });
-      if (last.status === 401 || last.status === 403) authFailures++;
-      console.error("AI Gateway model failed", model, last.status, JSON.stringify(last.data).slice(0, 300));
+      const out = await ask(model, prompt, token);
+      const v = out.ok && parseVerdict(out.text);
+      if (!v) { console.error("AI Gateway model failed", model, out.status, out.text.slice(0, 300)); continue; }
+      if (v.draft === false) return res.status(200).json(result("need_draft", { model }));
+      const step = Number(v.step);
+      const target = steps.find((s) => s.n === step);
+      // The code checks the model's pick: never a Given step, a step already checked, or a step that isn't there.
+      if (v.gap && target && !target.given && !locked.includes(step)) {
+        return res.status(200).json(result("gap", { step, hint: String(v.hint || ""), question: String(v.question || ""), model }));
+      }
+      return res.status(200).json(result("no_gap", { model }));
     }
-    if (authFailures === MODELS.length) {
-      return res.status(503).json({ error: "The chat's secure connection isn't working. The site owner needs to check it." });
-    }
-    if (last?.status === 429) {
-      return res.status(429).json({ error: "The AI helper is busy or at its limit right now. Try again in a few minutes." });
-    }
-    return res.status(502).json({ error: "The AI service returned an error. Try again shortly." });
   } catch (err) {
     console.error(err);
-    return res.status(500).json({ error: "Couldn't reach the AI service. Try again." });
   }
+  return res.status(200).json({ ...result("busy", { mode: "busy" }), error: "The AI helper is busy or at its limit right now. Try again in a few minutes." });
 }

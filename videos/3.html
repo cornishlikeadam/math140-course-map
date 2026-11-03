@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Path 3 · The growing plant</title>
+<style>html,body{margin:0;height:100%;background:#0A0A0A;display:grid;place-items:center}canvas{display:block;width:100%;height:auto;max-height:100vh;aspect-ratio:16/9;cursor:pointer}</style>
+</head><body><canvas aria-label="Animation: a plant starts at 2 cm and grows 3 cm each week; the tops make a straight line; week 4 is 14 cm"></canvas>
+<script>
+window.SCENE = {
+
+n:3, emoji:"🌱", name:"The plant: + 3 every week", dur:20,
+captions:[[0.3,3.5,"A plant starts 2 cm tall."],[3.5,8,"It grows 3 cm every week. +3, +3, +3, +3."],[8,12,"The tops make a straight line."],[12,16,"Week 4: 3 × 4 + 2 = 14 cm."],[16,20,"Now write WHY, step by step. ✏️"]],
+draw(t){
+  const O=[330,540], sx=130, sy=22;
+  line(O[0],O[1],1080,O[1],prog(t,0.4,1.2),C.dim,3); line(O[0],O[1],O[0],180,prog(t,0.4,1.2),C.dim,3);
+  label("weeks",1060,570,prog(t,1,1.6),C.dim,`600 18px ${SANS}`); label("cm",300,190,prog(t,1,1.6),C.dim,`600 18px ${SANS}`);
+  for(let k=0;k<=4;k++){
+    const h=2+3*k, x=O[0]+60+k*sx, a=prog(t,1.2+k*1.2,2+k*1.2), top=O[1]-h*sy*a;
+    box(x-26,top,52,O[1]-top,8,k===4?"rgba(255,95,162,.35)":"rgba(123,224,160,.28)",k===4?C.pink:"#7BE0A0",a>0?1:0,2);
+    label(String(k),x,568,a,C.dim,`700 20px ${SANS}`);
+    label(`${h}`,x,top-20,a,C.ink,`800 24px ${SANS}`);
+    if(k>0) label("+3",x-sx/2,O[1]-(h-1.5)*sy-34,fade(t,1.6+k*1.2,2.2+k*1.2,7.6,8),C.cyan,`800 22px ${SANS}`);
+  }
+  const L=prog(t,8.2,10); line(O[0]+60,O[1]-2*sy,O[0]+60+4*sx*L,O[1]-(2+12*L)*sy,L>0?1:0,C.blue,5);
+  label("height = 3 × weeks + 2",580,165,prog(t,10.4,11.2),C.ink,'italic 700 34px "Times New Roman", serif');
+  label("3 × 4 + 2 = 14",580,215,prog(t,12.2,13),C.pink,'italic 700 38px "Times New Roman", serif');
+  const w=prog(t,16.2,17); if(w>0){g.fillStyle=`rgba(10,10,10,${0.78*w})`;g.fillRect(0,0,W,H);} box(330,290,620,80,40,"#0E1430",C.pink,w,3); label("✏️  Your turn: write the reasons",640,330,w,C.ink,`700 30px ${SANS}`);
+}
+};
+</script>
+<script src="engine.js"></script>
+</body></html>

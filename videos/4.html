@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Path 4 · The arch</title>
+<style>html,body{margin:0;height:100%;background:#0A0A0A;display:grid;place-items:center}canvas{display:block;width:100%;height:auto;max-height:100vh;aspect-ratio:16/9;cursor:pointer}</style>
+</head><body><canvas aria-label="Animation: a thrown ball makes an arch, a parabola; it is the same on both sides; height = 9 minus x times x"></canvas>
+<script>
+window.SCENE = {
+
+n:4, emoji:"🌈", name:"The arch: a thrown ball", dur:20,
+captions:[[0.3,3.5,"Throw a ball. Up it goes, then down."],[3.5,8,"Its path makes an arch. Math calls it a parabola."],[8,12,"The arch is the same on both sides."],[12,16,"height = 9 − x × x. At x = 3 and x = −3, height = 0."],[16,20,"Now write WHY, step by step. ✏️"]],
+draw(t){
+  const O=[640,520], ux=75, uy=34, P=x=>[O[0]+x*ux,O[1]-(9-x*x)*uy];
+  line(330,O[1],950,O[1],prog(t,0.3,1),C.dim,3);
+  const k=prog(t,0.8,4.6), xe=-3+6*k;
+  g.strokeStyle=C.cyan; g.lineWidth=5; g.beginPath(); for(let x=-3;x<=xe+1e-6;x+=0.05){const p=P(x); x===-3?g.moveTo(p[0],p[1]):g.lineTo(p[0],p[1]);} g.stroke();
+  if(k>0&&t<8){const p=P(xe); dot(p[0],p[1],1,C.pink,16);}
+  label("parabola",640,165,prog(t,4,4.8),C.cyan,`700 28px ${SANS}`);
+  g.setLineDash([10,10]); line(640,O[1],640,P(0)[1]-20,prog(t,8,9),C.dim,3); g.setLineDash([]);
+  const m=fade(t,9,9.6,15.4,16);
+  for(const x of [-2,-1,1,2]){const p=P(x); dot(p[0],p[1],m,x<0?C.pink:C.blue,9); line(p[0],p[1],O[0]+(-x)*ux,p[1],m*0.0,C.dim,1);}
+  [[-2,2],[-1,1]].forEach(([a,b])=>{const pa=P(a),pb=P(b); g.setLineDash([6,8]); line(pa[0],pa[1],pb[0],pb[1],m,"rgba(255,255,255,.35)",2); g.setLineDash([]);});
+  label("same height ✓",640,P(1)[1]-26,fade(t,9.6,10.2,11.8,12.2),C.ink,`700 22px ${SANS}`);
+  const q=prog(t,12,13); const r=P(3), l=P(-3); dot(r[0],r[1],q,C.pink,12); dot(l[0],l[1],q,C.pink,12);
+  label("x = −3",l[0],l[1]+32,q,C.ink,`700 22px ${SANS}`); label("x = 3",r[0],r[1]+32,q,C.ink,`700 22px ${SANS}`);
+  label("height = 9 − x × x",960,200,prog(t,12.4,13.2),C.ink,'italic 700 34px "Times New Roman", serif');
+  const w=prog(t,16.2,17); if(w>0){g.fillStyle=`rgba(10,10,10,${0.78*w})`;g.fillRect(0,0,W,H);} box(330,290,620,80,40,"#0E1430",C.pink,w,3); label("✏️  Your turn: write the reasons",640,330,w,C.ink,`700 30px ${SANS}`);
+}
+};
+</script>
+<script src="engine.js"></script>
+</body></html>
