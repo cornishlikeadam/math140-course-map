@@ -1,3 +1,39 @@
+# 🪜 Stepping Stone: a MATH 140 proof helper
+
+**Stepping Stone helps you write a geometry proof one step at a time.** You watch a short video, answer a simple question, then write the reasons. The AI helper points at one weak step. It never writes the proof for you. Your Professor still grades it.
+
+- **Live app:** https://team-math140-study-tool.vercel.app
+- **Source of truth:** this repo, `cornishlikeadam/math140-course-map`, branch `main`. Other copies (forks, the lite repo) pull from here.
+- **Course map:** the older map lives on as a background page (`/map/`, or the Course Map tab).
+
+### Share a link to any page
+`#tutor` · `#path-1` to `#path-4` (opens a practice path) · `#calendar` · `#syllabus` · `#keys` · `#coursemap` · `#professor`
+
+### Work on it
+```bash
+npm run check   # node --check on every script
+npm test        # proof-attempt states + class log (no install needed)
+```
+GitHub Actions runs both on every push and pull request (`.github/workflows/check.yml`).
+
+### Where the logic lives
+| File | What it does |
+|---|---|
+| `proof-attempt.js` | The proof attempt as named states: watching → answering → writing → checking → retry / passed / needs_professor → rewarded. No page code, so it is tested in Node. |
+| `app.js` | Draws the page. Asks `proof-attempt.js` what happens next. Keeps the open page in the address bar. |
+| `reason-check.js` | The rule-word check (no AI). |
+| `api/proof-check.js` | The AI hint (one gap per reply). |
+| `api/class.js` | The class log. Saves only when a Redis store and `TEACHER_PIN` are set; otherwise it says `saved: false` and the page says "Practice only". |
+
+### Turn on saving (so the Professor tab shows real students)
+1. Vercel → this project → Storage → add **Upstash Redis** (it sets `KV_REST_API_URL` and `KV_REST_API_TOKEN`).
+2. Settings → Environment Variables → add `TEACHER_PIN` (the Professor code).
+3. Redeploy. Students now see "Saved. Your Professor can see it." after each check.
+
+---
+
+<details><summary>Older overview (Study Tool & Course Map, Oct 2026)</summary>
+
 # 📐 SCAD MATH 140: Study Tool & Ethical Course Map
 
 [![Live Front-Facing Study Tool](https://img.shields.io/badge/🚀_Primary_App-Math140_Study_Tool-FF5FA2?style=for-the-badge&logo=vercel)](https://team-math140-study-tool.vercel.app)
@@ -91,3 +127,5 @@ To synchronize notes from the private Obsidian Vault (`Obsidian Vault/DIGI 230`)
 ./scripts/sync-notes.sh
 ```
 This updates `notes/`, regenerates `manifest.json`, commits, pushes to GitHub (`main` & `develop`), and redeploys to Vercel.
+
+</details>

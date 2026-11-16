@@ -1,3 +1,10 @@
+# Agents: start here
+- **Source of truth:** `cornishlikeadam/math140-course-map`, branch `main`. The app is **Stepping Stone** (navy, Stepping Blue, Playfair + Inter). The course map is a background page; the palette and Proof Garden notes below describe that older map.
+- **Before you finish:** run `npm run check && npm test`. CI runs the same.
+- **Proof attempt logic** lives in `proof-attempt.js` as named states. Add a state or move there, with a test, not as a new flag in `app.js`.
+- **Never claim saving** in student-facing text. Only `api/class.js` returning `saved: true` may lead to "saved" wording.
+- **Writing bar:** a high-school senior should be able to read it out loud to a 10-year-old. Short sentences, one idea each.
+
 # 🌸 Proof Garden: MATH 140 Interactive Course Map
 
 DIGI 230 Milestone 1 (due Oct 1, 2026, 11:00 AM ET): an interactive map of SCAD MATH 140 "The Geometry of Physical Space", scoped to one unit, Constructions & Proof. It replaces the team's earlier SUST 720 map (kept at ~/Documents/sust720-course-map).
