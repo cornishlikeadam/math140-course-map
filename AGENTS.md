@@ -3,6 +3,7 @@
 - **Before you finish:** run `npm run check && npm test`. CI runs the same.
 - **Proof attempt logic** lives in `proof-attempt.js` as named states. Add a state or move there, with a test, not as a new flag in `app.js`.
 - **Never claim saving** in student-facing text. Only `api/class.js` returning `saved: true` may lead to "saved" wording.
+- **Layout:** the app is at the top level. The older course map, notes and explainers live in `course-map/` (still served at `/map/`, `/guide/`, `/notes/`, `/explainers/`, `/prototype/` by `vercel.json`). The notes below describe that older map.
 - **Writing bar:** a high-school senior should be able to read it out loud to a 10-year-old. Short sentences, one idea each.
 
 # 🌸 Proof Garden: MATH 140 Interactive Course Map

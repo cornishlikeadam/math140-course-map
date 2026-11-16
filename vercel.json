@@ -1,0 +1,64 @@
+{
+  "rewrites": [
+    {
+      "source": "/map",
+      "destination": "/course-map/map/index.html"
+    },
+    {
+      "source": "/map/",
+      "destination": "/course-map/map/index.html"
+    },
+    {
+      "source": "/map/:path*",
+      "destination": "/course-map/map/:path*"
+    },
+    {
+      "source": "/guide",
+      "destination": "/course-map/guide/index.html"
+    },
+    {
+      "source": "/guide/",
+      "destination": "/course-map/guide/index.html"
+    },
+    {
+      "source": "/guide/:path*",
+      "destination": "/course-map/guide/:path*"
+    },
+    {
+      "source": "/prototype",
+      "destination": "/course-map/prototype/index.html"
+    },
+    {
+      "source": "/prototype/",
+      "destination": "/course-map/prototype/index.html"
+    },
+    {
+      "source": "/prototype/:path*",
+      "destination": "/course-map/prototype/:path*"
+    },
+    {
+      "source": "/notes",
+      "destination": "/course-map/notes/index.html"
+    },
+    {
+      "source": "/notes/",
+      "destination": "/course-map/notes/index.html"
+    },
+    {
+      "source": "/notes/:path*",
+      "destination": "/course-map/notes/:path*"
+    },
+    {
+      "source": "/explainers",
+      "destination": "/course-map/explainers/index.html"
+    },
+    {
+      "source": "/explainers/",
+      "destination": "/course-map/explainers/index.html"
+    },
+    {
+      "source": "/explainers/:path*",
+      "destination": "/course-map/explainers/:path*"
+    }
+  ]
+}

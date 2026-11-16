@@ -1,5 +1,5 @@
 // App shell: the sidebar menu on phones, the top bar title, and keeping the tool scrolled.
-// app.js and teacher.js run the tool itself; this file only handles the layout around it.
+// app.js and professor.js run the tool itself; this file only handles the layout around it.
 const $ = (id) => document.getElementById(id);
 const main = $("app-main");
 const toolScroll = $("tool-scroll");
