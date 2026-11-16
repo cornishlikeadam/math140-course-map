@@ -1,8 +1,8 @@
-// Teacher tab: every student's checked proofs next to the true proofs.
-// The teacher code is kept only for this browser tab (sessionStorage).
+// Professor tab: every student's checked proofs next to the true proofs.
+// The Professor code is kept only for this browser tab (sessionStorage).
 const $ = (id) => document.getElementById(id);
 const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
-const WORLD = { animals: "🐾", sports: "⚽", space: "🚀", music: "🎵", food: "🍕", games: "🎮" };
+const WORLD = { animals: "Animals", sports: "Sports", space: "Space", music: "Music", food: "Food", games: "Games" };
 
 let data = null, filter = "all", showDemo = false, loaded = false;
 const getPin = () => { try { return sessionStorage.getItem("m140-teacher") || ""; } catch { return ""; } };
@@ -18,7 +18,7 @@ async function load() {
     $("teacher-login").classList.remove("hidden");
     $("teacher-tools").classList.add("hidden");
     $("teacher-body").classList.add("hidden");
-    return banner("", getPin() ? "" : "Type the teacher code to see the class.");
+    return banner("", getPin() ? "" : "Type the Professor code to see the class.");
   }
   data = await res.json();
   $("teacher-login").classList.add("hidden");
@@ -27,7 +27,7 @@ async function load() {
   $("t-clear").classList.toggle("hidden", data.demo);
   if (data.setup) {
     banner("", `<b>Demo mode.</b> These students are made up. This site does not save student proofs yet:
-      it needs a class log database and a teacher code before real proofs show up here.`);
+      it needs a class log database and a Professor code before real proofs show up here.`);
   } else if (data.demo) {
     banner("", "<b>Demo students.</b> These are made up. Press Show real class to go back.");
   } else if (data.storage === "memory") {
@@ -114,7 +114,7 @@ function render() {
       return attemptHTML(tries[0]) + (older.length
         ? `<details class="t-older"><summary>Earlier tries on path ${p} (${older.length})</summary>${older.map(attemptHTML).join("")}</details>` : "");
     }).join("");
-    return `<details class="t-student"><summary>${WORLD[s.world] || ""} ${esc(s.nick)} ${badges}<span class="t-meta">${s.list.length} ${s.list.length === 1 ? "check" : "checks"} · ${ago(s.list[0].ts)}</span></summary><div class="t-body">${body}</div></details>`;
+    return `<details class="t-student"><summary>${WORLD[s.world] ? `<span class="wmark" data-world="${s.world}" title="${WORLD[s.world]} world"></span>` : ""} ${esc(s.nick)} ${badges}<span class="t-meta">${s.list.length} ${s.list.length === 1 ? "check" : "checks"} · ${ago(s.list[0].ts)}</span></summary><div class="t-body">${body}</div></details>`;
   }).join("") : `<div class="t-empty">${all.length ? "No students match this filter." : "No checked proofs yet. When a student presses Evaluate Proof on a guided path, it shows up here."}</div>`;
 
   $("teacher-key").innerHTML = Object.entries(data.key).map(([p, k]) => `
@@ -145,5 +145,38 @@ $("teacher-filters").addEventListener("click", (e) => {
   $("teacher-filters").querySelectorAll("[data-f]").forEach((x) => x.classList.toggle("active", x === b));
   render();
 });
+// Professor controls: a design mock-up. The controls respond on screen,
+// but nothing is saved and the tool itself does not change.
+const LEVEL_NOTE = {
+  short: "Points to the weak step only. No theorem family, no question.",
+  standard: "Points to the weak step, names the theorem family, and asks one question. (Today's setting.)",
+  detailed: "Adds a reminder of the rule word to look up, then asks one question. Still never writes the step.",
+};
+let flagAfter = 3;
+$("tc-ai").addEventListener("change", (e) => {
+  const on = e.target.checked;
+  $("t-controls").classList.toggle("ai-off", !on);
+  $("tc-ai-state").textContent = on ? "On. Students can ask for one hint at Step 3." : "Off. No AI hints for anyone.";
+  $("tc-ai-note").textContent = on
+    ? "The kill switch. Turn it off to stop every AI hint at once."
+    : "Students would see: \"The hint helper is off. Use your paper rule list.\" The paper route still counts the same.";
+});
+document.querySelectorAll("#t-controls [data-level]").forEach((b) => b.addEventListener("click", () => {
+  document.querySelectorAll("#t-controls [data-level]").forEach((x) => {
+    x.classList.toggle("active", x === b);
+    x.setAttribute("aria-pressed", String(x === b));
+  });
+  $("tc-level-note").textContent = LEVEL_NOTE[b.dataset.level];
+}));
+function showFlag() {
+  $("tc-flag").innerHTML = `<b>${flagAfter}</b> ${flagAfter === 1 ? "try" : "tries"}`;
+  $("tc-flag-note").textContent = `A student who tries ${flagAfter} ${flagAfter === 1 ? "time" : "times"} without fixing the step moves to Needs help, and the app says "Show your Professor."`;
+  $("tc-flag-down").disabled = flagAfter <= 1;
+  $("tc-flag-up").disabled = flagAfter >= 5;
+}
+$("tc-flag-down").addEventListener("click", () => { flagAfter = Math.max(1, flagAfter - 1); showFlag(); });
+$("tc-flag-up").addEventListener("click", () => { flagAfter = Math.min(5, flagAfter + 1); showFlag(); });
+showFlag();
+
 document.querySelector('.nav-btn[data-tab="teacher"]').addEventListener("click", () => { if (!loaded) load(); });
-if (location.hash === "#teacher") load();
+if (location.hash === "#teacher" || location.hash === "#professor") load();

@@ -1,5 +1,6 @@
 import { COURSE_INFO, WEEKS, EIGHT_KEYS, DISCLAIMER_TEXT, generateMilestones } from "./course-data.js";
 import { checkReasons } from "./reason-check.js";
+import { MAX_ROUNDS, newAttempt, move, canMove, keepLocked, decideRound } from "./proof-attempt.js";
 
 // State
 let currentTab = "tutor";
@@ -38,10 +39,28 @@ function initURLState() {
     document.body.classList.add("embed-mode");
   }
 
-  const hash = window.location.hash.replace("#", "");
-  if (["tutor", "calendar", "syllabus", "keys", "embed", "coursemap", "teacher"].includes(hash)) {
-    switchTab(hash);
+  applyHash();
+  addEventListener("hashchange", applyHash);
+}
+
+// The address bar holds the open page, so links can be shared:
+//   #calendar, #professor, #coursemap … and #path-2 opens practice path 2 inside the tool.
+const TABS = ["tutor", "calendar", "syllabus", "keys", "embed", "coursemap", "teacher"];
+function applyHash() {
+  let hash = window.location.hash.replace("#", "");
+  if (hash === "professor") hash = "teacher"; // old #teacher links still work too
+  const path = hash.match(/^path-([1-4])$/);
+  if (path) {
+    if (currentTab !== "tutor") switchTab("tutor");
+    if (pathId !== Number(path[1])) openPath(Number(path[1]));
+  } else if (TABS.includes(hash)) {
+    if (pathId) closePath({ keepHash: true }); // the Back button closes an open path
+    if (hash !== currentTab) window.switchTab(hash); // shell.js wraps this to also set the title
   }
+}
+// Each page change adds a history entry, so Back and Forward move between pages.
+function setHash(h) {
+  if (window.location.hash !== `#${h}`) window.location.hash = h;
 }
 
 function setupEventListeners() {
@@ -90,7 +109,7 @@ function setupEventListeners() {
     conversationStream.innerHTML = `
       <div class="system-notice">
         <div>
-          <strong>Stop 3 Guardrail Active:</strong> Proof drafts require at least 2 steps with statements and reasons. Replies are strictly capped under 120 words and terminate with an instructor disclaimer.
+          <strong>How the helper works:</strong> Write at least 2 steps, each with a reason. The helper points at 1 weak step. It never writes the proof for you.
         </div>
       </div>
     `;
@@ -101,7 +120,7 @@ function setupEventListeners() {
   document.querySelectorAll(".path-pill").forEach((pill) => {
     pill.addEventListener("click", () => openPath(Number(pill.dataset.path)));
   });
-  document.getElementById("path-close").addEventListener("click", closePath);
+  document.getElementById("path-close").addEventListener("click", () => closePath());
   document.getElementById("path-vid-toggle").addEventListener("click", toggleVideo);
 
   // Onboarding: pick a world for the reward video
@@ -152,7 +171,9 @@ function setupEventListeners() {
 // Tab switcher
 window.switchTab = function (tabName) {
   currentTab = tabName;
-  window.location.hash = tabName;
+  // The Professor tab is "teacher" inside the code; its address is #professor.
+  // An open practice path is part of the tool page, so its address stays #path-N.
+  setHash(tabName === "teacher" ? "professor" : tabName === "tutor" && pathId ? `path-${pathId}` : tabName);
 
   navButtons.forEach((btn) => {
     btn.classList.toggle("active", btn.dataset.tab === tabName);
@@ -172,7 +193,7 @@ function appendMessage(role, content) {
 
   const senderEl = document.createElement("span");
   senderEl.className = "sender";
-  senderEl.textContent = role === "user" ? "You" : "MATH-140 SLM";
+  senderEl.textContent = role === "user" ? "You" : "Hint";
 
   const contentEl = document.createElement("div");
   contentEl.className = "msg-content";
@@ -186,8 +207,8 @@ function appendMessage(role, content) {
     actionsEl.className = "msg-actions";
     actionsEl.innerHTML = `
       <button class="btn btn-feedback" data-variant="ghost" data-size="sm" onclick="handleFeedback('makes-sense')">Makes sense</button>
-      <button class="btn btn-feedback" data-variant="ghost" data-size="sm" onclick="handleFeedback('not-sure')">Not sure (Send to Prof. Bahls)</button>
-      <button class="btn btn-feedback" data-variant="ghost" data-size="sm" onclick="handleFeedback('disagree')">I disagree (Escalate)</button>
+      <button class="btn btn-feedback" data-variant="ghost" data-size="sm" onclick="handleFeedback('not-sure')">Not sure</button>
+      <button class="btn btn-feedback" data-variant="ghost" data-size="sm" onclick="handleFeedback('disagree')">I disagree</button>
     `;
     turnEl.appendChild(actionsEl);
   }
@@ -208,7 +229,7 @@ async function executeProofCheck(userPrompt, path = null, locked = []) {
   conversationHistory.push({ role: "user", content: userPrompt });
 
   // Placeholder bubble for streaming response
-  const assistantBubble = appendMessage("assistant", "Reflecting on proof logic...");
+  const assistantBubble = appendMessage("assistant", "Reading your proof…");
 
   try {
     const res = await fetch("/api/proof-check", {
@@ -242,7 +263,7 @@ async function executeProofCheck(userPrompt, path = null, locked = []) {
     conversationHistory.push({ role: "assistant", content: replyText });
   } catch (err) {
     assistantBubble.textContent =
-      "Network error reaching Socratic tutor service. Please check your connection.\n\n" + DISCLAIMER_TEXT;
+      "Could not reach the helper. Check your internet and try again.\n\n" + DISCLAIMER_TEXT;
   } finally {
     isGenerating = false;
     btnSubmitProof.disabled = false;
@@ -339,7 +360,7 @@ function setVideoOpen(open) {
 function toggleVideo() { setVideoOpen(vidDrawer.classList.contains("hidden")); }
 
 // ---------- Worlds (onboarding) ----------
-const WORLDS = { animals: "🐾 Animals", sports: "⚽ Sports", space: "🚀 Space", music: "🎵 Music", food: "🍕 Food", games: "🎮 Games" };
+const WORLDS = { animals: "Animals", sports: "Sports", space: "Space", music: "Music", food: "Food", games: "Games" };
 let afterOnboard = null;
 function getNick() { try { return localStorage.getItem("m140-nick") || ""; } catch (e) { return ""; } }
 function saveNick() {
@@ -348,7 +369,11 @@ function saveNick() {
 }
 function getWorld() { try { return localStorage.getItem("m140-world") || ""; } catch (e) { return ""; } }
 function setWorld(w) { try { localStorage.setItem("m140-world", w); } catch (e) {} showWorld(); }
-function showWorld() { const w = getWorld(); document.getElementById("world-name").textContent = w ? WORLDS[w] : "Pick your world"; }
+function showWorld() {
+  const w = getWorld();
+  document.getElementById("world-name").textContent = w ? WORLDS[w] : "Pick your world";
+  document.getElementById("world-mark").dataset.world = w; // its line icon (styles.css)
+}
 function openOnboard(then) {
   afterOnboard = then || null;
   document.getElementById("onboard-nick").value = getNick();
@@ -359,41 +384,24 @@ function closeOnboard() { saveNick(); document.getElementById("onboard").classLi
 // ---------- Finish line: Write → Check → hint, or no missing reason → video ----------
 // 2 checks must agree before the reward opens: the page's rule-word check AND the AI's "no gap".
 // If the AI is busy, the page says so, and the word check works alone (clearly labeled).
-const MAX_ROUNDS = 3;
 let attempt = null;
-function newAttempt() { return { round: 0, locked: {}, guess: "", guessV: "", rewarded: false }; }
 
 async function checkPathProof(text) {
+  if (!canMove(attempt, "SUBMIT")) return; // a check is already running
   const id = pathId;
+  move(attempt, "SUBMIT");
   attempt.round++;
   const check = checkReasons(id, text);
-  // A step stays checked only while its words stay the same.
-  for (const [n, line] of Object.entries(attempt.locked)) {
-    if (check.steps.find((s) => s.n === Number(n))?.line !== line) delete attempt.locked[n];
-  }
-  const locked = Object.keys(attempt.locked).map(Number);
-  const data = (await executeProofCheck(text, id, locked)) || { verdict: "busy" };
+  attempt.locked = keepLocked(attempt.locked, check.steps);
+  const data = (await executeProofCheck(text, id, Object.keys(attempt.locked).map(Number))) || { verdict: "busy" };
   if (pathId !== id) return;
 
-  const v = data.verdict;
-  const flagged = v === "gap" ? data.step : null;
-  const status = {};
-  for (const s of check.steps) {
-    if (s.given || attempt.locked[s.n]) status[s.n] = "ok";
-    else if (flagged && s.n === flagged) status[s.n] = "hint";
-    else if (flagged && s.n > flagged) status[s.n] = "todo";
-    else if (v === "need_draft") status[s.n] = "todo";
-    else status[s.n] = s.ok ? "ok" : "hint";
-  }
-  // Steps the AI looked at and the word check passed stay checked from now on.
-  for (const s of check.steps) if (status[s.n] === "ok" && (v !== "gap" || flagged)) attempt.locked[s.n] = s.line;
-
-  const allOk = check.steps.every((s) => status[s.n] === "ok");
-  const agree = check.pass && allOk && (v === "no_gap" || v === "busy");
-  const capped = !agree && attempt.round >= MAX_ROUNDS;
-  renderProgress(check.steps, status);
-  showGate({ agree, capped, busy: v === "busy", check, status, data });
-  logCheck(id, text, check, status, data, agree || (capped && check.pass), capped);
+  const r = decideRound({ check, verdict: data.verdict, flaggedStep: data.step, locked: attempt.locked, round: attempt.round });
+  attempt.locked = r.locked;
+  move(attempt, r.outcome);
+  renderProgress(check.steps, r.status);
+  showGate({ ...r, check, data });
+  logCheck(id, text, check, r.status, data, r.outcome === "PASS" || r.canRewardAnyway, r.outcome === "CAP");
 }
 
 function renderProgress(steps, status) {
@@ -404,26 +412,26 @@ function renderProgress(steps, status) {
   el.classList.remove("hidden");
 }
 
-function showGate({ agree, capped, busy, check, status, data }) {
+function showGate({ busy, status, check, data }) {
   lastCheck = check;
   const box = document.getElementById("path-reward");
   const weak = check.steps.find((s) => status[s.n] === "hint");
-  if (agree) {
+  if (attempt.state === "passed") {
     const head = busy
       ? "<b>Every reason has a rule word!</b> The AI helper was busy, so only the word check ran this time."
       : "<b>2 checks agree!</b> The AI found no missing reason, and every reason has a rule word.";
-    rewardCard(head, "Your teacher still checks it.");
+    rewardCard(head, "Your Professor still grades it.");
     return;
   }
-  if (capped) {
+  if (attempt.state === "needs_professor") {
     box.innerHTML = `
       <div class="teacher-card">
-        <div class="reward-head"><b>Show your teacher.</b> You tried ${MAX_ROUNDS} times. That is real work!</div>
-        <p class="path-tip">Your teacher can see this proof. They will help with ${weak ? `step ${weak.n}` : "the last step"}.</p>
+        <div class="reward-head"><b>Show your Professor.</b> You tried ${MAX_ROUNDS} times. That is real work!</div>
+        <p class="path-tip">Bring this proof to your Professor. Ask about ${weak ? `step ${weak.n}` : "the last step"}. <span class="save-note"></span></p>
         ${check.pass ? `<div class="path-actions"><button type="button" class="btn" id="reward-anyway">Open my video anyway</button></div>` : ""}
         <div id="reward-stage"></div>
       </div>`;
-    document.getElementById("reward-anyway")?.addEventListener("click", () => rewardCard("<b>Every reason has a rule word.</b> Your teacher checks the last step.", "Your teacher still checks it.", true));
+    document.getElementById("reward-anyway")?.addEventListener("click", () => rewardCard("<b>Every reason has a rule word.</b> Your Professor checks the last step.", "Your Professor still grades it.", true));
     return;
   }
   const left = MAX_ROUNDS - attempt.round;
@@ -431,17 +439,24 @@ function showGate({ agree, capped, busy, check, status, data }) {
   const msg = !weak ? "Write each step with a reason."
     : data.verdict === "no_gap" ? `The AI found no missing reason, but <b>step ${weak.n}</b> needs a rule word, not a picture.`
     : `Fix <b>step ${weak.n}</b>. Use a math rule, not a picture.`;
-  box.innerHTML = `<div class="reward-nudge"><b>Almost!</b> ${msg} Then press <b>Evaluate Proof</b> again. ${left} ${left === 1 ? "try" : "tries"} left before we show your teacher.</div>`;
+  box.innerHTML = `<div class="reward-nudge"><b>Almost!</b> ${msg} Then press <b>Evaluate Proof</b> again. ${left} ${left === 1 ? "try" : "tries"} left before we show your Professor.</div>`;
 }
 
-// Save the check for the Teacher tab (nickname only).
+// Save the check for the Professor tab (nickname only).
 function logCheck(id, text, check, status, data, rewardable, needsHelp) {
   const body = {
     nick: getNick() || "Guest", world: getWorld(), path: id, text, guess: attempt.guess, round: attempt.round,
     verdict: data.verdict, mode: data.mode, step: data.step, hint: data.hint, rubricPass: check.pass,
     rewarded: rewardable, needsHelp, steps: check.steps.map((s) => ({ n: s.n, ok: status[s.n] === "ok" })),
   };
-  fetch("/api/class", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) }).catch(() => {});
+  // The page only says "saved" when the server says it kept it.
+  fetch("/api/class", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) })
+    .then((r) => r.json()).catch(() => ({ saved: false }))
+    .then((res) => showSaved(Boolean(res.saved)));
+}
+function showSaved(saved) {
+  const text = saved ? "Saved. Your Professor can see it." : "Practice only: this proof is not saved.";
+  document.querySelectorAll("#path-panel .save-note").forEach((el) => { el.textContent = text; el.classList.toggle("is-saved", saved); });
 }
 
 // ---------- Reward video ----------
@@ -456,7 +471,7 @@ function rewardCard(head, note, open = false) {
         <button type="button" class="btn" id="reward-go">Make my ${w ? WORLDS[w] : ""} movie</button>
         <button type="button" class="btn" data-variant="outline" data-size="sm" id="reward-world">Change world</button>
       </div>
-      <p class="path-tip">The checks only look for rule words and missing reasons. It is practice. <b>${note}</b></p>
+      <p class="path-tip">The checks only look for rule words and missing reasons. <b>${note}</b> <span class="save-note"></span></p>
       <div id="reward-stage"></div>
     </div>`;
   document.getElementById("reward-go").addEventListener("click", generateReward);
@@ -466,7 +481,7 @@ function rewardCard(head, note, open = false) {
 }
 function generateReward() {
   if (!getWorld()) { openOnboard(generateReward); return; }
-  attempt.rewarded = true;
+  move(attempt, "REWARD");
   const stage = document.getElementById("reward-stage");
   const words = ["Lights…", "Camera…", "Action!"];
   let i = 0;
@@ -493,6 +508,7 @@ function generateReward() {
 function openPath(id) {
   pathId = id;
   attempt = newAttempt();
+  setHash(`path-${id}`);
   document.getElementById("path-reward").innerHTML = "";
   document.getElementById("path-progress").classList.add("hidden");
   document.querySelectorAll(".path-pill").forEach((p) => p.classList.toggle("active", Number(p.dataset.path) === id));
@@ -501,9 +517,10 @@ function openPath(id) {
   pathPanel.scrollIntoView({ behavior: "smooth", block: "nearest" });
 }
 
-function closePath() {
+function closePath({ keepHash = false } = {}) {
   setVideoOpen(false);
   pathId = null;
+  if (!keepHash) setHash("tutor");
   pathPanel.classList.add("hidden");
   pathBody.innerHTML = "";
   document.getElementById("path-reward").innerHTML = "";
@@ -512,6 +529,7 @@ function closePath() {
 }
 
 function showWatch() {
+  if (canMove(attempt, "REWATCH")) move(attempt, "REWATCH");
   setPathStep(1);
   pathBody.innerHTML = `
     <p class="path-q">${PATHS[pathId].question}</p>
@@ -522,6 +540,7 @@ function showWatch() {
 }
 
 function showAnswer() {
+  if (canMove(attempt, "WATCHED")) move(attempt, "WATCHED");
   setPathStep(2);
   const p = PATHS[pathId];
   pathBody.innerHTML = `
@@ -550,6 +569,7 @@ function showAnswer() {
 }
 
 function showWrite() {
+  if (canMove(attempt, "ANSWERED")) move(attempt, "ANSWERED");
   setPathStep(3);
   const p = PATHS[pathId];
   inputProof.value = p.draft;
@@ -563,7 +583,7 @@ function showWrite() {
          <li>Press <b>Evaluate Proof</b>. The helper points at <b>1 weak step</b>, or finds none.</li>
          <li>When <b>every step is ✅</b>, your movie unlocks.</li>
        </ol>
-       <p class="path-tip">Your teacher can see the proofs you check here, with your nickname.</p>`;
+       <p class="path-tip">After each check, the page tells you if it was saved for your Professor.</p>`;
   inputProof.focus();
   if (!p.send) {
     const at = inputProof.value.indexOf("____");
@@ -592,7 +612,7 @@ window.handleFeedback = function (type) {
     escalationBanner.classList.remove("hidden");
     escalationBanner.scrollIntoView({ behavior: "smooth", block: "nearest" });
   } else {
-    alert("Noted! Keep testing your proof against your theorem list before the board defense.");
+    alert("Good. Check your proof against your theorem list before the board defense.");
   }
 };
 

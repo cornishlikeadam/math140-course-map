@@ -27,7 +27,7 @@ export const WEEKS = [
     deliverables: [
       { name: "Problem Set: Euclidean Geometry", type: "assignment", weight: "Standard" }
     ],
-    stop: "Stop 1: Draw (No AI)"
+    stop: "Step 1: Draw (No AI)"
   },
   {
     week: 2,
@@ -39,7 +39,7 @@ export const WEEKS = [
       { name: "Problem Set: Quadratics & Trig", type: "assignment", weight: "Standard" },
       { name: "Discussion 1: Math in Art & Architecture", type: "discussion", weight: "2.5%" }
     ],
-    stop: "Stop 1: Draw (No AI)"
+    stop: "Step 1: Draw (No AI)"
   },
   {
     week: 3,
@@ -51,7 +51,7 @@ export const WEEKS = [
       { name: "Vector Activity", type: "activity", weight: "5%" },
       { name: "Discussion 2: Math in Your Creative Major", type: "discussion", weight: "2.5%" }
     ],
-    stop: "Stop 2: Write (No AI) & Stop 3: Hint (AI Allowed)"
+    stop: "Step 2: Write (No AI) & Step 3: Hint (AI Allowed)"
   },
   {
     week: 4,
@@ -61,7 +61,7 @@ export const WEEKS = [
     deliverables: [
       { name: "Discussion 3: Candy Bar Geometry & Packaging", type: "discussion", weight: "2.5%" }
     ],
-    stop: "Stop 2: Write (No AI) & Stop 3: Hint (AI Allowed)"
+    stop: "Step 2: Write (No AI) & Step 3: Hint (AI Allowed)"
   },
   {
     week: 5,
@@ -72,7 +72,7 @@ export const WEEKS = [
       { name: "Polygonal Geometry Exam (33 Q, Open Book)", type: "exam", weight: "10%" },
       { name: "Discussion 4: Non-Euclidean Concepts in Creative Fields", type: "discussion", weight: "2.5%" }
     ],
-    stop: "Stop 3: Hint (AI Allowed) & Stop 4: Explain (No AI)"
+    stop: "Step 3: Hint (AI Allowed) & Step 4: Explain (No AI)"
   },
   {
     week: 6,
@@ -84,7 +84,7 @@ export const WEEKS = [
       { name: "Problem Set: Transformational Geometry", type: "assignment", weight: "Standard" },
       { name: "Discussion 5: Geometry of Physical Space in Practice", type: "discussion", weight: "2.5%" }
     ],
-    stop: "Stop 3: Hint (AI Allowed) & Stop 4: Explain (No AI)"
+    stop: "Step 3: Hint (AI Allowed) & Step 4: Explain (No AI)"
   },
   {
     week: 7,
@@ -95,7 +95,7 @@ export const WEEKS = [
       { name: "Transformational Geometry Exam (33 Q, Open Book)", type: "exam", weight: "10%" },
       { name: "Discussion 6: Vertex Coloring in Real-World Systems", type: "discussion", weight: "2.5%" }
     ],
-    stop: "Stop 3: Hint (AI Allowed) & Stop 4: Explain (No AI)"
+    stop: "Step 3: Hint (AI Allowed) & Step 4: Explain (No AI)"
   },
   {
     week: 8,
@@ -107,7 +107,7 @@ export const WEEKS = [
       { name: "Problem Set: Non-Euclidean Geometry & Topology", type: "assignment", weight: "Standard" },
       { name: "Discussion 7: The Golden Ratio in Art & Design", type: "discussion", weight: "2.5%" }
     ],
-    stop: "Stop 3: Hint (AI Allowed) & Stop 4: Explain (No AI)"
+    stop: "Step 3: Hint (AI Allowed) & Step 4: Explain (No AI)"
   },
   {
     week: 9,
@@ -118,7 +118,7 @@ export const WEEKS = [
       { name: "Modern Geometry Exam (33 Q, Open Book)", type: "exam", weight: "10%" },
       { name: "Discussion 8: Euler Circuits in Urban & Motion Design", type: "discussion", weight: "2.5%" }
     ],
-    stop: "Stop 4: Explain (No AI)"
+    stop: "Step 4: Explain (No AI)"
   },
   {
     week: 10,
@@ -131,15 +131,15 @@ export const WEEKS = [
       { name: "Discussion 9: Fractals in Your Major", type: "discussion", weight: "2.5%" },
       { name: "Discussion 10: Retrospective & Lessons Learned", type: "discussion", weight: "2.5%" }
     ],
-    stop: "Stop 5: Quiz & Project Defense (No AI - Teacher Grades)"
+    stop: "Step 5: Quiz & Project Defense (No AI - Professor Grades)"
   }
 ];
 
 export const EIGHT_KEYS = [
   {
     num: 1,
-    title: "The Single Stop Boundary (Stop 3 Only)",
-    detail: "AI is strictly prohibited from drawing constructions, writing proofs from scratch, or assigning grades. It exists solely at Stop 3 as a reflective mirror for your own draft."
+    title: "The Single Step Boundary (Step 3 Only)",
+    detail: "AI is strictly prohibited from drawing constructions, writing proofs from scratch, or assigning grades. It exists solely at Step 3 as a reflective mirror for your own draft."
   },
   {
     num: 2,
@@ -164,7 +164,7 @@ export const EIGHT_KEYS = [
   {
     num: 6,
     title: "Physical Compass & Hand-Drafting Primacy",
-    detail: "Euclidean geometry begins in the hands. Compass and straightedge drawing at Stop 1 cannot be automated—spatial intuition begins with tactile construction."
+    detail: "Euclidean geometry begins in the hands. Compass and straightedge drawing at Step 1 cannot be automated—spatial intuition begins with tactile construction."
   },
   {
     num: 7,
@@ -173,7 +173,7 @@ export const EIGHT_KEYS = [
   },
   {
     num: 8,
-    title: "Stop 4 Board Presentation Defense",
+    title: "Step 4 Board Presentation Defense",
     detail: "You must explain your proof verbally to peer partners at the board ('Bloom'). If you did not reason through the proof yourself, you cannot defend it under peer inquiry."
   }
 ];
@@ -206,10 +206,12 @@ Rules:
 - "draft" is true when the message has 2 or more numbered steps, even if the reasons are weak or silly. "draft" is false only when there is no attempt with 2 steps, or the message only asks for the answer. Then set gap to true, step to null, hint to "", question to "".
 - Steps marked "(Given)" never need a reason. Never pick a Given step.
 - Steps the message lists as ALREADY CHECKED are done. Never pick them.
-- If the message has a TEACHER NOTE with accepted reasons, a reason with the same idea counts. Do not ask for more than the teacher accepts. Never copy words from the TEACHER NOTE into the hint or question.
+- If the message has a PROFESSOR NOTE with accepted reasons, a reason with the same idea counts. Do not ask for more than the Professor accepts. Never copy words from the PROFESSOR NOTE into the hint or question.
 - A reason in everyday words counts when it names the right idea. Example: "take 3 off both sides" is a property of equality. Do not ask for formal names, more detail, or nicer wording.
 - If every reason names a real rule, set gap to false, step to null, hint to "", question to "". Do not invent problems.
-- If gap is true: "step" is the number of the FIRST weak step. "hint" is 1 sentence under 25 words that names only the KIND of rule needed (for example "a property of equality", "a theorem about right triangles", "substituting a value"). Do not give the exact name of the rule (no "subtraction property", no "Pythagorean theorem") or the words to write. "question" is 1 short question that makes the student think.
+- If gap is true: "step" is the number of the FIRST weak step. "hint" is 1 sentence under 25 words that names only the broad KIND of rule needed, for example "a property of equality", "a triangle theorem", "a fact about congruent triangles", "an angle relationship", "a definition", "a theorem about right triangles", "substituting a value".
+- Never give the name of the rule, and never say what the rule states. A description that points to one rule is the same as its name. For example, when base angles are equal, do NOT say "isosceles triangle theorem", "base angles theorem", "the theorem about base angles" or "equal sides give equal angles". Say "a triangle theorem". No "subtraction property", no "Pythagorean theorem", no "SAS", no "corresponding parts". Do not give the words to write.
+- "question" is 1 short question that makes the student think. It follows the same rule: it must not name the rule or say what the rule states. Ask about what the student already has, for example "What do you know about the sides you marked as equal?"
 - Never write a step, a reason, or the answer for the student. Never do the arithmetic for them. Never say the proof is correct, right, or perfect.`;
 
 export const DISCLAIMER_TEXT ="Check this hint against your theorem list; your instructor decides what is correct.";

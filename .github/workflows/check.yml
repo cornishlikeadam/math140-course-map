@@ -1,0 +1,21 @@
+name: Check
+# Every push and pull request: syntax-check every script, then run the proof-attempt and class-log tests.
+# No packages to install, so there is no setup or cache step. Takes about 20 seconds.
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Syntax check (node --check)
+        run: npm run check
+      - name: Tests
+        run: npm test
