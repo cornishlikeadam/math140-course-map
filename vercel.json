@@ -1,0 +1,10 @@
+{
+  "rewrites": [
+    { "source": "/map", "destination": "/course-map/map/index.html" },
+    { "source": "/map/:path*", "destination": "/course-map/map/:path*" },
+    { "source": "/notes/:path*", "destination": "/course-map/notes/:path*" },
+    { "source": "/prototype/:path*", "destination": "/course-map/prototype/:path*" },
+    { "source": "/guide/:path*", "destination": "/course-map/guide/:path*" },
+    { "source": "/explainers/:path*", "destination": "/course-map/explainers/:path*" }
+  ]
+}

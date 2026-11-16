@@ -1,131 +1,42 @@
-# 🪜 Stepping Stone: a MATH 140 proof helper
+# 🪜 Stepping Stone
 
-**Stepping Stone helps you write a geometry proof one step at a time.** You watch a short video, answer a simple question, then write the reasons. The AI helper points at one weak step. It never writes the proof for you. Your Professor still grades it.
+**A helper for writing geometry proofs, one step at a time.**
+You watch a short video, answer a simple question, then write the reasons.
+The AI points at one weak step. It never writes the proof for you. Your Professor still grades it.
 
-- **Live app:** https://team-math140-study-tool.vercel.app
-- **Source of truth:** this repo, `cornishlikeadam/math140-course-map`, branch `main`. Other copies (forks, the lite repo) pull from here.
-- **Course map:** the older map lives on as a background page (`/map/`, or the Course Map tab).
+**Try it:** https://math140-study-tool.vercel.app
 
-### Share a link to any page
-`#tutor` · `#path-1` to `#path-4` (opens a practice path) · `#calendar` · `#syllabus` · `#keys` · `#coursemap` · `#professor`
+## What's in this repo
 
-### Work on it
-```bash
-npm run check   # node --check on every script
-npm test        # proof-attempt states + class log (no install needed)
-```
-GitHub Actions runs both on every push and pull request (`.github/workflows/check.yml`).
-
-### Where the logic lives
-| File | What it does |
+| File or folder | What it is |
 |---|---|
-| `proof-attempt.js` | The proof attempt as named states: watching → answering → writing → checking → retry / passed / needs_professor → rewarded. No page code, so it is tested in Node. |
-| `app.js` | Draws the page. Asks `proof-attempt.js` what happens next. Keeps the open page in the address bar. |
-| `reason-check.js` | The rule-word check (no AI). |
-| `api/proof-check.js` | The AI hint (one gap per reply). |
-| `api/class.js` | The class log. Saves only when a Redis store and `TEACHER_PIN` are set; otherwise it says `saved: false` and the page says "Practice only". |
+| `index.html` | The app page |
+| `app.js` | Makes the page work |
+| `proof-attempt.js` | The rules for one try: watch → answer → write → check → try again (3 tries) → pass or ask your Professor |
+| `reason-check.js` | Looks for a real rule word in each reason (no AI) |
+| `professor.js` | The Professor tab |
+| `shell.js` | The side menu and top bar |
+| `course-data.js` | Weeks, dates and the 8 keys |
+| `styles.css`, `assets/`, `favicon.svg` | How it looks |
+| `videos/` | The short videos and the reward movie |
+| `api/` | The server parts: the AI hint, the class log, the calendar file |
+| `tests/` | Checks that the rules still work |
+| `course-map/` | The older course map, research notes and explainers. Still online at `/map/`. |
 
-### Turn on saving (so the Professor tab shows real students)
-1. Vercel → this project → Storage → add **Upstash Redis** (it sets `KV_REST_API_URL` and `KV_REST_API_TOKEN`).
-2. Settings → Environment Variables → add `TEACHER_PIN` (the Professor code).
-3. Redeploy. Students now see "Saved. Your Professor can see it." after each check.
+## Share a page
+Add one of these to the link: `#path-1` to `#path-4` · `#calendar` · `#syllabus` · `#keys` · `#coursemap` · `#professor`
 
----
-
-<details><summary>Older overview (Study Tool & Course Map, Oct 2026)</summary>
-
-# 📐 SCAD MATH 140: Study Tool & Ethical Course Map
-
-[![Live Front-Facing Study Tool](https://img.shields.io/badge/🚀_Primary_App-Math140_Study_Tool-FF5FA2?style=for-the-badge&logo=vercel)](https://team-math140-study-tool.vercel.app)
-[![Course Map & Governance Tab](https://img.shields.io/badge/🌸_Embedded_Tab-Course_Map_%26_Governance-2F5BFF?style=for-the-badge)](https://team-math140-study-tool.vercel.app/#coursemap)
-[![Standalone Course Map](https://img.shields.io/badge/🗺️_Direct_Portal-Course_Map-22D3EE?style=for-the-badge)](https://team-math140-study-tool.vercel.app/map/)
-
----
-
-### 🌟 Executive Overview for Professors & Stakeholders
-
-> **The Math 140 Study Tool is the primary front-facing web application.**  
-> It equips SCAD geometry students with an ethically constrained Socratic tutor (SLM), a dynamic 10-week syllabus calendar planner, and an interactive **Course Map & Governance tab** for deep evaluation.
-
-| Resource | Purpose | Access Link |
-|---|---|---|
-| ⚡ **Main Study Tool & Calendar** | **Primary front-facing web app.** Socratic hint tutor, weekly milestones, .ics export, and 8 student account keys. | **[team-math140-study-tool.vercel.app ↗](https://team-math140-study-tool.vercel.app)** |
-| 🌸 **Course Map & Governance Tab** | **Embedded tab within the study tool.** Interactive 5-stop pedagogical arc, stakeholder ledger, and audit files. | **[Open as Tab in Study Tool ↗](https://team-math140-study-tool.vercel.app/#coursemap)** |
-| 🗺️ **Standalone Course Map Portal** | Full-screen direct view of the SVG Proof Garden, 8 explainer videos, and interactive tutor testing sandbox. | **[team-math140-study-tool.vercel.app/map/ ↗](https://team-math140-study-tool.vercel.app/map/)** |
-| 🪶 **Lite Reference Repo** | Minimal 14-file reference implementation. | **[github.com/cornishlikeadam/math140-course-map-lite ↗](https://github.com/cornishlikeadam/math140-course-map-lite)** |
-
----
-
-## ⚡ The Front-Facing Experience: Math 140 Study Tool
-
-Students, faculty, and stakeholders interact with the unified tool at **[team-math140-study-tool.vercel.app](https://team-math140-study-tool.vercel.app)**:
-
-1. **⚡ Socratic Tutor (SLM)**: Operates strictly at **Stop 3 (Water / Hint)**. It never solves problems, never completes steps, and never grades. It identifies the first weak reasoning step and asks a guiding question.
-2. **📅 10-Week Dynamic Calendar Planner**: Interactive milestone planner mapping exams (40%), activities (15%), discussions (25%), and final project (20%) with one-click `.ics` calendar sync for Apple/Google calendars.
-3. **🗺️ Course Syllabus**: Week-by-week topic index (Euclidean constructions, non-Euclidean spaces, projective geometry, fractals, golden ratio) connected to creative majors.
-4. **🌸 Course Map & Governance (Integrated Tab)**: Deep-dive view of the complete pedagogical territory, risk evidence, stakeholder matrix, and Obsidian disclosures embedded right inside the application.
-5. **🔑 8 Essential Keys for Student Accounts**: Institutional principles ensuring board defense authenticity, 48-hour instructor escalation loops, and zero prompt training.
-6. **📦 CLI & Embed**: Terminal interface (`npx math140-cli`) and LMS embed mode for seamless Canvas integration.
-
----
-
-## 🌸 The 5-Stop Pedagogical Arc
-
-To protect genuine student learning, AI is quarantined into a single bounded touchpoint:
-
-```
-[🌱 1. Draw]   --> Compass & straightedge by hand (No AI)
-     │
-[🌿 2. Write]  --> Student draft proof ≥ 2 steps (No AI)
-     │
-[💧 3. Hint]   --> Socratic SLM flags 1 weak link + theorem class (ONLY AI)
-     │
-[🌸 4. Explain]--> Blackboard oral defense to peer partner (No AI)
-     │
-[🍓 5. Quiz]   --> Human-graded proctored assessment (No AI)
-```
-
-- **Bastani et al. (*PNAS* 2025)**: Unrestricted ChatGPT access caused students to score **17% worse** on subsequent unassisted exams. A hint-only tutor boosted practice scores without hurting retention.
-- **Kestin et al. (*Scientific Reports* 2025)**: Socratic, question-driven AI tutoring achieves superior conceptual mastery over passive answers.
-- **Single Touchpoint Rule**: If a draft has fewer than 2 steps, the AI refuses assistance and prompts the student to write their own draft first.
-
----
-
-## 🏛️ Governance, Stakeholders & Disclosures
-
-- **Shareholder & Stakeholder Evaluation**: Evaluates Students, Faculty (Prof. Patrick Bahls), Peer Tutors, No-AI/Assistive Cohort, Integrity Board, and Systems Architects. &rarr; [`notes/01 Build/02 Shareholder & Stakeholder Governance Evaluation.md`](notes/01%20Build/02%20Shareholder%20&%20Stakeholder%20Governance%20Evaluation.md)
-- **Professor Interview Kit**: Consent script, 20 structured interview questions, and video recording log. &rarr; [`notes/01 Build/04 Professor Interview Kit.md`](notes/01%20Build/04%20Professor%20Interview%20Kit.md)
-- **White Paper (Implementation & Metrics)**: 6-week rollout plan, trial metrics, and syllabus schedule. &rarr; [`notes/01 Build/06 White Paper - Plan, Trial and Metrics.md`](notes/01%20Build/06%20White%20Paper%20-%20Plan,%20Trial%20and%20Metrics.md)
-- **Full Transparency & AI Use Log**: Every prompt, verification test, and model configuration logged in the AI 101 format. &rarr; [`notes/03 Disclosure/`](notes/03%20Disclosure/)
-
----
-
-## 📁 Repository Structure
-
-```
-math140-course-map/
-├── index.html               # Standalone interactive Course Map portal (SVG visual garden)
-├── api/
-│   └── proof-check.js       # Vercel Serverless Function (Meta Llama 3.3 70B via AI Gateway)
-├── notes/                   # Synced Obsidian Vault (DIGI 230 Course Materials)
-│   ├── 01 Build/            # Course Map, Governance Evaluation, White Paper, Interview Kit
-│   ├── 02 Tool & Architecture/ # Technical specifications and build handoff
-│   └── 03 Disclosure/       # Intent, AI use log, source verification, decision notes
-├── guide/                   # Garden Guide Q&A knowledge base (48 verified answers)
-├── prototype/               # M3 interactive testing sandbox
-├── explainers/              # 8 code-drawn explainer videos (MP4 / GIF)
-└── scripts/
-    └── sync-notes.sh        # Obsidian Vault ↔ GitHub synchronization script
-```
-
----
-
-## 🔄 Notes Synchronization
-
-To synchronize notes from the private Obsidian Vault (`Obsidian Vault/DIGI 230`) into this repository:
+## Change something
 ```bash
-./scripts/sync-notes.sh
+npm run check   # finds typing mistakes in every script
+npm test        # makes sure the rules still work (nothing to install)
 ```
-This updates `notes/`, regenerates `manifest.json`, commits, pushes to GitHub (`main` & `develop`), and redeploys to Vercel.
+GitHub runs both on every change. Push to `main` and the site updates by itself.
 
-</details>
+## Turn on saving
+Right now the app says **"Practice only"**, because nothing is saved. To save each check for the Professor:
+1. Vercel → this project → **Storage** → add **Upstash Redis**.
+2. **Settings → Environment Variables** → add `TEACHER_PIN` (the Professor code).
+3. Redeploy. Students then see **"Saved. Your Professor can see it."**
+
+Team 04 · MATH 140 / DIGI 230 · SCAD
