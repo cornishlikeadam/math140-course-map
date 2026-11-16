@@ -1,4 +1,4 @@
-// Proof Check: the only place AI is allowed (Stop 3).
+// Proof Check: the only place AI is allowed (Step 3).
 // The model answers in fixed JSON (VERDICT_PROMPT). This code, not the model's wording,
 // decides the verdict and writes the reply the student sees.
 // Vercel AI Gateway authenticates deployed functions with a short-lived OIDC token,
@@ -41,17 +41,32 @@ function parseVerdict(text) {
   try { return JSON.parse(m[0]); } catch { return null; }
 }
 
-// A guided path tells the model which steps are done and which reasons the teacher accepts.
+// A guided path tells the model which steps are done and which reasons the Professor accepts.
 function buildPrompt(text, path, locked) {
   const parts = [`STUDENT PROOF:\n${text}`];
   if (locked.length) parts.push(`ALREADY CHECKED: step ${locked.join(", step ")}. These are done.`);
   const key = KEY[path];
   if (key) {
     const notes = key.steps.map((s, i) => (/^given$/i.test(s.r) ? null : `step ${i + 1}: ${s.r}${s.kid ? ` A student might say ${s.kid}` : ""}`)).filter(Boolean);
-    parts.push(`TEACHER NOTE (accepted reasons, never quote these):\n${notes.join("\n")}`);
+    parts.push(`PROFESSOR NOTE (accepted reasons, never quote these):\n${notes.join("\n")}`);
   }
   return parts.join("\n\n");
 }
+
+// Leak guard: the code, not the model, makes sure a hint never names a rule or says what it states.
+// A hint or question that matches one of these is replaced (see the handler).
+const LEAKS = [
+  /isosceles\s+triangle\s+theorem|base[\s-]+angles?|\bisosceles\b[^.?!]{0,40}\btheorem\b/i,
+  /equal\s+(sides?|legs?)[^.?!]{0,60}equal\s+(base\s+)?angles?|equal\s+(base\s+)?angles?[^.?!]{0,60}equal\s+(sides?|legs?)/i,
+  /\bcpctc\b|corresponding\s+parts/i,
+  /pythag|\ba\s*(\^\s*2|²)\s*\+\s*b\s*(\^\s*2|²)/i,
+  /\b(sas|sss|asa|aas|hl)\b|side[\s-]+angle[\s-]+side|side[\s-]+side[\s-]+side|angle[\s-]+side[\s-]+angle|angle[\s-]+angle[\s-]+side|hypotenuse[\s-]+leg/i,
+  /\b(subtraction|addition|multiplication|division|reflexive|symmetric|transitive|distributive)\s+property/i,
+  /vertical\s+angles|alternate\s+(interior|exterior)|corresponding\s+angles|same[\s-]+side\s+interior|linear\s+pair|angle\s+bisector\s+theorem|triangle\s+sum|exterior\s+angle\s+theorem|midpoint\s+theorem|\bsubtract/i,
+];
+const leaks = (...texts) => LEAKS.some((re) => re.test(texts.join(" ")));
+const SAFE_HINT = "your reason for this step needs a rule from your theorem list";
+const SAFE_QUESTION = "Which rule on your list makes this step true?";
 
 const sentence = (s) => { const t = String(s || "").trim(); return t ? t[0].toUpperCase() + t.slice(1) + (/[.!?]$/.test(t) ? "" : ".") : ""; };
 
@@ -59,9 +74,12 @@ function result(verdict, extra = {}) {
   const { step = null, hint = "", question = "", model = null, mode = "ai" } = extra;
   let reply;
   if (verdict === "gap") {
-    reply = [`Look at step ${step}. ${sentence(hint)}`.trim(), question.trim() || "What rule can justify this step?"].join("\n\n");
+    // A bare kind of rule ("a triangle theorem") reads as "The reason needs a triangle theorem."
+    const h = String(hint || "").trim().replace(/[.!]+$/, "");
+    const said = /^(a|an)\s/i.test(h) ? `The reason needs ${h}.` : sentence(h);
+    reply = [`Look at step ${step}. ${said}`.trim(), question.trim() || "What rule can justify this step?"].join("\n\n");
   } else if (verdict === "no_gap") {
-    reply = "I can't find a missing reason. That does not mean it is correct. Your teacher still checks it.";
+    reply = "I can't find a missing reason. That does not mean it is correct. Your Professor still checks it.";
   } else if (verdict === "need_draft") {
     reply = "I can only look at a proof you already wrote. Write at least 2 steps. Give each step a reason.\n\nWhat is your first step?";
   } else {
@@ -91,6 +109,7 @@ export default async function handler(req, res) {
 
   const steps = parseSteps(text);
   const prompt = buildPrompt(text, path, locked);
+  let leakedStep = null; // a weak step the AI found, but whose hint gave the rule away
   try {
     for (const model of MODELS) {
       const out = await ask(model, prompt, token);
@@ -101,12 +120,23 @@ export default async function handler(req, res) {
       const target = steps.find((s) => s.n === step);
       // The code checks the model's pick: never a Given step, a step already checked, or a step that isn't there.
       if (v.gap && target && !target.given && !locked.includes(step)) {
-        return res.status(200).json(result("gap", { step, hint: String(v.hint || ""), question: String(v.question || ""), model }));
+        const hint = String(v.hint || ""), question = String(v.question || "");
+        if (leaks(hint, question)) {
+          // Never show a hint that names the rule. Try the next model; if it leaks too, use the safe hint below.
+          console.warn("leak guard: blocked hint", model, JSON.stringify({ step, hint, question }));
+          leakedStep ??= step;
+          continue;
+        }
+        return res.status(200).json(result("gap", { step, hint, question, model }));
       }
+      if (leakedStep) break; // an earlier model found a weak step: keep that over "no gap"
       return res.status(200).json(result("no_gap", { model }));
     }
   } catch (err) {
     console.error(err);
+  }
+  if (leakedStep) {
+    return res.status(200).json(result("gap", { step: leakedStep, hint: SAFE_HINT, question: SAFE_QUESTION, model: "leak-guard" }));
   }
   return res.status(200).json({ ...result("busy", { mode: "busy" }), error: "The AI helper is busy or at its limit right now. Try again in a few minutes." });
 }

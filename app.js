@@ -38,7 +38,8 @@ function initURLState() {
     document.body.classList.add("embed-mode");
   }
 
-  const hash = window.location.hash.replace("#", "");
+  let hash = window.location.hash.replace("#", "");
+  if (hash === "professor") hash = "teacher"; // old #teacher links still work too
   if (["tutor", "calendar", "syllabus", "keys", "embed", "coursemap", "teacher"].includes(hash)) {
     switchTab(hash);
   }
@@ -90,7 +91,7 @@ function setupEventListeners() {
     conversationStream.innerHTML = `
       <div class="system-notice">
         <div>
-          <strong>Stop 3 Guardrail Active:</strong> Proof drafts require at least 2 steps with statements and reasons. Replies are strictly capped under 120 words and terminate with an instructor disclaimer.
+          <strong>Step 3 Guardrail Active:</strong> Proof drafts require at least 2 steps with statements and reasons. Replies are strictly capped under 120 words and terminate with an instructor disclaimer.
         </div>
       </div>
     `;
@@ -152,7 +153,8 @@ function setupEventListeners() {
 // Tab switcher
 window.switchTab = function (tabName) {
   currentTab = tabName;
-  window.location.hash = tabName;
+  // The Professor tab is "teacher" inside the code; its address is #professor.
+  window.location.hash = tabName === "teacher" ? "professor" : tabName;
 
   navButtons.forEach((btn) => {
     btn.classList.toggle("active", btn.dataset.tab === tabName);
@@ -172,7 +174,7 @@ function appendMessage(role, content) {
 
   const senderEl = document.createElement("span");
   senderEl.className = "sender";
-  senderEl.textContent = role === "user" ? "You" : "MATH-140 SLM";
+  senderEl.textContent = role === "user" ? "You" : "Hint";
 
   const contentEl = document.createElement("div");
   contentEl.className = "msg-content";
@@ -339,7 +341,7 @@ function setVideoOpen(open) {
 function toggleVideo() { setVideoOpen(vidDrawer.classList.contains("hidden")); }
 
 // ---------- Worlds (onboarding) ----------
-const WORLDS = { animals: "🐾 Animals", sports: "⚽ Sports", space: "🚀 Space", music: "🎵 Music", food: "🍕 Food", games: "🎮 Games" };
+const WORLDS = { animals: "Animals", sports: "Sports", space: "Space", music: "Music", food: "Food", games: "Games" };
 let afterOnboard = null;
 function getNick() { try { return localStorage.getItem("m140-nick") || ""; } catch (e) { return ""; } }
 function saveNick() {
@@ -348,7 +350,11 @@ function saveNick() {
 }
 function getWorld() { try { return localStorage.getItem("m140-world") || ""; } catch (e) { return ""; } }
 function setWorld(w) { try { localStorage.setItem("m140-world", w); } catch (e) {} showWorld(); }
-function showWorld() { const w = getWorld(); document.getElementById("world-name").textContent = w ? WORLDS[w] : "Pick your world"; }
+function showWorld() {
+  const w = getWorld();
+  document.getElementById("world-name").textContent = w ? WORLDS[w] : "Pick your world";
+  document.getElementById("world-mark").dataset.world = w; // its line icon (styles.css)
+}
 function openOnboard(then) {
   afterOnboard = then || null;
   document.getElementById("onboard-nick").value = getNick();
@@ -412,18 +418,18 @@ function showGate({ agree, capped, busy, check, status, data }) {
     const head = busy
       ? "<b>Every reason has a rule word!</b> The AI helper was busy, so only the word check ran this time."
       : "<b>2 checks agree!</b> The AI found no missing reason, and every reason has a rule word.";
-    rewardCard(head, "Your teacher still checks it.");
+    rewardCard(head, "Your Professor still checks it.");
     return;
   }
   if (capped) {
     box.innerHTML = `
       <div class="teacher-card">
-        <div class="reward-head"><b>Show your teacher.</b> You tried ${MAX_ROUNDS} times. That is real work!</div>
-        <p class="path-tip">Your teacher can see this proof. They will help with ${weak ? `step ${weak.n}` : "the last step"}.</p>
+        <div class="reward-head"><b>Show your Professor.</b> You tried ${MAX_ROUNDS} times. That is real work!</div>
+        <p class="path-tip">Your Professor can see this proof. They will help with ${weak ? `step ${weak.n}` : "the last step"}.</p>
         ${check.pass ? `<div class="path-actions"><button type="button" class="btn" id="reward-anyway">Open my video anyway</button></div>` : ""}
         <div id="reward-stage"></div>
       </div>`;
-    document.getElementById("reward-anyway")?.addEventListener("click", () => rewardCard("<b>Every reason has a rule word.</b> Your teacher checks the last step.", "Your teacher still checks it.", true));
+    document.getElementById("reward-anyway")?.addEventListener("click", () => rewardCard("<b>Every reason has a rule word.</b> Your Professor checks the last step.", "Your Professor still checks it.", true));
     return;
   }
   const left = MAX_ROUNDS - attempt.round;
@@ -431,10 +437,10 @@ function showGate({ agree, capped, busy, check, status, data }) {
   const msg = !weak ? "Write each step with a reason."
     : data.verdict === "no_gap" ? `The AI found no missing reason, but <b>step ${weak.n}</b> needs a rule word, not a picture.`
     : `Fix <b>step ${weak.n}</b>. Use a math rule, not a picture.`;
-  box.innerHTML = `<div class="reward-nudge"><b>Almost!</b> ${msg} Then press <b>Evaluate Proof</b> again. ${left} ${left === 1 ? "try" : "tries"} left before we show your teacher.</div>`;
+  box.innerHTML = `<div class="reward-nudge"><b>Almost!</b> ${msg} Then press <b>Evaluate Proof</b> again. ${left} ${left === 1 ? "try" : "tries"} left before we show your Professor.</div>`;
 }
 
-// Save the check for the Teacher tab (nickname only).
+// Save the check for the Professor tab (nickname only).
 function logCheck(id, text, check, status, data, rewardable, needsHelp) {
   const body = {
     nick: getNick() || "Guest", world: getWorld(), path: id, text, guess: attempt.guess, round: attempt.round,
@@ -563,7 +569,7 @@ function showWrite() {
          <li>Press <b>Evaluate Proof</b>. The helper points at <b>1 weak step</b>, or finds none.</li>
          <li>When <b>every step is ✅</b>, your movie unlocks.</li>
        </ol>
-       <p class="path-tip">Your teacher can see the proofs you check here, with your nickname.</p>`;
+       <p class="path-tip">Your Professor can see the proofs you check here, with your nickname.</p>`;
   inputProof.focus();
   if (!p.send) {
     const at = inputProof.value.indexOf("____");
