@@ -583,7 +583,7 @@ function showWrite() {
          <li>Press <b>Evaluate Proof</b>. The helper points at <b>1 weak step</b>, or finds none.</li>
          <li>When <b>every step is ✅</b>, your movie unlocks.</li>
        </ol>
-       <p class="path-tip">If this site has a class log, your Professor sees each check with your username. The page tells you after each check.</p>`;
+       <p class="path-tip">After each check, the page tells you if it was saved for your Professor.</p>`;
   inputProof.focus();
   if (!p.send) {
     const at = inputProof.value.indexOf("____");
